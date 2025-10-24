@@ -1,21 +1,23 @@
 // Web-compatible image storage service using Web APIs
 class WebImageStorageService {
-  private dbName = 'funko_images_db';
+  private dbName = "funko_images_db";
   private dbVersion = 1;
   private db: IDBDatabase | null = null;
   private isInitialized = false;
 
   constructor() {
     // Only initialize in browser environment
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       this.initDB().catch(console.error);
     }
   }
 
   private async initDB(): Promise<void> {
     // Skip initialization on server-side rendering
-    if (typeof window === 'undefined' || typeof indexedDB === 'undefined') {
-      console.warn('IndexedDB not available, skipping image storage initialization');
+    if (typeof window === "undefined" || typeof indexedDB === "undefined") {
+      console.warn(
+        "IndexedDB not available, skipping image storage initialization"
+      );
       return;
     }
 
@@ -25,8 +27,8 @@ class WebImageStorageService {
       const request = indexedDB.open(this.dbName, this.dbVersion);
 
       request.onerror = () => {
-        console.error('Error creating images database:', request.error);
-        reject(new Error('Failed to open images database'));
+        console.error("Error creating images database:", request.error);
+        reject(new Error("Failed to open images database"));
       };
 
       request.onsuccess = () => {
@@ -37,10 +39,10 @@ class WebImageStorageService {
 
       request.onupgradeneeded = () => {
         const db = request.result;
-        
+
         // Create images store
-        if (!db.objectStoreNames.contains('images')) {
-          db.createObjectStore('images', { keyPath: 'id' });
+        if (!db.objectStoreNames.contains("images")) {
+          db.createObjectStore("images", { keyPath: "id" });
         }
       };
     });
@@ -48,16 +50,16 @@ class WebImageStorageService {
 
   async pickImageFromLibrary(): Promise<string | null> {
     // Check if running in browser
-    if (typeof window === 'undefined' || typeof document === 'undefined') {
-      console.warn('File picker not available in server environment');
+    if (typeof window === "undefined" || typeof document === "undefined") {
+      console.warn("File picker not available in server environment");
       return null;
     }
 
     return new Promise((resolve) => {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.style.display = 'none';
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+      input.style.display = "none";
 
       input.onchange = async (event) => {
         const file = (event.target as HTMLInputElement).files?.[0];
@@ -66,7 +68,7 @@ class WebImageStorageService {
             const imageId = await this.saveImageFile(file);
             resolve(imageId);
           } catch (error) {
-            console.error('Error saving image:', error);
+            console.error("Error saving image:", error);
             resolve(null);
           }
         } else {
@@ -87,18 +89,18 @@ class WebImageStorageService {
 
   async takePhoto(): Promise<string | null> {
     // Check if running in browser
-    if (typeof window === 'undefined' || typeof document === 'undefined') {
-      console.warn('Camera not available in server environment');
+    if (typeof window === "undefined" || typeof document === "undefined") {
+      console.warn("Camera not available in server environment");
       return null;
     }
 
     // For web, we'll use the same file picker but with camera capture preference
     return new Promise((resolve) => {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.capture = 'environment'; // Use rear camera
-      input.style.display = 'none';
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+      input.capture = "environment"; // Use rear camera
+      input.style.display = "none";
 
       input.onchange = async (event) => {
         const file = (event.target as HTMLInputElement).files?.[0];
@@ -107,7 +109,7 @@ class WebImageStorageService {
             const imageId = await this.saveImageFile(file);
             resolve(imageId);
           } catch (error) {
-            console.error('Error saving image:', error);
+            console.error("Error saving image:", error);
             resolve(null);
           }
         } else {
@@ -132,7 +134,7 @@ class WebImageStorageService {
     }
 
     if (!this.db) {
-      throw new Error('Database not available');
+      throw new Error("Database not available");
     }
 
     return new Promise((resolve, reject) => {
@@ -148,15 +150,15 @@ class WebImageStorageService {
           created_at: new Date().toISOString(),
         };
 
-        const transaction = this.db!.transaction(['images'], 'readwrite');
-        const store = transaction.objectStore('images');
+        const transaction = this.db!.transaction(["images"], "readwrite");
+        const store = transaction.objectStore("images");
         const request = store.add(imageData);
 
         request.onsuccess = () => resolve(imageId);
-        request.onerror = () => reject(new Error('Failed to save image'));
+        request.onerror = () => reject(new Error("Failed to save image"));
       };
 
-      reader.onerror = () => reject(new Error('Failed to read image file'));
+      reader.onerror = () => reject(new Error("Failed to read image file"));
       reader.readAsDataURL(file);
     });
   }
@@ -165,13 +167,13 @@ class WebImageStorageService {
     // For web, the uri would typically be a blob URL or data URL
     // We'll generate a unique ID and store the URI
     const imageId = Date.now().toString();
-    
+
     if (!this.db && !this.isInitialized) {
       await this.initDB();
     }
 
     if (!this.db) {
-      throw new Error('Database not available');
+      throw new Error("Database not available");
     }
 
     return new Promise((resolve, reject) => {
@@ -181,12 +183,12 @@ class WebImageStorageService {
         created_at: new Date().toISOString(),
       };
 
-      const transaction = this.db!.transaction(['images'], 'readwrite');
-      const store = transaction.objectStore('images');
+      const transaction = this.db!.transaction(["images"], "readwrite");
+      const store = transaction.objectStore("images");
       const request = store.add(imageData);
 
       request.onsuccess = () => resolve(imageId);
-      request.onerror = () => reject(new Error('Failed to save image'));
+      request.onerror = () => reject(new Error("Failed to save image"));
     });
   }
 
@@ -196,21 +198,21 @@ class WebImageStorageService {
     }
 
     if (!this.db) {
-      console.warn('Database not available for image retrieval');
+      console.warn("Database not available for image retrieval");
       return null;
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['images'], 'readonly');
-      const store = transaction.objectStore('images');
+      const transaction = this.db!.transaction(["images"], "readonly");
+      const store = transaction.objectStore("images");
       const request = store.get(imageId);
 
       request.onsuccess = () => {
         const result = request.result;
         resolve(result ? result.data : null);
       };
-      
-      request.onerror = () => reject(new Error('Failed to get image'));
+
+      request.onerror = () => reject(new Error("Failed to get image"));
     });
   }
 
@@ -220,17 +222,17 @@ class WebImageStorageService {
     }
 
     if (!this.db) {
-      console.warn('Database not available for image deletion');
+      console.warn("Database not available for image deletion");
       return;
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['images'], 'readwrite');
-      const store = transaction.objectStore('images');
+      const transaction = this.db!.transaction(["images"], "readwrite");
+      const store = transaction.objectStore("images");
       const request = store.delete(imageId);
 
       request.onsuccess = () => resolve();
-      request.onerror = () => reject(new Error('Failed to delete image'));
+      request.onerror = () => reject(new Error("Failed to delete image"));
     });
   }
 }

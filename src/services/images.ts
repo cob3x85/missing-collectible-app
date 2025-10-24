@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform } from "react-native";
 
 // Common interface for image storage operations
 export interface ImageStorageServiceInterface {
@@ -18,11 +18,11 @@ class ImageStorageProxy implements ImageStorageServiceInterface {
   }
 
   private async loadService(): Promise<ImageStorageServiceInterface> {
-    if (Platform.OS === 'web') {
-      const webModule = await import('./imageStorage.web');
+    if (Platform.OS === "web") {
+      const webModule = await import("./imageStorage.web");
       return webModule.imageStorageService;
     } else {
-      const nativeModule = await import('./imageStorage');
+      const nativeModule = await import("./imageStorage");
       return nativeModule.imageStorageService;
     }
   }

@@ -149,9 +149,7 @@ class ImageStorageService {
     }
   }
 
-  async getImageInfo(
-    imagePath: string
-  ): Promise<{
+  async getImageInfo(imagePath: string): Promise<{
     size: number;
     exists: boolean;
     uri: string;

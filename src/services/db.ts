@@ -1,17 +1,17 @@
-import { Platform } from 'react-native';
-import { Funko } from '@/database/schema';
+import { Funko } from "@/database/schema";
+import { Platform } from "react-native";
 
 // Import the appropriate database service based on platform
 let databaseService: any;
 
-if (Platform.OS === 'web') {
+if (Platform.OS === "web") {
   // Dynamic import for web database service
-  import('./database.web').then(module => {
+  import("./database.web").then((module) => {
     databaseService = module.databaseService;
   });
 } else {
   // Use the native SQLite service for mobile platforms
-  import('./database').then(module => {
+  import("./database").then((module) => {
     databaseService = module.databaseService;
   });
 }
@@ -19,10 +19,15 @@ if (Platform.OS === 'web') {
 // Common interface for database operations
 export interface DatabaseServiceInterface {
   init(): Promise<void>;
-  createFunko(funko: Omit<Funko, 'id' | 'created_at' | 'updated_at'>): Promise<string>;
+  createFunko(
+    funko: Omit<Funko, "id" | "created_at" | "updated_at">
+  ): Promise<string>;
   getAllFunkos(): Promise<Funko[]>;
   getFunkoById(id: string): Promise<Funko | null>;
-  updateFunko(id: string, updates: Partial<Omit<Funko, 'id' | 'created_at'>>): Promise<void>;
+  updateFunko(
+    id: string,
+    updates: Partial<Omit<Funko, "id" | "created_at">>
+  ): Promise<void>;
   deleteFunko(id: string): Promise<void>;
   searchFunkos(query: string): Promise<Funko[]>;
 }
@@ -36,11 +41,11 @@ class DatabaseProxy implements DatabaseServiceInterface {
   }
 
   private async loadService(): Promise<DatabaseServiceInterface> {
-    if (Platform.OS === 'web') {
-      const webModule = await import('./database.web');
+    if (Platform.OS === "web") {
+      const webModule = await import("./database.web");
       return webModule.databaseService;
     } else {
-      const nativeModule = await import('./database');
+      const nativeModule = await import("./database");
       return nativeModule.databaseService;
     }
   }
@@ -50,7 +55,9 @@ class DatabaseProxy implements DatabaseServiceInterface {
     return service.init();
   }
 
-  async createFunko(funko: Omit<Funko, 'id' | 'created_at' | 'updated_at'>): Promise<string> {
+  async createFunko(
+    funko: Omit<Funko, "id" | "created_at" | "updated_at">
+  ): Promise<string> {
     const service = await this.servicePromise;
     return service.createFunko(funko);
   }
@@ -65,7 +72,10 @@ class DatabaseProxy implements DatabaseServiceInterface {
     return service.getFunkoById(id);
   }
 
-  async updateFunko(id: string, updates: Partial<Omit<Funko, 'id' | 'created_at'>>): Promise<void> {
+  async updateFunko(
+    id: string,
+    updates: Partial<Omit<Funko, "id" | "created_at">>
+  ): Promise<void> {
     const service = await this.servicePromise;
     return service.updateFunko(id, updates);
   }
