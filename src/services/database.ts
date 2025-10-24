@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 import { v4 as uuidv4 } from 'uuid';
-import { Funko, FunkoCollection, FunkoCollectionItem } from '@/database/schema';
+import { Funko } from '@/database/schema';
 
 class DatabaseService {
   private db: SQLite.SQLiteDatabase | null = null;

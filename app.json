@@ -47,7 +47,15 @@
           }
         }
       ],
-      "expo-sqlite"
+      "expo-sqlite",
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "fun-collection",
+          "organization": "carlos-ortiz-aa"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

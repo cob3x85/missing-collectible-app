@@ -38,7 +38,7 @@ export default function AboutScreen() {
         <ThemedText type="subtitle">Solution </ThemedText>
         <ThemedText>
           This app aims to solve that problem by providing an easy-to-use
-          platform for managing your Funko collection. Whether you're at a
+          platform for managing your Funko collection. Whether you&apos;re at a
           convention, browsing online marketplaces, or participating in
           auctions, having instant access to your collection data helps you make
           informed purchasing decisions and avoid costly duplicates.

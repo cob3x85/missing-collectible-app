@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "Sentry": {
+      "url": "https://mcp.sentry.dev/mcp/carlos-ortiz-aa/fun-collection",
+      "type": "http"
+    }
+  }
+}
