@@ -1,8 +1,7 @@
 {
   "expo": {
-    "name": "missing-funko-app",
-    "slug": "missing-funko-app",
-    
+    "name": "fun-collection",
+    "slug": "fun-collection",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/missingfunko.png",
@@ -47,7 +46,8 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-sqlite"
     ],
     "experiments": {
       "typedRoutes": true,
