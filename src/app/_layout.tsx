@@ -1,5 +1,5 @@
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { databaseService } from '@/services/database';
+import { db } from '@/services/db';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -38,7 +38,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
    useEffect(() => {
     // Initialize database when app starts
-    databaseService.init().catch((error) => {
+    db.init().catch((error: unknown) => {
       console.error(error);
       Alert.alert(
         'Database Error',

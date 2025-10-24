@@ -1,11 +1,18 @@
 import * as SQLite from 'expo-sqlite';
 import { v4 as uuidv4 } from 'uuid';
 import { Funko } from '@/database/schema';
+import { Platform } from 'react-native';
 
 class DatabaseService {
   private db: SQLite.SQLiteDatabase | null = null;
 
   async init(): Promise<void> {
+    // Skip SQLite initialization on web to avoid WASM issues
+    if (Platform.OS === 'web') {
+      console.warn('SQLite not supported on web, using IndexedDB fallback');
+      return;
+    }
+    
     this.db = await SQLite.openDatabaseAsync('funko_collection.db');
     await this.createTables();
   }
@@ -58,6 +65,10 @@ class DatabaseService {
 
   // Funko CRUD operations
   async createFunko(funko: Omit<Funko, 'id' | 'created_at' | 'updated_at'>): Promise<string> {
+    if (Platform.OS === 'web') {
+      throw new Error('Web platform should use database.web.ts service');
+    }
+    
     if (!this.db) throw new Error('Database not initialized');
 
     const id = uuidv4();

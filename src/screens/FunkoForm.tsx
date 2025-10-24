@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Alert } from 'react-native';
 import { useCreateFunko } from '@/hooks/useFunkos';
-import { imageStorageService } from '@/services/imageStorage';
+import { images } from '@/services/images';
 
 export default function FunkoForm() {
   const [name, setName] = useState('');
@@ -22,7 +22,7 @@ const createFunko = useCreateFunko({
 
   const handlePickImage = async () => {
     try {
-      const path = await imageStorageService.pickImageFromLibrary();
+      const path = await images.pickImageFromLibrary();
       setImagePath(path);
     } catch (error) {
       Alert.alert('Error', (error as Error).message || 'Failed to pick image');

@@ -1,19 +1,19 @@
 import { Funko } from "@/database/schema";
-import { databaseService } from "@/services/database";
-import { imageStorageService } from "@/services/imageStorage";
+import { db } from "@/services/db";
+import { images } from "@/services/images";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useFunkos = () => {
   return useQuery({
     queryKey: ["funkos"],
-    queryFn: () => databaseService.getAllFunkos(),
+    queryFn: () => db.getAllFunkos(),
   });
 };
 
 export const useFunko = (id: string) => {
   return useQuery({
     queryKey: ["funko", id],
-    queryFn: () => databaseService.getFunkoById(id),
+    queryFn: () => db.getFunkoById(id),
     enabled: !!id,
   });
 };
@@ -28,7 +28,7 @@ export const useCreateFunko = (options?: {
     mutationFn: async (
       funko: Omit<Funko, "id" | "created_at" | "updated_at">
     ) => {
-      return await databaseService.createFunko(funko);
+      return await db.createFunko(funko);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["funkos"] });
@@ -60,7 +60,7 @@ export const useUpdateFunko = (options?: {
       id: string;
       updates: Partial<Omit<Funko, "id" | "created_at">>;
     }) => {
-      await databaseService.updateFunko(id, updates);
+      await db.updateFunko(id, updates);
     },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["funkos"] });
@@ -82,11 +82,11 @@ export const useDeleteFunko = (options?: {
   return useMutation({
     mutationFn: async (id: string) => {
       // Get funko to delete associated image
-      const funko = await databaseService.getFunkoById(id);
+      const funko = await db.getFunkoById(id);
       if (funko?.image_path) {
-        await imageStorageService.deleteImage(funko.image_path);
+        await images.deleteImage(funko.image_path);
       }
-      await databaseService.deleteFunko(id);
+      await db.deleteFunko(id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["funkos"] });
@@ -101,7 +101,7 @@ export const useDeleteFunko = (options?: {
 export const useSearchFunkos = (query: string) => {
   return useQuery({
     queryKey: ["funkos", "search", query],
-    queryFn: () => databaseService.searchFunkos(query),
+    queryFn: () => db.searchFunkos(query),
     enabled: query.length > 0,
   });
 };

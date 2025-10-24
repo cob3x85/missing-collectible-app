@@ -76,7 +76,7 @@ class ImageStorageService {
     return `funko_${Date.now()}_${uniquePart}.jpg`;
   }
 
-  private async saveImage(sourceUri: string): Promise<string> {
+  async saveImage(sourceUri: string): Promise<string> {
     const filename = this.generateUniqueFilename();
     const destinationUri = `${this.imagesDirectoryPath}${filename}`;
 
@@ -104,7 +104,18 @@ class ImageStorageService {
     }
   }
 
-  getImageUri(imagePath: string): string {
+  async getImageUri(imagePath: string): Promise<string | null> {
+    try {
+      const fileInfo = await FileSystem.getInfoAsync(imagePath);
+      return fileInfo.exists ? imagePath : null;
+    } catch (error) {
+      console.warn("Failed to get image URI:", error);
+      return null;
+    }
+  }
+
+  // Legacy sync method for backwards compatibility
+  getImageUriSync(imagePath: string): string {
     return imagePath;
   }
 
