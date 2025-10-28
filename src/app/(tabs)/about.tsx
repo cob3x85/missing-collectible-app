@@ -17,7 +17,7 @@ export default function AboutScreen() {
       }
     >
       <ThemedView style={globalThemeStyles.titleContainer}>
-        <ThemedText type="title">Fun-Collection!</ThemedText>
+        <ThemedText type="title">Fun-Kollection!</ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView>
