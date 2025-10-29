@@ -1,50 +1,164 @@
-# Welcome to your Expo app 👋
+# Fun-Kollection App 🎯
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native/Expo cross-platform app for tracking your Funko Pop collection with smart search and modern UI.
 
-## Get started
+## � Features
 
-1. Install dependencies
+- **Smart Search**: Debounced search with 500ms delay for optimal performance
+- **Cross-Platform**: Runs on iOS, Android, and Web
+- **Safe Area Support**: Proper handling of notches and device variations
+- **Responsive Design**: Clean, modern UI with themed components
+- **Real-time Filtering**: Instant search results with performance optimization
+
+## 🛠️ Tech Stack
+
+- **React Native** 0.81.5 with **Expo SDK 54**
+- **expo-router** for file-based navigation
+- **TypeScript** for type safety
+- **@expo/vector-icons** for consistent iconography
+- **react-native-safe-area-context** for device compatibility
+
+## 📱 Quick Start
+
+1. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. **Start the development server**
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+3. **Run on your preferred platform**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   ```bash
+   # iOS Simulator
+   npx expo run:ios
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+   # Android Emulator
+   npx expo run:android
 
-## Get a fresh project
+   # Web Browser
+   npx expo start --web
+   ```
 
-When you're ready, run:
+## 🏗️ Project Structure
 
-```bash
-npm run reset-project
+```
+src/
+├── app/
+│   ├── (tabs)/
+│   │   ├── index.tsx        # Home screen with search
+│   │   ├── add.tsx          # Add new Funko
+│   │   └── about.tsx        # About screen
+│   └── _layout.tsx          # Root layout with providers
+├── components/
+│   ├── funkos/
+│   │   └── FunkoCard.tsx    # Individual Funko display
+│   ├── themed-view.tsx      # Themed container component
+│   └── themed-text.tsx      # Themed text component
+└── constants/
+    └── theme.ts             # App theme configuration
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🔍 Current Implementation
 
-## Learn more
+### Search Functionality
 
-To learn more about developing your project with Expo, look at the following resources:
+The app features a sophisticated search system:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- **Immediate UI feedback**: Search input updates instantly
+- **Debounced filtering**: Results update 500ms after typing stops
+- **Performance optimized**: Uses `useMemo` to prevent unnecessary re-renders
 
-## Join the community
+### Sample Data
 
-Join our community of developers creating universal apps.
+Currently uses mock data for development:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- 6 Dragon Ball Z themed Funko Pops
+- Searchable by character names
+- Ready for database integration
+
+## 🎨 Design Patterns
+
+### Safe Area Integration
+
+```typescript
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+const insets = useSafeAreaInsets();
+// Apply to main containers for proper spacing
+```
+
+### Debounced Search
+
+```typescript
+const [searchQuery, setSearchQuery] = useState("");
+const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setDebouncedSearchQuery(searchQuery);
+  }, 500);
+  return () => clearTimeout(timer);
+}, [searchQuery]);
+```
+
+## 🚧 Development
+
+### Available Scripts
+
+```bash
+npm run start           # Start Expo development server
+npm run android        # Run on Android emulator
+npm run ios           # Run on iOS simulator
+npm run web           # Run in web browser
+npm run reset-project # Reset to blank Expo template
+```
+
+### Code Quality
+
+- **TypeScript**: Full type safety throughout the app
+- **ESLint**: Configured with Expo recommended rules
+- **Consistent styling**: Uses `StyleSheet.create()` for performance
+
+## 📋 Roadmap
+
+### Planned Features
+
+- [ ] **Database Integration**: SQLite for mobile, IndexedDB for web
+- [ ] **Image Upload**: Camera and gallery integration
+- [ ] **Collection Management**: Categories and custom collections
+- [ ] **Data Persistence**: Offline support with sync
+- [ ] **Advanced Search**: Filter by series, condition, price range
+- [ ] **Statistics**: Collection value tracking and analytics
+
+### Architecture Goals
+
+- [ ] Platform-aware service layer with proxy pattern
+- [ ] TanStack Query for server state management
+- [ ] Error boundaries with Sentry integration
+- [ ] Comprehensive testing suite
+
+## 🤝 Contributing
+
+This project is designed to be AI-agent friendly. See `.github/copilot-instructions.md` for detailed development guidelines and patterns.
+
+### Development Guidelines
+
+1. Use debounced search patterns for performance
+2. Implement proper safe area handling
+3. Follow TypeScript best practices
+4. Use themed components for consistency
+5. Test on multiple platforms
+
+## 📄 License
+
+This project is part of a React Native learning series focusing on cross-platform development best practices.
+
+---
+
+**Note**: This app is currently in development. Database integration and advanced features are planned for future releases.

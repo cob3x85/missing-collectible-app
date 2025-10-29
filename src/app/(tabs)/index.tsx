@@ -1,103 +1,100 @@
-import { SearchBar } from "@/components/search/search-bar";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { GlassContainer } from "expo-glass-effect";
-import { Image } from "expo-image";
-import { Alert, FlatList, StyleSheet, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, TextInput, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-  const handleSearch = (query: string) => {
-    if (query.trim()) {
-      Alert.alert("Search", `Searching for: ${query}`);
-      // TODO: Implement actual search functionality
-    }
-  };
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+  const insets = useSafeAreaInsets();
 
-  const DATA = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "First Item",
-    },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      title: "Second Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "Third Item",
-    },
-  ];
+  // Debounce the search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500); // 500ms delay
 
-  type ItemProps = { title: string };
-
-  const renderHeader = () => (
-    <View>
-      {/* Header Image */}
-      <Image
-        source={require("@/assets/images/dbzBackground.jpg")}
-        style={styles.headerImage}
-      />
-
-      {/* Title Section */}
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="subtitle">Fun-Kollection</ThemedText>
-      </ThemedView>
-
-      {/* Search Bar */}
-      <GlassContainer style={{backgroundColor:"#f3d2a4ff", backgroundImage: require("@/assets/images/dbzBackground.jpg") }}>
-        <SearchBar onSearch={handleSearch} style={styles.searchBar} />
-      </GlassContainer>
-    </View>
-  );
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   return (
-    <FlatList
-      data={DATA}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <ThemedView style={styles.itemContainer}>
-          <ThemedText>{item.title}</ThemedText>
-        </ThemedView>
-      )}
-      ListHeaderComponent={renderHeader}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.container}
-    />
+    <View style={[styles.container, { paddingTop: insets.top }]}>
+      {/* Header with search text */}
+      <ThemedView style={styles.titleContainer}>
+        <ThemedText type="subtitle">Fun-Kollection</ThemedText>
+        <ThemedText style={styles.searchResultsText}>
+          Typing: "{searchQuery}"
+        </ThemedText>
+        <ThemedText style={styles.searchResultsText}>
+          Debounced: "{debouncedSearchQuery}"
+        </ThemedText>
+      </ThemedView>
+
+      {/* Simple Search Input */}
+      <View style={styles.searchContainer}>
+        <View style={styles.searchInputContainer}>
+          <Ionicons
+            name="search"
+            size={20}
+            color="#666"
+            style={styles.searchIcon}
+          />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Type anything..."
+            placeholderTextColor="#666"
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            autoFocus={false}
+            autoCorrect={false}
+            autoCapitalize="none"
+            spellCheck={false}
+          />
+        </View>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
+    backgroundColor: "#ee791951",
   },
   titleContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     gap: 8,
     padding: 20,
     backgroundColor: "rgba(255, 255, 255, 0.9)",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  searchResultsText: {
+    fontSize: 14,
+    fontStyle: "italic",
+    color: "#666",
   },
-  headerImage: {
-    backgroundColor: "orange",
-    height: 200,
-    width: "100%",
-    resizeMode: "cover",
+  searchContainer: {
+    padding: 10,
   },
-  searchBar: {
-    marginTop: 10,
-    marginHorizontal: 10,
+  searchInputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: "rgba(0, 0, 0, 0.1)",
   },
-  itemContainer: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#e0e0e0",
-    backgroundColor: "rgba(255, 255, 255, 0.95)",
-    marginHorizontal: 10,
-    marginVertical: 5,
-    borderRadius: 8,
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: "#333",
+    paddingVertical: 0,
   },
 });

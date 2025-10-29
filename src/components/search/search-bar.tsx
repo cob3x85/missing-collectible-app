@@ -1,10 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { GlassView } from "expo-glass-effect";
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
 interface SearchBarProps {
   onSearch?: (query: string) => void;
+  onChangeText?: (query: string) => void; // New prop for real-time search
+  value?: string; // Add value prop to make it controlled
   placeholder?: string;
   style?: any;
   glassProps?: {
@@ -15,11 +17,19 @@ interface SearchBarProps {
 
 export const SearchBar: React.FC<SearchBarProps> = ({
   onSearch,
+  onChangeText,
+  value = "", // Default to empty string if no value provided
   placeholder = "Search Funkos...",
   style,
   glassProps = { tintColor: "rgba(255, 255, 255, 0.8)", isInteractive: true },
 }) => {
-  const [searchQuery, setSearchQuery] = useState("");
+  // Use internal state only if value prop is not provided (uncontrolled mode)
+  const [internalSearchQuery, setInternalSearchQuery] = useState("");
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Determine if we're in controlled or uncontrolled mode
+  const isControlled = value !== undefined;
+  const searchQuery = isControlled ? value : internalSearchQuery;
 
   const handleSearch = () => {
     if (onSearch) {
@@ -27,10 +37,46 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     }
   };
 
+  const debouncedSearch = useCallback(
+    (text: string) => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+
+      debounceTimer.current = setTimeout(() => {
+        if (onChangeText) {
+          onChangeText(text);
+        }
+      }, 300); // 150ms delay
+    },
+    [onChangeText]
+  );
+
+  const handleTextChange = (text: string) => {
+    // Update internal state only if uncontrolled
+    if (!isControlled) {
+      setInternalSearchQuery(text);
+    }
+
+    // For controlled components, update parent state immediately
+    if (onChangeText) {
+      onChangeText(text);
+    }
+
+    // No need for debounced search since parent handles the state immediately
+  };
+
   const handleClear = () => {
-    setSearchQuery("");
+    const emptyText = "";
+    // Update internal state only if uncontrolled
+    if (!isControlled) {
+      setInternalSearchQuery(emptyText);
+    }
+    if (onChangeText) {
+      onChangeText(emptyText);
+    }
     if (onSearch) {
-      onSearch("");
+      onSearch(emptyText);
     }
   };
 
@@ -53,9 +99,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             placeholder={placeholder}
             placeholderTextColor="#666"
             value={searchQuery}
-            onChangeText={setSearchQuery}
+            onChangeText={handleTextChange}
             onSubmitEditing={handleSearch}
             returnKeyType="search"
+            autoFocus={false}
+            autoCorrect={false}
+            autoCapitalize="none"
+            spellCheck={false}
           />
           {searchQuery.length > 0 && (
             <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
