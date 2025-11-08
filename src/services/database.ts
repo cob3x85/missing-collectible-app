@@ -85,10 +85,10 @@ class DatabaseService {
       [
         id,
         funko.name,
-        funko.series,
-        funko.number,
-        funko.category,
-        funko.condition,
+        funko.series ?? null,
+        funko.number ?? null,
+        funko.category ?? null,
+        funko.condition ?? null,
         funko.purchase_price ?? null,
         funko.current_value ?? null,
         funko.purchase_date ?? null,
@@ -119,6 +119,18 @@ class DatabaseService {
       [id]
     );
     return result as Funko | null;
+  }
+
+   /* 
+    * Retrieve all funkos matching a given name or partial name or funko number
+   */
+  async getAllFunkoByName(name: string): Promise<Funko[] | []> {
+    if (!this.db) throw new Error("Database not initialized");
+    const result = await this.db.getAllAsync(
+      "SELECT * FROM funkos WHERE name LIKE ? OR number LIKE ? ORDER BY created_at DESC",
+      [`%${name}%`, `%${name}%`]
+    );
+    return result as Funko[] | [];
   }
 
   async updateFunko(
@@ -173,7 +185,7 @@ class DatabaseService {
 
     const result = await this.db.getAllAsync(
       `SELECT * FROM funkos 
-       WHERE name LIKE ? OR series LIKE ? OR category LIKE ? 
+       WHERE name LIKE ? OR series LIKE ? OR category LIKE ? OR number LIKE ?
        ORDER BY created_at DESC`,
       [`%${query}%`, `%${query}%`, `%${query}%`]
     );

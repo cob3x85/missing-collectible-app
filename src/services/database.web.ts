@@ -170,8 +170,9 @@ class WebDatabaseService {
     return allFunkos.filter(
       (funko) =>
         funko.name.toLowerCase().includes(lowercaseQuery) ||
-        funko.series.toLowerCase().includes(lowercaseQuery) ||
-        funko.category.toLowerCase().includes(lowercaseQuery)
+        funko.number?.toLowerCase().includes(lowercaseQuery) ||
+        funko.series?.toLowerCase().includes(lowercaseQuery) ||
+        funko.category?.toLowerCase().includes(lowercaseQuery)
     );
   }
 }

@@ -1,23 +1,49 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { db } from "@/services/db";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+
+
 
 export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const insets = useSafeAreaInsets();
 
-  // Debounce the search query
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchQuery(searchQuery);
-    }, 500); // 500ms delay
+  const { isLoading , data: funkoNamesList } = useQuery({
+    queryKey: ["funkos", "all"],
+    queryFn: () => db.searchFunkos(searchQuery),
+    enabled: searchQuery.trim().length >= 3,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  })
 
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
+  const funkoNameList = useMemo(() => {
+    if (!isNaN(Number(searchQuery))) {
+// Filtar by Funko number logic can go here
+console.log("Searching by Funko number:", searchQuery);
+    }
+    if (searchQuery.trim().length === 0 || searchQuery.trim().length < 3) {
+      return [];
+    }
+
+    return funkoNamesList?.filter((item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    ) || [];
+
+}, [searchQuery]);
+
+if (isLoading){
+  return (
+    <>
+      <ActivityIndicator size="large" color="#0000ff" />
+      <ThemedText>Loading Funkos...</ThemedText>
+    </>
+  );
+}
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
@@ -27,9 +53,7 @@ export default function HomeScreen() {
         <ThemedText style={styles.searchResultsText}>
           Typing: "{searchQuery}"
         </ThemedText>
-        <ThemedText style={styles.searchResultsText}>
-          Debounced: "{debouncedSearchQuery}"
-        </ThemedText>
+        
       </ThemedView>
 
       {/* Simple Search Input */}
@@ -46,12 +70,16 @@ export default function HomeScreen() {
             placeholder="Type anything..."
             placeholderTextColor="#666"
             value={searchQuery}
-            onChangeText={setSearchQuery}
+            onChangeText={text => setSearchQuery(text)}
             autoFocus={false}
             autoCorrect={false}
             autoCapitalize="none"
             spellCheck={false}
           />
+        </View>
+        <View>
+
+          <ThemedText>{JSON.stringify(funkoNameList, null, 2)}</ThemedText>
         </View>
       </View>
     </View>

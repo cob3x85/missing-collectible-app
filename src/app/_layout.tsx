@@ -11,6 +11,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { Alert } from "react-native";
+import "react-native-get-random-values";
 import "react-native-reanimated";
 
 Sentry.init({
@@ -62,8 +63,11 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen
             name="modal"
-            options={{ presentation: "modal", title: "Modal", scrollEdgeEffects: { left: "auto" } }}
-
+            options={{
+              presentation: "modal",
+              title: "Modal",
+              scrollEdgeEffects: { left: "auto" },
+            }}
           />
         </Stack>
         <StatusBar style="auto" />

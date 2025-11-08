@@ -1,9 +1,9 @@
 export interface Funko {
   id: string;
   name: string;
-  series: string;
+  series?: string;
   number: string;
-  category: string;
+  category?: string;
   condition: 'mint' | 'near_mint' | 'good' | 'fair' | 'poor';
   purchase_price?: number;
   current_value?: number;
