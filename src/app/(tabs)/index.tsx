@@ -5,12 +5,12 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageSpinner } from "@/components/ui/image-spinner";
 import { useFunkos } from "@/hooks/useFunkos";
 import { useTheme } from "@react-navigation/native";
+import { useFonts } from "expo-font";
 import { GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { FlatList, Pressable, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useFonts } from 'expo-font';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -19,20 +19,37 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
 
   const [fontsLoaded] = useFonts({
-    'Slackey': require('@/assets/fonts/Slackey/Slackey-Regular.ttf'),
+    Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
   });
 
   if (!fontsLoaded) {
-    return null; // or a loading spinner
+    return <ImageSpinner />;
+  }
+
+  if (isLoading) {
+    return (
+      <ThemedView
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        <ImageSpinner />
+      </ThemedView>
+    );
+  }
+
+  if (!funkos) {
+    return (
+      <ThemedView
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        <ThemedText type="default">No funkos found.</ThemedText>
+      </ThemedView>
+    );
   }
 
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={[styles.titleContainer, { paddingTop: insets.top }]}>
-        <ThemedText
-          type="subtitle"
-          style={styles.textTitle}
-        >
+        <ThemedText type="subtitle" style={styles.textTitle}>
           Fun-Kollection
         </ThemedText>
         <Image
@@ -42,19 +59,11 @@ export default function HomeScreen() {
         />
       </ThemedView>
 
-      {isLoading && (
-        <ThemedView
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <ImageSpinner />
-        </ThemedView>
-      )}
-
       <FlatList
         style={styles.flatList}
         keyExtractor={(item) => item.id}
         data={funkos}
-        renderItem={({ item }) => <FunkoCard funko={item} />}
+        renderItem={({ item }) => <FunkoCard {...item} />}
       />
 
       <GlassView>
@@ -80,7 +89,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "transparent",
   },
   titleContainer: {
     alignItems: "center",
@@ -93,7 +101,7 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     color: "white",
-    fontFamily:"Slackey",
+    fontFamily: "Slackey",
     fontSize: 24,
     fontWeight: "bold",
   },
