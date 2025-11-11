@@ -11,7 +11,7 @@ export const globalThemeStyles = StyleSheet.create({
     marginBottom: 8,
   },
   headerImageContainer: {
-    backgroundColor: "orange",
+    // backgroundColor: "orange",
     height: 178,
     width: "100%",
     bottom: 0,

@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { Alert } from "react-native";
 import "react-native-get-random-values";
 import "react-native-reanimated";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 Sentry.init({
   dsn: "https://353c5ca1e3aeedf5e07b1ba8b6eb7760@o4509063607812096.ingest.us.sentry.io/4510245359452160",
@@ -57,21 +58,25 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="modal"
-            options={{
-              presentation: "modal",
-              title: "Modal",
-              scrollEdgeEffects: { left: "auto" },
-            }}
-          />
-        </Stack>
-        <StatusBar style="auto" />
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="modal"
+              options={{
+                presentation: "modal",
+                title: "Modal",
+                scrollEdgeEffects: { left: "auto" },
+              }}
+            />
+          </Stack>
+          <StatusBar style="auto" />
+        </ThemeProvider>
       </QueryClientProvider>
-    </ThemeProvider>
+    </SafeAreaProvider>
   );
 }

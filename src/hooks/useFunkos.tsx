@@ -6,7 +6,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 export const useFunkos = () => {
   return useQuery({
     queryKey: ["funkos"],
-    queryFn: () => db.getAllFunkos(),
+    queryFn: () => {
+      // Add artificial delay for testing (2 seconds)
+      // await new Promise((resolve) => setTimeout(resolve, 5000));
+      return db.getAllFunkos();
+    },
   });
 };
 
@@ -101,7 +105,8 @@ export const useDeleteFunko = (options?: {
 export const useSearchFunkos = (query: string) => {
   return useQuery({
     queryKey: ["funkos", "search", query],
-    queryFn: () => db.searchFunkos(query),
-    enabled: query.length > 0,
+    queryFn: () => {
+      return db.searchFunkos(query);
+    },
   });
 };

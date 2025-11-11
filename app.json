@@ -55,7 +55,8 @@
           "project": "fun-collection",
           "organization": "carlos-ortiz-aa"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true,

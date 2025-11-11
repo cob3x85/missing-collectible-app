@@ -1,128 +1,113 @@
+import { FunkoCard } from "@/components/funkos/FunkoCard";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { db } from "@/services/db";
-import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useMemo, useState } from "react";
-import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
+import { IconSymbol } from "@/components/ui/icon-symbol";
+import { ImageSpinner } from "@/components/ui/image-spinner";
+import { useFunkos } from "@/hooks/useFunkos";
+import { useTheme } from "@react-navigation/native";
+import { GlassView } from "expo-glass-effect";
+import { Image } from "expo-image";
+import { useRouter } from "expo-router";
+import { FlatList, Pressable, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
-
-
+import { useFonts } from 'expo-font';
 
 export default function HomeScreen() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+  const theme = useTheme();
+  const { isLoading, data: funkos } = useFunkos();
   const insets = useSafeAreaInsets();
 
-  const { isLoading , data: funkoNamesList } = useQuery({
-    queryKey: ["funkos", "all"],
-    queryFn: () => db.searchFunkos(searchQuery),
-    enabled: searchQuery.trim().length >= 3,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  })
+  const [fontsLoaded] = useFonts({
+    'Slackey': require('@/assets/fonts/Slackey/Slackey-Regular.ttf'),
+  });
 
-  const funkoNameList = useMemo(() => {
-    if (!isNaN(Number(searchQuery))) {
-// Filtar by Funko number logic can go here
-console.log("Searching by Funko number:", searchQuery);
-    }
-    if (searchQuery.trim().length === 0 || searchQuery.trim().length < 3) {
-      return [];
-    }
-
-    return funkoNamesList?.filter((item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    ) || [];
-
-}, [searchQuery]);
-
-if (isLoading){
-  return (
-    <>
-      <ActivityIndicator size="large" color="#0000ff" />
-      <ThemedText>Loading Funkos...</ThemedText>
-    </>
-  );
-}
+  if (!fontsLoaded) {
+    return null; // or a loading spinner
+  }
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      {/* Header with search text */}
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="subtitle">Fun-Kollection</ThemedText>
-        <ThemedText style={styles.searchResultsText}>
-          Typing: "{searchQuery}"
+    <ThemedView style={styles.container}>
+      <ThemedView style={[styles.titleContainer, { paddingTop: insets.top }]}>
+        <ThemedText
+          type="subtitle"
+          style={styles.textTitle}
+        >
+          Fun-Kollection
         </ThemedText>
-        
+        <Image
+          source={require("@/assets/images/missingfunko.png")}
+          style={{ width: 80, height: 80 }}
+          contentFit="scale-down"
+        />
       </ThemedView>
 
-      {/* Simple Search Input */}
-      <View style={styles.searchContainer}>
-        <View style={styles.searchInputContainer}>
-          <Ionicons
-            name="search"
-            size={20}
-            color="#666"
-            style={styles.searchIcon}
-          />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Type anything..."
-            placeholderTextColor="#666"
-            value={searchQuery}
-            onChangeText={text => setSearchQuery(text)}
-            autoFocus={false}
-            autoCorrect={false}
-            autoCapitalize="none"
-            spellCheck={false}
-          />
-        </View>
-        <View>
+      {isLoading && (
+        <ThemedView
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ImageSpinner />
+        </ThemedView>
+      )}
 
-          <ThemedText>{JSON.stringify(funkoNameList, null, 2)}</ThemedText>
-        </View>
-      </View>
-    </View>
+      <FlatList
+        style={styles.flatList}
+        keyExtractor={(item) => item.id}
+        data={funkos}
+        renderItem={({ item }) => <FunkoCard funko={item} />}
+      />
+
+      <GlassView>
+        <Pressable
+          style={styles.searchButton}
+          onPress={() =>
+            router.push({
+              pathname: "/search",
+            })
+          }
+        >
+          <IconSymbol
+            size={28}
+            name="magnifyingglass"
+            color={theme.colors.text}
+          />
+        </Pressable>
+      </GlassView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ee791951",
+    backgroundColor: "transparent",
   },
   titleContainer: {
-    flexDirection: "column",
     alignItems: "center",
+    backgroundColor: "#FFA500",
     gap: 8,
     padding: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-  },
-  searchResultsText: {
-    fontSize: 14,
-    fontStyle: "italic",
-    color: "#666",
-  },
-  searchContainer: {
-    padding: 10,
-  },
-  searchInputContainer: {
     flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-    borderRadius: 25,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderWidth: 1,
-    borderColor: "rgba(0, 0, 0, 0.1)",
+    justifyContent: "space-between",
+    alignContent: "center",
   },
-  searchIcon: {
-    marginRight: 10,
+  textTitle: {
+    color: "white",
+    fontFamily:"Slackey",
+    fontSize: 24,
+    fontWeight: "bold",
   },
-  searchInput: {
+  searchButton: {
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    borderRadius: 30,
+    bottom: 30,
+    padding: 15,
+    position: "absolute",
+    right: 30,
+  },
+  flatList: {
     flex: 1,
-    fontSize: 16,
-    color: "#333",
-    paddingVertical: 0,
+    padding: 15,
+    width: "100%",
   },
 });
