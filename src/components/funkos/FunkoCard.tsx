@@ -21,7 +21,7 @@ export const FunkoCard = ({ id, name, image_path, number }: FunkoCardProps) => {
       {/* Number badge - top right */}
       {number && (
         <View style={styles.numberBadge}>
-          <ThemedText style={styles.numberText}>#{number}</ThemedText>
+          <ThemedText style={styles.numberText}>{number}</ThemedText>
         </View>
       )}
 

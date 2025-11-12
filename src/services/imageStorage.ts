@@ -24,49 +24,62 @@ class ImageStorageService {
   }
 
   async pickImageFromLibrary(): Promise<string | null> {
-    // Request permission
-    const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    try {
+      // Request permission
+      const permissionResult =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if (!permissionResult.granted) {
-      throw new Error("Permission to access camera roll is required!");
+      if (!permissionResult.granted) {
+        console.log("Media library permission denied");
+        return null;
+      }
+
+      // Pick image
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ["images"],
+        allowsEditing: true,
+        aspect: [1, 1], // Square aspect ratio for Funko images
+        quality: 0.8,
+      });
+
+      if (!result.canceled && result.assets && result.assets[0]) {
+        return await this.saveImage(result.assets[0].uri);
+      }
+
+      return null;
+    } catch (error) {
+      console.error("Error picking image from library:", error);
+      throw error;
     }
-
-    // Pick image
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1], // Square aspect ratio for Funko images
-      quality: 0.8,
-    });
-
-    if (!result.canceled && result.assets[0]) {
-      return await this.saveImage(result.assets[0].uri);
-    }
-
-    return null;
   }
 
   async takePhoto(): Promise<string | null> {
-    // Request permission
-    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    try {
+      // Request permission
+      const permissionResult =
+        await ImagePicker.requestCameraPermissionsAsync();
 
-    if (!permissionResult.granted) {
-      throw new Error("Permission to access camera is required!");
+      if (!permissionResult.granted) {
+        console.log("Camera permission denied");
+        return null;
+      }
+
+      // Take photo
+      const result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+      });
+
+      if (!result.canceled && result.assets && result.assets[0]) {
+        return await this.saveImage(result.assets[0].uri);
+      }
+
+      return null;
+    } catch (error) {
+      console.error("Error taking photo:", error);
+      throw error;
     }
-
-    // Take photo
-    const result = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.8,
-    });
-
-    if (!result.canceled && result.assets[0]) {
-      return await this.saveImage(result.assets[0].uri);
-    }
-
-    return null;
   }
 
   private generateUniqueFilename(): string {

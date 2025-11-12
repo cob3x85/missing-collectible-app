@@ -1,49 +1,147 @@
 # Fun-Kollection App 🎯
 
-A React Native/Expo cross-platform app for tracking your Funko Pop collection with smart search and modern UI.
+A React Native/Expo cross-platform Funko Pop collection tracker with smart search, haptic feedback, audio cues, and modern glassmorphism UI. Track your collection across iOS, Android, and Web with platform-specific optimizations.
 
-## � Features
+## ✨ Features
 
 - **Smart Search**: Debounced search with 500ms delay for optimal performance
-- **Cross-Platform**: Runs on iOS, Android, and Web
+- **Cross-Platform**: Runs on iOS, Android, and Web with platform-specific UI
+- **Haptic + Audio Feedback**: iOS-like interactions with touch feedback and sound
+- **Modern UI**: Glassmorphism effects, 2-column grid layout, custom fonts
 - **Safe Area Support**: Proper handling of notches and device variations
-- **Responsive Design**: Clean, modern UI with themed components
 - **Real-time Filtering**: Instant search results with performance optimization
+- **Form Validation**: Yup schema validation for data integrity
+- **Mock Data**: Testing with sample Funko Pops (Goku, Spider-Man)
+- **Empty States**: Intuitive onboarding with "Add Your First Funko" CTA
 
 ## 🛠️ Tech Stack
 
 - **React Native** 0.81.5 with **Expo SDK 54**
 - **expo-router** for file-based navigation
 - **TypeScript** for type safety
-- **@expo/vector-icons** for consistent iconography
-- **react-native-safe-area-context** for device compatibility
+- **expo-audio** for sound feedback
+- **expo-haptics** for tactile feedback
+- **expo-glass-effect** for glassmorphism UI
+- **react-native-vector-icons** for web icons
+- **Yup** for form validation
+- **TanStack Query** for data fetching (planned)
+- **SQLite/IndexedDB** for platform-aware storage (planned)
 
-## 📱 Quick Start
+## 📱 Running the App
 
-1. **Install dependencies**
+### Prerequisites
 
-   ```bash
-   npm install
-   ```
+```bash
+# Install dependencies
+npm install
 
-2. **Start the development server**
+# For iOS development
+sudo gem install cocoapods
+cd ios && pod install && cd ..
+```
 
-   ```bash
-   npx expo start
-   ```
+### Development Server (Expo Go)
 
-3. **Run on your preferred platform**
+```bash
+# Start the Expo development server
+npx expo start
 
-   ```bash
-   # iOS Simulator
-   npx expo run:ios
+# Options:
+# - Press 'i' for iOS simulator
+# - Press 'a' for Android emulator
+# - Press 'w' for web browser
+# - Scan QR code with Expo Go app on physical device
+```
 
-   # Android Emulator
-   npx expo run:android
+### iOS Simulator
 
-   # Web Browser
-   npx expo start --web
-   ```
+```bash
+# Run on iOS simulator (Mac only)
+npx expo run:ios
+
+# Specify simulator
+npx expo run:ios --simulator "iPhone 15 Pro"
+
+# List available simulators
+xcrun simctl list devices
+```
+
+### iOS Physical Device
+
+#### Option 1: Connected via USB (Recommended for Development)
+
+```bash
+# Connect iPhone via USB cable
+# Unlock device and trust computer
+
+# Run on connected device
+npx expo run:ios --device
+
+# If multiple devices connected, specify by name
+npx expo run:ios --device "Carlos's iPhone"
+
+# First time: Trust developer certificate on device
+# Settings → General → VPN & Device Management → Trust
+```
+
+#### Option 2: Expo Go App (Quick Testing)
+
+```bash
+# Start server
+npx expo start
+
+# Scan QR code with Camera app (iOS)
+# Opens in Expo Go app automatically
+```
+
+#### Option 3: Development Build (Full Native Features)
+
+```bash
+# Install development client
+npx expo install expo-dev-client
+
+# Create development build
+npx expo run:ios --device
+
+# Start dev client
+npx expo start --dev-client
+```
+
+### Android Emulator
+
+```bash
+# Start Android emulator first, then:
+npx expo run:android
+
+# Or let Expo start emulator automatically
+npx expo start
+# Press 'a' to open Android
+```
+
+### Android Physical Device
+
+```bash
+# Enable USB debugging on Android device
+# Connect via USB
+
+npx expo run:android --device
+
+# Or use Expo Go:
+npx expo start
+# Scan QR code with Expo Go app
+```
+
+### Web Browser
+
+```bash
+# Run in web browser
+npx expo start --web
+
+# Or
+npm run web
+
+# Opens at http://localhost:8081
+```
 
 ## 🏗️ Project Structure
 
@@ -51,49 +149,67 @@ A React Native/Expo cross-platform app for tracking your Funko Pop collection wi
 src/
 ├── app/
 │   ├── (tabs)/
-│   │   ├── index.tsx        # Home screen with search
-│   │   ├── add.tsx          # Add new Funko
-│   │   └── about.tsx        # About screen
-│   └── _layout.tsx          # Root layout with providers
+│   │   ├── index.tsx        # Home: 2-col grid, search, empty state
+│   │   ├── add.tsx          # Add Funko form with validation
+│   │   ├── about.tsx        # About screen
+│   │   └── _layout.tsx      # Tab navigation (top on web, bottom on mobile)
+│   └── _layout.tsx          # Root: SafeArea, QueryClient, fonts
 ├── components/
 │   ├── funkos/
-│   │   └── FunkoCard.tsx    # Individual Funko display
-│   ├── themed-view.tsx      # Themed container component
-│   └── themed-text.tsx      # Themed text component
-└── constants/
-    └── theme.ts             # App theme configuration
+│   │   └── FunkoCard.tsx    # Card: image, number badge, haptics
+│   ├── themed-view.tsx      # Themed container
+│   └── themed-text.tsx      # Themed text
+├── constants/
+│   ├── mock-data.ts         # Sample Funkos for testing
+│   └── theme.ts             # App theme configuration
+├── hooks/
+│   ├── useFunkos.tsx        # TanStack Query CRUD hooks
+│   └── useHapticFeedback.ts # Haptic + audio feedback
+├── screens/
+│   └── FunkoForm.tsx        # Form: Yup validation, date picker
+└── services/
+    ├── database.ts          # SQLite (native)
+    ├── database.web.ts      # IndexedDB (web)
+    └── images.ts            # Platform-aware image storage
 ```
 
-## 🔍 Current Implementation
+## 🎨 Key Implementations
 
-### Search Functionality
-
-The app features a sophisticated search system:
-
-- **Immediate UI feedback**: Search input updates instantly
-- **Debounced filtering**: Results update 500ms after typing stops
-- **Performance optimized**: Uses `useMemo` to prevent unnecessary re-renders
-
-### Sample Data
-
-Currently uses mock data for development:
-
-- 6 Dragon Ball Z themed Funko Pops
-- Searchable by character names
-- Ready for database integration
-
-## 🎨 Design Patterns
-
-### Safe Area Integration
+### 1. Platform-Specific UI
 
 ```typescript
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const insets = useSafeAreaInsets();
-// Apply to main containers for proper spacing
+// Web: top navigation, centered content, white backgrounds
+// Mobile: bottom tabs, full width, themed backgrounds
+Platform.OS === "web" ? (
+  <View style={{ backgroundColor: "white", maxWidth: 1200 }}>{content}</View>
+) : (
+  content
+);
 ```
 
-### Debounced Search
+### 2. Haptic + Audio Feedback
+
+```typescript
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
+
+const { playFeedback } = useHapticFeedback();
+playFeedback("medium"); // Plays haptic + click sound
+```
+
+### 3. Form Validation with Yup
+
+```typescript
+const schema = yup.object().shape({
+  name: yup.string().required().min(2).max(100),
+  number: yup
+    .string()
+    .required()
+    .matches(/^[0-9]+$/),
+  condition: yup.string().oneOf(["mint", "near_mint", "good", "fair", "poor"]),
+});
+```
+
+### 4. Debounced Search
 
 ```typescript
 const [searchQuery, setSearchQuery] = useState("");
@@ -107,58 +223,146 @@ useEffect(() => {
 }, [searchQuery]);
 ```
 
-## 🚧 Development
+### 5. Safe Area Integration
 
-### Available Scripts
+```typescript
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-```bash
-npm run start           # Start Expo development server
-npm run android        # Run on Android emulator
-npm run ios           # Run on iOS simulator
-npm run web           # Run in web browser
-npm run reset-project # Reset to blank Expo template
+const insets = useSafeAreaInsets();
+<View style={{ paddingTop: insets.top }}>{content}</View>;
 ```
 
-### Code Quality
+## 🔧 Development Commands
 
-- **TypeScript**: Full type safety throughout the app
-- **ESLint**: Configured with Expo recommended rules
-- **Consistent styling**: Uses `StyleSheet.create()` for performance
+```bash
+# Development
+npm run start              # Start Expo dev server
+npm run android            # Run Android emulator
+npm run ios                # Run iOS simulator
+npm run web                # Run web browser
 
-## 📋 Roadmap
+# Device testing
+npx expo run:ios --device  # iOS physical device
+npx expo run:android --device  # Android physical device
 
-### Planned Features
+# Troubleshooting
+npx expo start --clear     # Clear cache
+npx expo run:ios --clean   # Clean iOS build
+npm run reset-project      # Reset to blank template
 
-- [ ] **Database Integration**: SQLite for mobile, IndexedDB for web
-- [ ] **Image Upload**: Camera and gallery integration
-- [ ] **Collection Management**: Categories and custom collections
-- [ ] **Data Persistence**: Offline support with sync
-- [ ] **Advanced Search**: Filter by series, condition, price range
-- [ ] **Statistics**: Collection value tracking and analytics
+# Dependencies
+npm install                # Install packages
+cd ios && pod install      # Install iOS pods
+```
 
-### Architecture Goals
+## 🐛 Troubleshooting
 
-- [ ] Platform-aware service layer with proxy pattern
-- [ ] TanStack Query for server state management
-- [ ] Error boundaries with Sentry integration
-- [ ] Comprehensive testing suite
+### iOS Device Not Detected
+
+```bash
+# Check connected devices
+xcrun xctrace list devices
+
+# Fixes:
+# 1. Unlock iPhone
+# 2. Trust computer on device
+# 3. Restart Xcode
+# 4. Unplug and replug USB
+```
+
+### Build Fails
+
+```bash
+# Clean and rebuild
+cd ios && rm -rf Pods Podfile.lock && pod install && cd ..
+npx expo run:ios --device --clean
+```
+
+### Metro Bundler Issues
+
+```bash
+# Clear cache and restart
+npx expo start --clear
+# Or delete node_modules and reinstall
+rm -rf node_modules && npm install
+```
+
+### "Untrusted Developer" on Device
+
+- Go to: **Settings → General → VPN & Device Management**
+- Tap your developer certificate
+- Tap "Trust"
+
+## 🎯 Current Implementation Status
+
+### ✅ Completed
+
+- Smart search with debouncing
+- 2-column grid layout with FunkoCard
+- Haptic + audio feedback system
+- Platform-specific UI (web vs mobile)
+- Form validation with Yup
+- Empty state with CTA
+- Mock data for testing
+- Safe area handling
+- Custom Slackey font
+- Glassmorphism effects
+
+### 🚧 In Progress
+
+- Database CRUD operations
+- Image upload and storage
+- Detail screen navigation
+
+### 📋 Planned
+
+- [ ] Advanced search filters
+- [ ] Collection statistics
+- [ ] Export/import data
+- [ ] Cloud sync
+- [ ] Camera integration
+- [ ] Barcode scanning
+- [ ] Price tracking
+- [ ] Wishlist feature
+
+## 🏛️ Architecture Patterns
+
+### Platform-Aware Services
+
+```typescript
+// Proxy pattern for platform-specific implementations
+export const db = Platform.select({
+  web: () => require("./database.web"),
+  default: () => require("./database"),
+})();
+```
+
+### State Management
+
+- **UI State**: React useState for immediate feedback
+- **Server State**: TanStack Query for data fetching
+- **Debounced State**: useEffect + setTimeout for performance
+
+### Component Organization
+
+- **Screens**: Full-page components in `src/screens/`
+- **Components**: Reusable UI in `src/components/`
+- **Hooks**: Custom hooks in `src/hooks/`
+- **Services**: Platform logic in `src/services/`
 
 ## 🤝 Contributing
 
-This project is designed to be AI-agent friendly. See `.github/copilot-instructions.md` for detailed development guidelines and patterns.
+This project follows AI-agent friendly development patterns. See `.github/copilot-instructions.md` for:
 
-### Development Guidelines
-
-1. Use debounced search patterns for performance
-2. Implement proper safe area handling
-3. Follow TypeScript best practices
-4. Use themed components for consistency
-5. Test on multiple platforms
+- Code architecture guidelines
+- Component patterns
+- State management conventions
+- Platform-specific best practices
 
 ## 📄 License
 
-This project is part of a React Native learning series focusing on cross-platform development best practices.
+MIT License - Educational React Native project showcasing cross-platform development.
 
 ---
 
-**Note**: This app is currently in development. Database integration and advanced features are planned for future releases.
+**Built with ❤️ using React Native, Expo, and modern mobile development practices**
