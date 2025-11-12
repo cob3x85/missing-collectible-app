@@ -10,7 +10,12 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.cob3x85s.missingfunkoapp"
+      "bundleIdentifier": "com.cob3x85s.missingfunkoapp",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to let you select Funko Pop images for your collection.",
+        "NSCameraUsageDescription": "This app needs access to your camera to let you take photos of your Funko Pops.",
+        "NSPhotoLibraryAddUsageDescription": "This app needs access to save Funko Pop images to your photo library."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +29,11 @@
       "package": "com.cob3x85s.missingfunkoapp",
       "permissions": [
         "android.permission.RECORD_AUDIO",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.CAMERA"
       ]
     },
     "web": {
@@ -52,6 +61,13 @@
         }
       ],
       "expo-sqlite",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Fun-Kollection to access your photos to add Funko Pop images to your collection.",
+          "cameraPermission": "Allow Fun-Kollection to use your camera to take photos of your Funko Pops."
+        }
+      ],
       [
         "@sentry/react-native/expo",
         {
