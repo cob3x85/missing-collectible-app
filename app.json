@@ -56,7 +56,8 @@
           "organization": "carlos-ortiz-aa"
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-audio"
     ],
     "experiments": {
       "typedRoutes": true,

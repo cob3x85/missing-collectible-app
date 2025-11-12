@@ -1,24 +1,25 @@
 import { FunkoCard } from "@/components/funkos/FunkoCard";
 import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageSpinner } from "@/components/ui/image-spinner";
 import { MOCK_FUNKOS } from "@/constants/mock-data";
 import { useFunkos } from "@/hooks/useFunkos";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { useTheme } from "@react-navigation/native";
-import * as Haptics from "expo-haptics";
 import { useFonts } from "expo-font";
-import { GlassView } from "expo-glass-effect";
+import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { FlatList, Pressable, StyleSheet, View } from "react-native";
+import { FlatList, Platform, Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function HomeScreen() {
   const router = useRouter();
   const theme = useTheme();
   const { isLoading, data: funkos } = useFunkos();
   const insets = useSafeAreaInsets();
+  const { playFeedback } = useHapticFeedback();
 
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
@@ -30,18 +31,21 @@ export default function HomeScreen() {
 
   if (isLoading) {
     return (
-      <ThemedView
-        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      <View
+        style={[
+          styles.container,
+          { justifyContent: "center", alignItems: "center" },
+        ]}
       >
         <ImageSpinner />
-      </ThemedView>
+      </View>
     );
   }
 
   if (!funkos || funkos.length === 0) {
     return (
-      <ThemedView style={styles.container}>
-        <ThemedView style={[styles.titleContainer, { paddingTop: insets.top }]}>
+      <GlassContainer style={styles.container}>
+        <GlassView style={[styles.titleContainer, { paddingTop: insets.top }]}>
           <ThemedText type="subtitle" style={styles.textTitle}>
             Fun-Kollection
           </ThemedText>
@@ -50,19 +54,32 @@ export default function HomeScreen() {
             style={{ width: 80, height: 80 }}
             contentFit="scale-down"
           />
-        </ThemedView>
+        </GlassView>
 
-        <View style={styles.emptyContainer}>
-          <IconSymbol
-            size={80}
-            name="tray.fill"
-            color={theme.colors.text}
-            style={{ opacity: 0.3, marginBottom: 20 }}
-          />
-          <ThemedText type="subtitle" style={{ marginBottom: 10 }}>
+        <GlassView style={styles.emptyContainer}>
+          {Platform.OS === "web" ? (
+            <FontAwesome
+              name="inbox"
+              size={80}
+              color="#333333"
+              style={styles.icon}
+            />
+          ) : (
+            <IconSymbol
+              size={80}
+              name="tray.fill"
+              color="#333333"
+              style={styles.icon}
+            />
+          )}
+
+          <ThemedText
+            type="subtitle"
+            style={[styles.emptyLabel, { marginBottom: 10 }]}
+          >
             No Funkos Yet
           </ThemedText>
-          <ThemedText style={{ marginBottom: 30, opacity: 0.7 }}>
+          <ThemedText style={[styles.emptyLabel, { marginBottom: 30 }]}>
             Start your collection by adding your first Funko!
           </ThemedText>
 
@@ -72,29 +89,41 @@ export default function HomeScreen() {
               pressed && styles.addButtonPressed,
             ]}
             onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              playFeedback("medium");
               router.push("/add");
             }}
           >
-            <IconSymbol
-              size={24}
-              name="plus.circle.fill"
-              color="white"
-              style={{ marginRight: 8 }}
-            />
-            <ThemedText style={styles.addButtonText}>Add Your First Funko</ThemedText>
+            {Platform.OS === "web" ? (
+              <FontAwesome
+                name="plus-circle"
+                size={24}
+                color="white"
+                style={{ marginRight: 8 }}
+              />
+            ) : (
+              <IconSymbol
+                size={24}
+                name="plus.circle.fill"
+                color="white"
+                style={{ marginRight: 8 }}
+              />
+            )}
+            <ThemedText style={styles.addButtonText}>
+              Add Your First Funko
+            </ThemedText>
           </Pressable>
-        </View>
-      </ThemedView>
+        </GlassView>
+      </GlassContainer>
     );
   }
 
   // Use real data if available, otherwise use mock data
   const displayData = funkos && funkos.length > 0 ? funkos : MOCK_FUNKOS;
+  // const displayData = MOCK_FUNKOS;
 
   return (
-    <ThemedView style={styles.container}>
-      <ThemedView style={[styles.titleContainer, { paddingTop: insets.top }]}>
+    <GlassContainer style={styles.container}>
+      <GlassView style={[styles.titleContainer, { paddingTop: insets.top }]}>
         <ThemedText type="subtitle" style={styles.textTitle}>
           Fun-Kollection
         </ThemedText>
@@ -103,7 +132,7 @@ export default function HomeScreen() {
           style={{ width: 80, height: 80 }}
           contentFit="scale-down"
         />
-      </ThemedView>
+      </GlassView>
 
       <FlatList
         style={styles.flatList}
@@ -116,33 +145,33 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
       />
 
-      <GlassView>
-        <Pressable
-          style={styles.searchButton}
-          onPress={() =>
-            router.push({
-              pathname: "/search",
-            })
-          }
-        >
-          <IconSymbol
-            size={28}
-            name="magnifyingglass"
-            color={theme.colors.text}
-          />
-        </Pressable>
-      </GlassView>
-    </ThemedView>
+      <Pressable
+        style={styles.searchButton}
+        onPress={() => {
+          playFeedback("light");
+          router.push({
+            pathname: "/search",
+          });
+        }}
+      >
+        <IconSymbol
+          size={28}
+          name="magnifyingglass"
+          color={theme.colors.text}
+        />
+      </Pressable>
+    </GlassContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Platform.OS === "web" ? "white" : undefined,
   },
   titleContainer: {
     alignItems: "center",
-    backgroundColor: "#FFA500",
+    backgroundColor: "#f46d03",
     gap: 8,
     padding: 20,
     flexDirection: "row",
@@ -178,11 +207,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 40,
+    backgroundColor: "white",
   },
   addButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFA500",
+    backgroundColor: "#f46d03",
     paddingVertical: 16,
     paddingHorizontal: 24,
     borderRadius: 30,
@@ -203,5 +233,13 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  emptyLabel: {
+    color: "#333333",
+    fontSize: 18,
+  },
+  icon: {
+    opacity: 0.5,
+    marginBottom: 20,
   },
 });

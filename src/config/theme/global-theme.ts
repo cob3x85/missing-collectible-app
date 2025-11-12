@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export const globalThemeStyles = StyleSheet.create({
   titleContainer: {
-    flexDirection: "row",
     alignItems: "center",
+    flexDirection: "row",
     gap: 8,
   },
   stepContainer: {
@@ -11,11 +11,10 @@ export const globalThemeStyles = StyleSheet.create({
     marginBottom: 8,
   },
   headerImageContainer: {
-    // backgroundColor: "orange",
+    alignContent: "center",
+    flex: 1,
     height: 178,
+    justifyContent: "center",
     width: "100%",
-    bottom: 0,
-    left: 0,
-    position: "absolute",
   },
 });

@@ -5,7 +5,7 @@ const FunKollectionBanner = () => (
   <Svg width="1242" height="268" viewBox="0 0 1242 268">
     <Defs>
       <LinearGradient id="bgGradient" x1="0" y1="0" x2="1242" y2="268">
-        <Stop offset="0" stopColor="#FFA500" />
+        <Stop offset="0" stopColor="#f46d03" />
         <Stop offset="1" stopColor="#0000FF" />
       </LinearGradient>
     </Defs>

@@ -1,5 +1,4 @@
 import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
 import { useCreateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -8,6 +7,7 @@ import {
   Alert,
   Button,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   TextInput,
@@ -201,10 +201,14 @@ export default function FunkoForm() {
 
   return (
     <ScrollView style={styles.container}>
-      <ThemedView style={styles.formContainer}>
-        <ThemedText type="title" style={styles.title}>
+      <View style={styles.formContainer}>
+        {/* <ThemedText type="title" style={styles.title}>
           Add New Funko
-        </ThemedText>
+        </ThemedText> */}
+
+        <Pressable onPress={() => {}}>
+          <ThemedText>Auto Fill</ThemedText>
+        </Pressable>
 
         {/* Name Field */}
         <View style={styles.fieldContainer}>
@@ -428,7 +432,7 @@ export default function FunkoForm() {
             {createFunko.isPending ? "Adding..." : "Add Funko"}
           </ThemedText>
         </TouchableOpacity>
-      </ThemedView>
+      </View>
     </ScrollView>
   );
 }
@@ -436,16 +440,18 @@ export default function FunkoForm() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "white",
   },
   formContainer: {
     padding: 20,
+    backgroundColor: Platform.OS === "web" ? "white" : "transparent",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
+    color: "black"
   },
   fieldContainer: {
     marginBottom: 20,
@@ -454,6 +460,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 8,
+    color: "black",
   },
   required: {
     color: "red",
