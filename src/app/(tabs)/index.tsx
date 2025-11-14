@@ -2,7 +2,6 @@ import { FunkoCard } from "@/components/funkos/FunkoCard";
 import { ThemedText } from "@/components/themed-text";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageSpinner } from "@/components/ui/image-spinner";
-import { MOCK_FUNKOS } from "@/constants/mock-data";
 import { useFunkos } from "@/hooks/useFunkos";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { useTheme } from "@react-navigation/native";
@@ -118,8 +117,16 @@ export default function HomeScreen() {
   }
 
   // Use real data if available, otherwise use mock data
-  const displayData = funkos && funkos.length > 0 ? funkos : MOCK_FUNKOS;
-  // const displayData = MOCK_FUNKOS;
+  const displayData = funkos && funkos.length > 0 ? funkos : [];
+
+  console.log("=== HomeScreen Data Debug ===");
+  console.log("funkos from database:", funkos);
+  console.log("displayData:", displayData);
+  if (displayData.length > 0) {
+    console.log("First item:", displayData[0]);
+    console.log("First item image_paths:", displayData[0]?.image_paths);
+  }
+  console.log("============================");
 
   return (
     <GlassContainer style={styles.container}>
@@ -134,20 +141,18 @@ export default function HomeScreen() {
         />
       </GlassView>
 
-<GlassView style={{ flex: 1 }}
->
-
-      <FlatList
-        style={styles.flatList}
-        contentContainerStyle={styles.flatListContent}
-        keyExtractor={(item) => item.id}
-        data={displayData}
-        renderItem={({ item }) => <FunkoCard {...item} />}
-        numColumns={2}
-        columnWrapperStyle={styles.row}
-        showsVerticalScrollIndicator={false}
+      <GlassView style={{ flex: 1 }}>
+        <FlatList
+          style={styles.flatList}
+          contentContainerStyle={styles.flatListContent}
+          keyExtractor={(item) => item.id}
+          data={displayData}
+          renderItem={({ item }) => <FunkoCard {...item} />}
+          numColumns={2}
+          columnWrapperStyle={styles.row}
+          showsVerticalScrollIndicator={false}
         />
-        </GlassView>
+      </GlassView>
 
       <Pressable
         style={styles.searchButton}
@@ -158,11 +163,7 @@ export default function HomeScreen() {
           });
         }}
       >
-        <IconSymbol
-          size={28}
-          name="magnifyingglass"
-          color="black"
-        />
+        <IconSymbol size={28} name="magnifyingglass" color="black" />
       </Pressable>
     </GlassContainer>
   );
@@ -197,7 +198,6 @@ const styles = StyleSheet.create({
     right: 30,
     borderColor: "black",
     borderWidth: 1,
-    
   },
   flatList: {
     flex: 1,

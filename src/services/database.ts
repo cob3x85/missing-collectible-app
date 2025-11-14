@@ -93,7 +93,9 @@ class DatabaseService {
         funko.current_value ?? null,
         funko.purchase_date ?? null,
         funko.notes ?? null,
-        funko.image_path ?? null,
+        funko.image_paths && funko.image_paths.length > 0
+          ? JSON.stringify(funko.image_paths)
+          : null,
         now,
         now,
       ]
@@ -108,7 +110,26 @@ class DatabaseService {
     const result = await this.db.getAllAsync(
       "SELECT * FROM funkos ORDER BY created_at DESC"
     );
-    return result as Funko[];
+
+    // Convert image_path to image_paths array (handle both JSON string and single path)
+    return (result as any[]).map((funko) => {
+      let image_paths: string[] | undefined;
+
+      if (funko.image_path) {
+        try {
+          // Try to parse as JSON array
+          image_paths = JSON.parse(funko.image_path);
+        } catch {
+          // If not JSON, treat as single path
+          image_paths = [funko.image_path];
+        }
+      }
+
+      return {
+        ...funko,
+        image_paths,
+      };
+    }) as Funko[];
   }
 
   async getFunkoById(id: string): Promise<Funko | null> {
@@ -118,11 +139,31 @@ class DatabaseService {
       "SELECT * FROM funkos WHERE id = ?",
       [id]
     );
-    return result as Funko | null;
+
+    if (!result) return null;
+
+    // Convert image_path to image_paths array (handle both JSON string and single path)
+    const funko = result as any;
+    let image_paths: string[] | undefined;
+
+    if (funko.image_path) {
+      try {
+        // Try to parse as JSON array
+        image_paths = JSON.parse(funko.image_path);
+      } catch {
+        // If not JSON, treat as single path
+        image_paths = [funko.image_path];
+      }
+    }
+
+    return {
+      ...funko,
+      image_paths,
+    } as Funko;
   }
 
-   /* 
-    * Retrieve all funkos matching a given name or partial name or funko number
+  /*
+   * Retrieve all funkos matching a given name or partial name or funko number
    */
   async getAllFunkoByName(name: string): Promise<Funko[] | []> {
     if (!this.db) throw new Error("Database not initialized");
@@ -130,7 +171,26 @@ class DatabaseService {
       "SELECT * FROM funkos WHERE name LIKE ? OR number LIKE ? ORDER BY created_at DESC",
       [`%${name}%`, `%${name}%`]
     );
-    return result as Funko[] | [];
+
+    // Convert image_path to image_paths array (handle both JSON string and single path)
+    return (result as any[]).map((funko) => {
+      let image_paths: string[] | undefined;
+
+      if (funko.image_path) {
+        try {
+          // Try to parse as JSON array
+          image_paths = JSON.parse(funko.image_path);
+        } catch {
+          // If not JSON, treat as single path
+          image_paths = [funko.image_path];
+        }
+      }
+
+      return {
+        ...funko,
+        image_paths,
+      };
+    }) as Funko[];
   }
 
   async updateFunko(
@@ -180,6 +240,12 @@ class DatabaseService {
     await this.db.runAsync("DELETE FROM funkos WHERE id = ?", [id]);
   }
 
+  async deleteAllFunkos(): Promise<void> {
+    if (!this.db) throw new Error("Database not initialized");
+
+    await this.db.runAsync("DELETE FROM funkos");
+  }
+
   async searchFunkos(query: string): Promise<Funko[]> {
     if (!this.db) throw new Error("Database not initialized");
 
@@ -187,9 +253,28 @@ class DatabaseService {
       `SELECT * FROM funkos 
        WHERE name LIKE ? OR series LIKE ? OR category LIKE ? OR number LIKE ?
        ORDER BY created_at DESC`,
-      [`%${query}%`, `%${query}%`, `%${query}%`]
+      [`%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`]
     );
-    return result as Funko[];
+
+    // Convert image_path to image_paths array (handle both JSON string and single path)
+    return (result as any[]).map((funko) => {
+      let image_paths: string[] | undefined;
+
+      if (funko.image_path) {
+        try {
+          // Try to parse as JSON array
+          image_paths = JSON.parse(funko.image_path);
+        } catch {
+          // If not JSON, treat as single path
+          image_paths = [funko.image_path];
+        }
+      }
+
+      return {
+        ...funko,
+        image_paths,
+      };
+    }) as Funko[];
   }
 }
 

@@ -76,7 +76,7 @@ export default function FunkoForm() {
     purchase_date: "",
     notes: "",
   });
-  const [imagePath, setImagePath] = useState<string | null>(null);
+  const [imagePaths, setImagePaths] = useState<string[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -95,7 +95,7 @@ export default function FunkoForm() {
         purchase_date: "",
         notes: "",
       });
-      setImagePath(null);
+      setImagePaths([]);
       setErrors({});
     },
     onError: (error: unknown) => {
@@ -106,10 +106,16 @@ export default function FunkoForm() {
   const handlePickImage = async () => {
     try {
       const path = await images.pickImageFromLibrary();
-      setImagePath(path);
+      if (path) {
+        setImagePaths((prev) => [...prev, path]);
+      }
     } catch (error) {
       Alert.alert("Error", (error as Error).message || "Failed to pick image");
     }
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setImagePaths((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async () => {
@@ -135,7 +141,7 @@ export default function FunkoForm() {
           : undefined,
         purchase_date: formData.purchase_date || undefined,
         notes: formData.notes || undefined,
-        image_path: imagePath || undefined,
+        image_paths: imagePaths.length > 0 ? imagePaths : undefined,
       });
     } catch (err) {
       if (err instanceof yup.ValidationError) {
@@ -415,12 +421,24 @@ export default function FunkoForm() {
 
         {/* Image Picker */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Image</ThemedText>
-          <Button title="Pick Image" onPress={handlePickImage} />
-          {imagePath && (
-            <ThemedText style={styles.imagePathText}>
-              Image selected ✓
-            </ThemedText>
+          <ThemedText style={styles.label}>Images</ThemedText>
+          <Button title="Add Image" onPress={handlePickImage} />
+          {imagePaths.length > 0 && (
+            <View style={styles.imagesList}>
+              {imagePaths.map((path, index) => (
+                <View key={index} style={styles.imageItem}>
+                  <ThemedText style={styles.imagePathText}>
+                    Image {index + 1} ✓
+                  </ThemedText>
+                  <TouchableOpacity
+                    onPress={() => handleRemoveImage(index)}
+                    style={styles.removeButton}
+                  >
+                    <ThemedText style={styles.removeButtonText}>×</ThemedText>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </View>
           )}
         </View>
 
@@ -513,10 +531,34 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "600",
   },
-  imagePathText: {
+  imagesList: {
     marginTop: 8,
+    gap: 8,
+  },
+  imageItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#f0f0f0",
+    padding: 8,
+    borderRadius: 8,
+  },
+  imagePathText: {
     fontSize: 14,
     color: "green",
+  },
+  removeButton: {
+    backgroundColor: "#ff3b30",
+    borderRadius: 12,
+    width: 24,
+    height: 24,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  removeButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   },
   submitButton: {
     backgroundColor: "#007AFF",

@@ -4,12 +4,12 @@ export interface Funko {
   series?: string;
   number: string;
   category?: string;
-  condition: 'mint' | 'near_mint' | 'good' | 'fair' | 'poor';
+  condition: "mint" | "near_mint" | "good" | "fair" | "poor";
   purchase_price?: number;
   current_value?: number;
   purchase_date?: string;
   notes?: string;
-  image_path?: string;
+  image_paths?: string[];
   created_at: string;
   updated_at: string;
 }
