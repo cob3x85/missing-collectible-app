@@ -1,16 +1,15 @@
 import { HelloWave } from "@/components/hello-wave";
 import ParallaxScrollView from "@/components/parallax-scroll-view";
 import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
 import { Platform, StyleSheet, View } from "react-native";
 import { globalThemeStyles } from "../../config/theme/global-theme";
-import { GlassView } from "expo-glass-effect";
 
-const headerImageUrl = Platform.OS === "web"
-  ? require("@/assets/images/funkollection-banner.jpeg")
-  : require("@/assets/images/dbzBackground.jpg");
+const headerImageUrl =
+  Platform.OS === "web"
+    ? require("@/assets/images/funkollection-banner.jpeg")
+    : require("@/assets/images/dbzBackground.jpg");
 export default function AboutScreen() {
   const theme = useTheme();
   const content = (
@@ -25,26 +24,32 @@ export default function AboutScreen() {
       }
     >
       <View style={[globalThemeStyles.titleContainer]}>
-        <ThemedText type="title">Fun-Kollection!</ThemedText>
+        <ThemedText type="title" style={{ color: "black" }}>
+          Fun-Kollection!
+        </ThemedText>
         <HelloWave />
       </View>
       <View>
-        <ThemedText>
+        <ThemedText style={{ color: "black" }}>
           This is a Funko companion app to help track your collection. You can
           add, edit, and remove Funkos from your collection, as well as view
           details about each Funko.
         </ThemedText>
       </View>
       <View style={globalThemeStyles.stepContainer}>
-        <ThemedText type="subtitle">Problem </ThemedText>
-        <ThemedText>
+        <ThemedText type="subtitle" style={{ color: "black" }}>
+          Problem{" "}
+        </ThemedText>
+        <ThemedText style={{ color: "black" }}>
           Many Funko collectors struggle to keep track of their ever-growing
           collections. With new releases and exclusive items, it can be
           challenging to remember which Funkos you own, where they are stored,
           and their condition.
         </ThemedText>
-        <ThemedText type="subtitle">Solution </ThemedText>
-        <ThemedText>
+        <ThemedText type="subtitle" style={{ color: "black" }}>
+          Solution{" "}
+        </ThemedText>
+        <ThemedText style={{ color: "black" }}>
           This app aims to solve that problem by providing an easy-to-use
           platform for managing your Funko collection. Whether you&apos;re at a
           convention, browsing online marketplaces, or participating in

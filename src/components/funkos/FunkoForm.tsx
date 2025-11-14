@@ -7,7 +7,6 @@ import {
   Alert,
   Button,
   Platform,
-  Pressable,
   ScrollView,
   StyleSheet,
   TextInput,
@@ -202,13 +201,9 @@ export default function FunkoForm() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.formContainer}>
-        {/* <ThemedText type="title" style={styles.title}>
-          Add New Funko
-        </ThemedText> */}
-
-        <Pressable onPress={() => {}}>
+        {/* <Pressable onPress={() => {}}>
           <ThemedText>Auto Fill</ThemedText>
-        </Pressable>
+        </Pressable> */}
 
         {/* Name Field */}
         <View style={styles.fieldContainer}>
@@ -218,6 +213,7 @@ export default function FunkoForm() {
           <TextInput
             style={[styles.input, errors.name && styles.inputError]}
             placeholder="Enter Funko name"
+            placeholderTextColor="#666666"
             value={formData.name}
             onChangeText={(value) => updateField("name", value)}
             autoCapitalize="words"
@@ -233,6 +229,7 @@ export default function FunkoForm() {
           <TextInput
             style={[styles.input, errors.series && styles.inputError]}
             placeholder="Enter series name"
+            placeholderTextColor="#666666"
             value={formData.series}
             onChangeText={(value) => updateField("series", value)}
             autoCapitalize="words"
@@ -250,6 +247,7 @@ export default function FunkoForm() {
           <TextInput
             style={[styles.input, errors.number && styles.inputError]}
             placeholder="Enter Funko number (e.g., 001)"
+            placeholderTextColor="#666666"
             value={formData.number}
             onChangeText={(value) => updateField("number", value)}
             keyboardType="numeric"
@@ -265,6 +263,7 @@ export default function FunkoForm() {
           <TextInput
             style={[styles.input, errors.category && styles.inputError]}
             placeholder="Enter category (e.g., Pop!, Soda)"
+            placeholderTextColor="#666666"
             value={formData.category}
             onChangeText={(value) => updateField("category", value)}
             autoCapitalize="words"
@@ -315,6 +314,7 @@ export default function FunkoForm() {
           <TextInput
             style={[styles.input, errors.purchase_price && styles.inputError]}
             placeholder="Enter purchase price"
+            placeholderTextColor="#666666"
             value={formData.purchase_price}
             onChangeText={(value) => updateField("purchase_price", value)}
             keyboardType="decimal-pad"
@@ -332,6 +332,7 @@ export default function FunkoForm() {
           <TextInput
             style={[styles.input, errors.current_value && styles.inputError]}
             placeholder="Enter current value"
+            placeholderTextColor="#666666"
             value={formData.current_value}
             onChangeText={(value) => updateField("current_value", value)}
             keyboardType="decimal-pad"
@@ -400,6 +401,7 @@ export default function FunkoForm() {
               errors.notes && styles.inputError,
             ]}
             placeholder="Add any additional notes"
+            placeholderTextColor="#666666"
             value={formData.notes}
             onChangeText={(value) => updateField("notes", value)}
             multiline
@@ -451,7 +453,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-    color: "black"
   },
   fieldContainer: {
     marginBottom: 20,
@@ -506,6 +507,7 @@ const styles = StyleSheet.create({
   conditionButtonText: {
     fontSize: 14,
     textTransform: "capitalize",
+    color: "#333333",
   },
   conditionButtonTextActive: {
     color: "white",
