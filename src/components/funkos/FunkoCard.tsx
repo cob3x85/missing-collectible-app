@@ -148,14 +148,13 @@ export const FunkoCard = (funko: FunkoCardProps) => {
         onRequestClose={() => setShowDetailModal(false)}
         statusBarTranslucent
       >
-        <Pressable
-          style={styles.detailModalOverlay}
-          onPress={() => setShowDetailModal(false)}
-        >
-          <Pressable
-            style={styles.detailModalContent}
-            onPress={(e) => e.stopPropagation()}
-          >
+        <View style={styles.detailModalOverlay}>
+          <TouchableOpacity
+            style={styles.modalBackdrop}
+            activeOpacity={1}
+            onPress={() => setShowDetailModal(false)}
+          />
+          <View style={styles.detailModalContent}>
             <View style={styles.detailHeader}>
               <ThemedText style={styles.detailTitle}>{name}</ThemedText>
               <TouchableOpacity
@@ -169,29 +168,34 @@ export const FunkoCard = (funko: FunkoCardProps) => {
               </TouchableOpacity>
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={true}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              bounces={true}
+              contentContainerStyle={styles.scrollContent}
+            >
               {/* Image Gallery */}
               {image_paths && image_paths.length > 0 && (
-                <FlatList
-                  data={image_paths}
-                  horizontal
-                  pagingEnabled
-                  showsHorizontalScrollIndicator={false}
-                  snapToInterval={SCREEN_WIDTH - 40}
-                  decelerationRate="fast"
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => (
-                    <View style={styles.imageSlide}>
-                      <Image
-                        source={{ uri: item }}
-                        style={styles.detailImage}
-                        resizeMode="contain"
-                      />
-                    </View>
-                  )}
-                  style={styles.imageGallery}
-                  contentContainerStyle={styles.imageGalleryContent}
-                />
+                <View style={styles.imageGallery} pointerEvents="box-none">
+                  <FlatList
+                    data={image_paths}
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    snapToInterval={SCREEN_WIDTH - 40}
+                    decelerationRate="fast"
+                    keyExtractor={(item, index) => index.toString()}
+                    scrollEnabled={image_paths.length > 1}
+                    renderItem={({ item }) => (
+                      <View style={styles.imageSlide}>
+                        <Image
+                          source={{ uri: item }}
+                          style={styles.detailImage}
+                          resizeMode="contain"
+                        />
+                      </View>
+                    )}
+                  />
+                </View>
               )}
 
               <View style={styles.detailInfo}>
@@ -267,8 +271,8 @@ export const FunkoCard = (funko: FunkoCardProps) => {
                 )}
               </View>
             </ScrollView>
-          </Pressable>
-        </Pressable>
+          </View>
+        </View>
       </Modal>
     </>
   );
@@ -418,11 +422,18 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.7)",
     justifyContent: "flex-end",
   },
+  modalBackdrop: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   detailModalContent: {
     backgroundColor: "white",
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    maxHeight: "88%",
+    maxHeight: "85%",
     padding: 20,
   },
   detailHeader: {
@@ -454,9 +465,6 @@ const styles = StyleSheet.create({
     height: 300,
     marginBottom: 20,
   },
-  imageGalleryContent: {
-    paddingHorizontal: 0,
-  },
   imageSlide: {
     width: SCREEN_WIDTH - 40,
     height: 300,
@@ -470,6 +478,10 @@ const styles = StyleSheet.create({
   },
   detailInfo: {
     gap: 12,
+    paddingBottom: 20,
+  },
+  scrollContent: {
+    flexGrow: 1,
   },
   detailRow: {
     flexDirection: "row",
