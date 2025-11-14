@@ -134,6 +134,9 @@ export default function HomeScreen() {
         />
       </GlassView>
 
+<GlassView style={{ flex: 1 }}
+>
+
       <FlatList
         style={styles.flatList}
         contentContainerStyle={styles.flatListContent}
@@ -143,7 +146,8 @@ export default function HomeScreen() {
         numColumns={2}
         columnWrapperStyle={styles.row}
         showsVerticalScrollIndicator={false}
-      />
+        />
+        </GlassView>
 
       <Pressable
         style={styles.searchButton}
@@ -157,7 +161,7 @@ export default function HomeScreen() {
         <IconSymbol
           size={28}
           name="magnifyingglass"
-          color={theme.colors.text}
+          color="black"
         />
       </Pressable>
     </GlassContainer>
@@ -191,10 +195,14 @@ const styles = StyleSheet.create({
     padding: 15,
     position: "absolute",
     right: 30,
+    borderColor: "black",
+    borderWidth: 1,
+    
   },
   flatList: {
     flex: 1,
     width: "100%",
+    backgroundColor: "white",
   },
   flatListContent: {
     padding: 15,

@@ -15,6 +15,7 @@ export default function AboutScreen() {
   const content = (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#f46d03", dark: "#f46d03" }}
+      customBackgroundColor="white"
       headerImage={
         <Image
           source={headerImageUrl}
@@ -23,13 +24,15 @@ export default function AboutScreen() {
         />
       }
     >
-      <View style={[globalThemeStyles.titleContainer]}>
-        <ThemedText type="title" style={{ color: "black" }}>
-          Fun-Kollection!
-        </ThemedText>
-        <HelloWave />
-      </View>
-      <View>
+      {Platform.OS === "web" ? null : (
+        <View style={[globalThemeStyles.titleContainer]}>
+          <ThemedText type="title" style={{ color: "black" }}>
+            Fun-Kollection!
+          </ThemedText>
+          <HelloWave />
+        </View>
+      )}
+      <View style={globalThemeStyles.stepContainer}>
         <ThemedText style={{ color: "black" }}>
           This is a Funko companion app to help track your collection. You can
           add, edit, and remove Funkos from your collection, as well as view
@@ -58,6 +61,7 @@ export default function AboutScreen() {
         </ThemedText>
       </View>
     </ParallaxScrollView>
+    
   );
 
   if (Platform.OS === "web") {
@@ -76,10 +80,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
+    height: "100%",
   },
   webContent: {
     width: "100%",
     maxWidth: 1200,
     flex: 1,
+    
   },
 });
