@@ -15,7 +15,8 @@
         "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to let you select Funko Pop images for your collection.",
         "NSCameraUsageDescription": "This app needs access to your camera to let you take photos of your Funko Pops.",
         "NSPhotoLibraryAddUsageDescription": "This app needs access to save Funko Pop images to your photo library."
-      }
+      }, 
+      "icon": "./assets/images/missingfunko.png"
     },
     "android": {
       "adaptiveIcon": {
