@@ -5,26 +5,37 @@ import * as Haptics from "expo-haptics";
 import { useState } from "react";
 import {
   Alert,
+  Dimensions,
+  FlatList,
   Image,
   Modal,
   Pressable,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
 
-export type FunkoCardProps = Pick<
-  Funko,
-  "id" | "name" | "image_paths" | "number"
-> & {};
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
-export const FunkoCard = ({
-  id,
-  name,
-  image_paths,
-  number,
-}: FunkoCardProps) => {
+export type FunkoCardProps = Funko & {};
+
+export const FunkoCard = (funko: FunkoCardProps) => {
+  const {
+    id,
+    name,
+    image_paths,
+    number,
+    series,
+    category,
+    condition,
+    purchase_price,
+    current_value,
+    purchase_date,
+    notes,
+  } = funko;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
   const deleteFunko = useDeleteFunko({
     onSuccess: () => {
       setShowDeleteModal(false);
@@ -43,6 +54,11 @@ export const FunkoCard = ({
     setShowDeleteModal(true);
   };
 
+  const handlePress = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    setShowDetailModal(true);
+  };
+
   const handleDelete = () => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
     deleteFunko.mutate(id);
@@ -55,11 +71,7 @@ export const FunkoCard = ({
           styles.cardContainer,
           pressed && styles.pressed,
         ]}
-        onPress={() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          console.log("Pressed funko:", name, id, image_paths) ;
-          // Add navigation or action here
-        }}
+        onPress={handlePress}
         onLongPress={handleLongPress}
       >
         {/* Number badge - top right */}
@@ -126,6 +138,137 @@ export const FunkoCard = ({
             </View>
           </View>
         </View>
+      </Modal>
+
+      {/* Detail Modal */}
+      <Modal
+        visible={showDetailModal}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowDetailModal(false)}
+        statusBarTranslucent
+      >
+        <Pressable
+          style={styles.detailModalOverlay}
+          onPress={() => setShowDetailModal(false)}
+        >
+          <Pressable
+            style={styles.detailModalContent}
+            onPress={(e) => e.stopPropagation()}
+          >
+            <View style={styles.detailHeader}>
+              <ThemedText style={styles.detailTitle}>{name}</ThemedText>
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  setShowDetailModal(false);
+                }}
+              >
+                <ThemedText style={styles.closeButtonText}>✕</ThemedText>
+              </TouchableOpacity>
+            </View>
+
+            <ScrollView showsVerticalScrollIndicator={true}>
+              {/* Image Gallery */}
+              {image_paths && image_paths.length > 0 && (
+                <FlatList
+                  data={image_paths}
+                  horizontal
+                  pagingEnabled
+                  showsHorizontalScrollIndicator={false}
+                  snapToInterval={SCREEN_WIDTH - 40}
+                  decelerationRate="fast"
+                  keyExtractor={(item, index) => index.toString()}
+                  renderItem={({ item }) => (
+                    <View style={styles.imageSlide}>
+                      <Image
+                        source={{ uri: item }}
+                        style={styles.detailImage}
+                        resizeMode="contain"
+                      />
+                    </View>
+                  )}
+                  style={styles.imageGallery}
+                  contentContainerStyle={styles.imageGalleryContent}
+                />
+              )}
+
+              <View style={styles.detailInfo}>
+                {number && (
+                  <View style={styles.detailRow}>
+                    <ThemedText style={styles.detailLabel}>Number:</ThemedText>
+                    <ThemedText style={styles.detailValue}>{number}</ThemedText>
+                  </View>
+                )}
+                {series && (
+                  <View style={styles.detailRow}>
+                    <ThemedText style={styles.detailLabel}>Series:</ThemedText>
+                    <ThemedText style={styles.detailValue}>{series}</ThemedText>
+                  </View>
+                )}
+                {category && (
+                  <View style={styles.detailRow}>
+                    <ThemedText style={styles.detailLabel}>
+                      Category:
+                    </ThemedText>
+                    <ThemedText style={styles.detailValue}>
+                      {category}
+                    </ThemedText>
+                  </View>
+                )}
+                {condition && (
+                  <View style={styles.detailRow}>
+                    <ThemedText style={styles.detailLabel}>
+                      Condition:
+                    </ThemedText>
+                    <ThemedText style={styles.detailValue}>
+                      {condition.replace("_", " ")}
+                    </ThemedText>
+                  </View>
+                )}
+                {purchase_price && (
+                  <View style={styles.detailRow}>
+                    <ThemedText style={styles.detailLabel}>
+                      Purchase Price:
+                    </ThemedText>
+                    <ThemedText style={styles.detailValue}>
+                      ${purchase_price.toFixed(2)}
+                    </ThemedText>
+                  </View>
+                )}
+                {current_value && (
+                  <View style={styles.detailRow}>
+                    <ThemedText style={styles.detailLabel}>
+                      Current Value:
+                    </ThemedText>
+                    <ThemedText style={styles.detailValue}>
+                      ${current_value.toFixed(2)}
+                    </ThemedText>
+                  </View>
+                )}
+                {purchase_date && (
+                  <View style={styles.detailRow}>
+                    <ThemedText style={styles.detailLabel}>
+                      Purchase Date:
+                    </ThemedText>
+                    <ThemedText style={styles.detailValue}>
+                      {purchase_date}
+                    </ThemedText>
+                  </View>
+                )}
+                {notes && (
+                  <View style={styles.detailRowColumn}>
+                    <ThemedText style={styles.detailLabel}>Notes:</ThemedText>
+                    <ThemedText style={styles.detailValueMultiline}>
+                      {notes}
+                    </ThemedText>
+                  </View>
+                )}
+              </View>
+            </ScrollView>
+          </Pressable>
+        </Pressable>
       </Modal>
     </>
   );
@@ -269,5 +412,91 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "600",
+  },
+  detailModalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    justifyContent: "flex-end",
+  },
+  detailModalContent: {
+    backgroundColor: "white",
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    maxHeight: "88%",
+    padding: 20,
+  },
+  detailHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  detailTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#333",
+    flex: 1,
+  },
+  closeButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  closeButtonText: {
+    fontSize: 20,
+    color: "#666",
+    fontWeight: "bold",
+  },
+  imageGallery: {
+    height: 300,
+    marginBottom: 20,
+  },
+  imageGalleryContent: {
+    paddingHorizontal: 0,
+  },
+  imageSlide: {
+    width: SCREEN_WIDTH - 40,
+    height: 300,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  detailImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 12,
+  },
+  detailInfo: {
+    gap: 12,
+  },
+  detailRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
+  },
+  detailRowColumn: {
+    flexDirection: "column",
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
+    gap: 8,
+  },
+  detailLabel: {
+    fontSize: 16,
+    color: "#666",
+    fontWeight: "600",
+  },
+  detailValue: {
+    fontSize: 16,
+    color: "#333",
+  },
+  detailValueMultiline: {
+    fontSize: 16,
+    color: "#333",
+    lineHeight: 22,
   },
 });
