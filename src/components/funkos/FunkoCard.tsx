@@ -57,7 +57,7 @@ export const FunkoCard = ({
         ]}
         onPress={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          console.log("Pressed funko:", name, id);
+          console.log("Pressed funko:", name, id, image_paths) ;
           // Add navigation or action here
         }}
         onLongPress={handleLongPress}

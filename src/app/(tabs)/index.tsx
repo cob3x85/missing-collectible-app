@@ -116,17 +116,7 @@ export default function HomeScreen() {
     );
   }
 
-  // Use real data if available, otherwise use mock data
   const displayData = funkos && funkos.length > 0 ? funkos : [];
-
-  console.log("=== HomeScreen Data Debug ===");
-  console.log("funkos from database:", funkos);
-  console.log("displayData:", displayData);
-  if (displayData.length > 0) {
-    console.log("First item:", displayData[0]);
-    console.log("First item image_paths:", displayData[0]?.image_paths);
-  }
-  console.log("============================");
 
   return (
     <GlassContainer style={styles.container}>

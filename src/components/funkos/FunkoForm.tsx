@@ -380,6 +380,8 @@ export default function FunkoForm() {
                 display={Platform.OS === "ios" ? "spinner" : "default"}
                 onChange={handleDateChange}
                 maximumDate={new Date()}
+                textColor="black"
+                themeVariant="light"
               />
               {Platform.OS === "ios" && (
                 <View style={styles.datePickerButtons}>
@@ -575,6 +577,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 16,
+    color: "black",
   },
   datePlaceholder: {
     color: "#999",
