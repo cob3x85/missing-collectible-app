@@ -1,18 +1,19 @@
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
-import { Host, Text } from "@expo/ui/swift-ui";
-import { glassEffect } from "@expo/ui/swift-ui/modifiers";
-import { GlassView } from "expo-glass-effect";
 import { useRouter } from "expo-router";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
+import { Host } from "@expo/ui/swift-ui";
 
 export const SearchBar = () => {
   const { playFeedback } = useHapticFeedback();
   const router = useRouter();
   return (
-    <GlassView>
+    <View style={styles.container}>
       <Pressable
-        style={styles.searchButton}
+        style={({ pressed }) => [
+          styles.searchButton,
+          pressed && styles.pressed,
+        ]}
         onPress={() => {
           playFeedback("medium");
           router.push({
@@ -22,20 +23,7 @@ export const SearchBar = () => {
       >
         <IconSymbol size={28} name="magnifyingglass" color="rgba(64,64,64,1)" />
       </Pressable>
-      <Host style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text
-          modifiers={[
-            glassEffect({
-              glass: {
-                variant: "clear",
-              },
-            }),
-          ]}
-        >
-          Search Bar Component
-        </Text>
-      </Host>
-    </GlassView>
+    </View>
   );
 };
 
@@ -49,5 +37,9 @@ const styles = StyleSheet.create({
     right: 30,
     borderColor: "rgba(64, 64, 64, 1)",
     borderWidth: 1,
+  },
+  pressed: {
+    opacity: 0.4,
+    transform: [{ scale: 0.98 }],
   },
 });
