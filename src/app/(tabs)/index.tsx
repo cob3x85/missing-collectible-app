@@ -1,4 +1,5 @@
 import { FunkoCard } from "@/components/funkos/FunkoCard";
+import { SearchBar } from "@/components/search/SearchBar";
 import { ThemedText } from "@/components/themed-text";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageSpinner } from "@/components/ui/image-spinner";
@@ -67,18 +68,26 @@ export default function HomeScreen() {
             <IconSymbol
               size={80}
               name="tray.fill"
-              color="#333333"
+              color={theme.colors.text}
               style={styles.icon}
             />
           )}
 
           <ThemedText
             type="subtitle"
-            style={[styles.emptyLabel, { marginBottom: 10 }]}
+            style={[
+              styles.emptyLabel,
+              { marginBottom: 10, color: theme.colors.text },
+            ]}
           >
             No Funkos Yet
           </ThemedText>
-          <ThemedText style={[styles.emptyLabel, { marginBottom: 30 }]}>
+          <ThemedText
+            style={[
+              styles.emptyLabel,
+              { marginBottom: 30, color: theme.colors.text },
+            ]}
+          >
             Start your collection by adding your first Funko!
           </ThemedText>
 
@@ -143,18 +152,7 @@ export default function HomeScreen() {
           showsVerticalScrollIndicator={false}
         />
       </GlassView>
-
-      <Pressable
-        style={styles.searchButton}
-        onPress={() => {
-          playFeedback("light");
-          router.push({
-            pathname: "/search",
-          });
-        }}
-      >
-        <IconSymbol size={28} name="magnifyingglass" color="black" />
-      </Pressable>
+      <SearchBar />
     </GlassContainer>
   );
 }
@@ -178,16 +176,6 @@ const styles = StyleSheet.create({
     fontFamily: "Slackey",
     fontSize: 24,
     fontWeight: "bold",
-  },
-  searchButton: {
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
-    borderRadius: 30,
-    bottom: 30,
-    padding: 15,
-    position: "absolute",
-    right: 30,
-    borderColor: "black",
-    borderWidth: 1,
   },
   flatList: {
     flex: 1,
