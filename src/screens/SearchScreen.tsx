@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export const SearchScreen = () => {
+export default function SearchScreen() {
   const insets = useSafeAreaInsets();
   const [searchQuery, setSearchQuery] = useState<string>("");
 

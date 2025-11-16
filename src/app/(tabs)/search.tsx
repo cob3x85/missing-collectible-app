@@ -1,4 +1,4 @@
-import { SearchScreen } from "@/screens/SearchScreen";
+import SearchScreen from "@/screens/SearchScreen";
 import { GlassView } from "expo-glass-effect";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";

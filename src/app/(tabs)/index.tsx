@@ -152,7 +152,7 @@ export default function HomeScreen() {
           showsVerticalScrollIndicator={false}
         />
       </GlassView>
-      <SearchBar />
+      {Platform.OS === "ios" ? null : <SearchBar />}
     </GlassContainer>
   );
 }
