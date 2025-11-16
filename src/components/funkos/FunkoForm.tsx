@@ -42,21 +42,25 @@ const funkoValidationSchema = yup.object().shape({
     ),
   purchase_price: yup
     .number()
-    .transform((value, originalValue) => originalValue === "" || originalValue === null ? null : value)
+    .transform((value, originalValue) =>
+      originalValue === "" || originalValue === null ? null : value
+    )
     .positive("Price must be a positive number")
     .max(999999, "Price is too high")
     .nullable()
     .optional(),
   current_value: yup
     .number()
-    .transform((value, originalValue) => originalValue === "" || originalValue === null ? null : value)
+    .transform((value, originalValue) =>
+      originalValue === "" || originalValue === null ? null : value
+    )
     .positive("Value must be a positive number")
     .max(999999, "Value is too high")
     .nullable()
     .optional(),
   purchase_date: yup
     .string()
-    .transform((value) => value === "" ? null : value)
+    .transform((value) => (value === "" ? null : value))
     .matches(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format")
     .nullable()
     .optional(),
@@ -539,8 +543,8 @@ export default function FunkoForm({
         {/* Image Picker */}
         <View style={styles.fieldContainer}>
           <ThemedText style={styles.label}>Images</ThemedText>
-          <TouchableOpacity 
-            style={styles.addImageButton} 
+          <TouchableOpacity
+            style={styles.addImageButton}
             onPress={handlePickImage}
           >
             <View style={styles.addImageIcon}>
@@ -669,11 +673,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   addImageButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderRadius: 8,
     padding: 12,
     gap: 8,
@@ -682,20 +686,20 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#007AFF',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#007AFF",
+    alignItems: "center",
+    justifyContent: "center",
   },
   addImageIconText: {
-    color: 'white',
+    color: "white",
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     lineHeight: 28,
   },
   addImageText: {
     fontSize: 16,
-    color: '#007AFF',
-    fontWeight: '600',
+    color: "#007AFF",
+    fontWeight: "600",
   },
   imagesList: {
     marginTop: 8,
