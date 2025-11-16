@@ -13,18 +13,15 @@ import {
   View,
 } from "react-native";
 import { FunkoDetail } from "./FunkoDetail";
+import FunkoForm from "./FunkoForm";
 
 export type FunkoCardProps = Funko & {};
 
 export const FunkoCard = (funko: FunkoCardProps) => {
-  const {
-    id,
-    name,
-    image_paths,
-    number,
-  } = funko;
+  const { id, name, image_paths, number } = funko;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const deleteFunko = useDeleteFunko({
     onSuccess: () => {
@@ -64,6 +61,11 @@ export const FunkoCard = (funko: FunkoCardProps) => {
         onPress={handlePress}
         onLongPress={handleLongPress}
       >
+        {/* Edit icon overlay - top left */}
+        <View style={styles.editIconOverlay}>
+          <ThemedText style={styles.editIconText}>✎</ThemedText>
+        </View>
+
         {/* Number badge - top right */}
         {number && (
           <View style={styles.numberBadge}>
@@ -135,7 +137,39 @@ export const FunkoCard = (funko: FunkoCardProps) => {
         visible={showDetailModal}
         onClose={() => setShowDetailModal(false)}
         funko={funko}
+        onEdit={() => {
+          setShowDetailModal(false);
+          setShowEditModal(true);
+        }}
       />
+
+      {/* Edit Modal */}
+      <Modal
+        visible={showEditModal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowEditModal(false)}
+      >
+        <View style={styles.editModalContainer}>
+          <View style={styles.editModalHeader}>
+            <ThemedText style={styles.editModalTitle}>Edit Funko</ThemedText>
+            <TouchableOpacity
+              style={styles.editModalCloseButton}
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setShowEditModal(false);
+              }}
+            >
+              <ThemedText style={styles.editModalCloseText}>✕</ThemedText>
+            </TouchableOpacity>
+          </View>
+          <FunkoForm
+            mode="edit"
+            initialData={funko}
+            onSuccess={() => setShowEditModal(false)}
+          />
+        </View>
+      </Modal>
     </>
   );
 };
@@ -165,6 +199,23 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.7,
     transform: [{ scale: 0.98 }],
+  },
+  editIconOverlay: {
+    position: "absolute",
+    top: 8,
+    left: 8,
+    backgroundColor: "rgba(0, 122, 255, 0.9)",
+    borderRadius: 12,
+    width: 24,
+    height: 24,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 10,
+  },
+  editIconText: {
+    fontSize: 14,
+    color: "white",
+    fontWeight: "bold",
   },
   numberBadge: {
     position: "absolute",
@@ -279,5 +330,37 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "600",
+  },
+  editModalContainer: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  editModalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingTop: 60,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e0e0e0",
+  },
+  editModalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  editModalCloseButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  editModalCloseText: {
+    fontSize: 20,
+    color: "#666",
+    fontWeight: "bold",
   },
 });

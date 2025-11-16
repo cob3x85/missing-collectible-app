@@ -18,9 +18,15 @@ interface FunkoDetailProps {
   visible: boolean;
   onClose: () => void;
   funko: Funko;
+  onEdit?: () => void;
 }
 
-export const FunkoDetail = ({ visible, onClose, funko }: FunkoDetailProps) => {
+export const FunkoDetail = ({
+  visible,
+  onClose,
+  funko,
+  onEdit,
+}: FunkoDetailProps) => {
   const {
     name,
     image_paths,
@@ -32,6 +38,7 @@ export const FunkoDetail = ({ visible, onClose, funko }: FunkoDetailProps) => {
     current_value,
     purchase_date,
     notes,
+    has_protector_case,
   } = funko;
 
   return (
@@ -51,15 +58,28 @@ export const FunkoDetail = ({ visible, onClose, funko }: FunkoDetailProps) => {
         <View style={styles.detailModalContent}>
           <View style={styles.detailHeader}>
             <ThemedText style={styles.detailTitle}>{name}</ThemedText>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                onClose();
-              }}
-            >
-              <ThemedText style={styles.closeButtonText}>✕</ThemedText>
-            </TouchableOpacity>
+            <View style={styles.headerButtons}>
+              {onEdit && (
+                <TouchableOpacity
+                  style={styles.editButton}
+                  onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                    onEdit();
+                  }}
+                >
+                  <ThemedText style={styles.editButtonText}>✎</ThemedText>
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  onClose();
+                }}
+              >
+                <ThemedText style={styles.closeButtonText}>✕</ThemedText>
+              </TouchableOpacity>
+            </View>
           </View>
 
           <ScrollView
@@ -116,6 +136,16 @@ export const FunkoDetail = ({ visible, onClose, funko }: FunkoDetailProps) => {
                   <ThemedText style={styles.detailLabel}>Condition:</ThemedText>
                   <ThemedText style={styles.detailValue}>
                     {condition.replace("_", " ")}
+                  </ThemedText>
+                </View>
+              )}
+              {has_protector_case !== undefined && (
+                <View style={styles.detailRow}>
+                  <ThemedText style={styles.detailLabel}>
+                    Protector Case:
+                  </ThemedText>
+                  <ThemedText style={styles.detailValue}>
+                    {has_protector_case ? "✓ Yes" : "No"}
                   </ThemedText>
                 </View>
               )}
@@ -196,6 +226,23 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
     flex: 1,
+  },
+  headerButtons: {
+    flexDirection: "row",
+    gap: 8,
+  },
+  editButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "#007AFF",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  editButtonText: {
+    fontSize: 18,
+    color: "white",
+    fontWeight: "bold",
   },
   closeButton: {
     width: 32,

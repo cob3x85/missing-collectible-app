@@ -1,7 +1,9 @@
 import { ThemedText } from "@/components/themed-text";
-import { useCreateFunko } from "@/hooks/useFunkos";
+import { Funko } from "@/database/schema";
+import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as Haptics from "expo-haptics";
 import React, { useState } from "react";
 import {
   Alert,
@@ -9,6 +11,7 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
+  Switch,
   TextInput,
   TouchableOpacity,
   View,
@@ -50,6 +53,7 @@ const funkoValidationSchema = yup.object().shape({
     .string()
     .matches(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
   notes: yup.string().max(500, "Notes must be less than 500 characters"),
+  hasProtectorCase: yup.boolean().optional(),
 });
 
 type FunkoFormData = {
@@ -62,21 +66,39 @@ type FunkoFormData = {
   current_value: string;
   purchase_date: string;
   notes: string;
+  hasProtectorCase: boolean;
 };
 
-export default function FunkoForm() {
+interface FunkoFormProps {
+  mode?: "create" | "edit";
+  initialData?: Funko;
+  onSuccess?: () => void;
+}
+
+export default function FunkoForm({
+  mode = "create",
+  initialData,
+  onSuccess,
+}: FunkoFormProps) {
   const [formData, setFormData] = useState<FunkoFormData>({
-    name: "",
-    series: "",
-    number: "",
-    category: "Pop!",
-    condition: "mint",
-    purchase_price: "",
-    current_value: "",
-    purchase_date: "",
-    notes: "",
+    name: initialData?.name || "",
+    series: initialData?.series || "",
+    number: initialData?.number || "",
+    category: initialData?.category || "Pop!",
+    condition: initialData?.condition || "mint",
+    purchase_price: initialData?.purchase_price
+      ? initialData.purchase_price.toString()
+      : "",
+    current_value: initialData?.current_value
+      ? initialData.current_value.toString()
+      : "",
+    purchase_date: initialData?.purchase_date || "",
+    notes: initialData?.notes || "",
+    hasProtectorCase: initialData?.has_protector_case || false,
   });
-  const [imagePaths, setImagePaths] = useState<string[]>([]);
+  const [imagePaths, setImagePaths] = useState<string[]>(
+    initialData?.image_paths || []
+  );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -94,12 +116,27 @@ export default function FunkoForm() {
         current_value: "",
         purchase_date: "",
         notes: "",
+        hasProtectorCase: false,
       });
       setImagePaths([]);
       setErrors({});
+      onSuccess?.();
     },
     onError: (error: unknown) => {
       Alert.alert("Error", (error as Error).message || "Failed to add Funko");
+    },
+  });
+
+  const updateFunko = useUpdateFunko({
+    onSuccess: () => {
+      Alert.alert("Success", "Funko updated successfully!");
+      onSuccess?.();
+    },
+    onError: (error: unknown) => {
+      Alert.alert(
+        "Error",
+        (error as Error).message || "Failed to update Funko"
+      );
     },
   });
 
@@ -126,23 +163,47 @@ export default function FunkoForm() {
       // Validate form data
       await funkoValidationSchema.validate(formData, { abortEarly: false });
 
-      // If validation passes, create the Funko
-      createFunko.mutate({
-        name: formData.name,
-        series: formData.series || undefined,
-        number: formData.number,
-        category: formData.category || undefined,
-        condition: formData.condition,
-        purchase_price: formData.purchase_price
-          ? parseFloat(formData.purchase_price)
-          : undefined,
-        current_value: formData.current_value
-          ? parseFloat(formData.current_value)
-          : undefined,
-        purchase_date: formData.purchase_date || undefined,
-        notes: formData.notes || undefined,
-        image_paths: imagePaths.length > 0 ? imagePaths : undefined,
-      });
+      // If validation passes, create or update the Funko
+      if (mode === "edit" && initialData) {
+        updateFunko.mutate({
+          id: initialData.id,
+          updates: {
+            name: formData.name,
+            series: formData.series || undefined,
+            number: formData.number,
+            category: formData.category || undefined,
+            condition: formData.condition,
+            purchase_price: formData.purchase_price
+              ? parseFloat(formData.purchase_price)
+              : undefined,
+            current_value: formData.current_value
+              ? parseFloat(formData.current_value)
+              : undefined,
+            purchase_date: formData.purchase_date || undefined,
+            notes: formData.notes || undefined,
+            has_protector_case: formData.hasProtectorCase,
+            image_paths: imagePaths.length > 0 ? imagePaths : undefined,
+          },
+        });
+      } else {
+        createFunko.mutate({
+          name: formData.name,
+          series: formData.series || undefined,
+          number: formData.number,
+          category: formData.category || undefined,
+          condition: formData.condition,
+          purchase_price: formData.purchase_price
+            ? parseFloat(formData.purchase_price)
+            : undefined,
+          current_value: formData.current_value
+            ? parseFloat(formData.current_value)
+            : undefined,
+          purchase_date: formData.purchase_date || undefined,
+          notes: formData.notes || undefined,
+          has_protector_case: formData.hasProtectorCase,
+          image_paths: imagePaths.length > 0 ? imagePaths : undefined,
+        });
+      }
     } catch (err) {
       if (err instanceof yup.ValidationError) {
         // Collect all validation errors
@@ -314,6 +375,23 @@ export default function FunkoForm() {
           )}
         </View>
 
+        {/* Has Protector Case Toggle */}
+        <View style={styles.fieldContainer}>
+          <View style={styles.toggleRow}>
+            <ThemedText style={styles.label}>Has Protector Case</ThemedText>
+            <Switch
+              value={formData.hasProtectorCase}
+              onValueChange={(value) => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setFormData((prev) => ({ ...prev, hasProtectorCase: value }));
+              }}
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={formData.hasProtectorCase ? "#007AFF" : "#f4f3f4"}
+              ios_backgroundColor="#e0e0e0"
+            />
+          </View>
+        </View>
+
         {/* Purchase Price Field */}
         <View style={styles.fieldContainer}>
           <ThemedText style={styles.label}>Purchase Price</ThemedText>
@@ -448,10 +526,16 @@ export default function FunkoForm() {
         <TouchableOpacity
           style={styles.submitButton}
           onPress={handleSubmit}
-          disabled={createFunko.isPending}
+          disabled={createFunko.isPending || updateFunko.isPending}
         >
           <ThemedText style={styles.submitButtonText}>
-            {createFunko.isPending ? "Adding..." : "Add Funko"}
+            {createFunko.isPending || updateFunko.isPending
+              ? mode === "edit"
+                ? "Updating..."
+                : "Adding..."
+              : mode === "edit"
+              ? "Update Funko"
+              : "Add Funko"}
           </ThemedText>
         </TouchableOpacity>
       </View>
@@ -532,6 +616,11 @@ const styles = StyleSheet.create({
   conditionButtonTextActive: {
     color: "white",
     fontWeight: "600",
+  },
+  toggleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   imagesList: {
     marginTop: 8,

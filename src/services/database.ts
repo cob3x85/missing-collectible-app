@@ -33,11 +33,24 @@ class DatabaseService {
         current_value REAL,
         purchase_date TEXT,
         notes TEXT,
+        has_protector_case INTEGER DEFAULT 0,
         image_path TEXT,
         created_at TEXT NOT NULL,
         updated_at TEXT NOT NULL
       );
     `);
+
+    // Migration: Add has_protector_case column if it doesn't exist
+    try {
+      await this.db.execAsync(`
+        ALTER TABLE funkos ADD COLUMN has_protector_case INTEGER DEFAULT 0;
+      `);
+    } catch (error) {
+      // Column already exists, ignore error
+      if (!(error as Error).message.includes("duplicate column name")) {
+        console.error("Migration error:", error);
+      }
+    }
 
     // Create Collections table
     await this.db.execAsync(`
@@ -79,9 +92,9 @@ class DatabaseService {
     await this.db.runAsync(
       `INSERT INTO funkos (
         id, name, series, number, category, condition, 
-        purchase_price, current_value, purchase_date, notes, image_path,
+        purchase_price, current_value, purchase_date, notes, has_protector_case, image_path,
         created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         id,
         funko.name,
@@ -93,6 +106,7 @@ class DatabaseService {
         funko.current_value ?? null,
         funko.purchase_date ?? null,
         funko.notes ?? null,
+        funko.has_protector_case ? 1 : 0,
         funko.image_paths && funko.image_paths.length > 0
           ? JSON.stringify(funko.image_paths)
           : null,
@@ -158,6 +172,7 @@ class DatabaseService {
 
     return {
       ...funko,
+      has_protector_case: funko.has_protector_case === 1,
       image_paths,
     } as Funko;
   }
@@ -188,6 +203,7 @@ class DatabaseService {
 
       return {
         ...funko,
+        has_protector_case: funko.has_protector_case === 1,
         image_paths,
       };
     }) as Funko[];
@@ -211,6 +227,7 @@ class DatabaseService {
       "current_value",
       "purchase_date",
       "notes",
+      "has_protector_case",
       "image_path",
     ];
 
@@ -272,6 +289,7 @@ class DatabaseService {
 
       return {
         ...funko,
+        has_protector_case: funko.has_protector_case === 1,
         image_paths,
       };
     }) as Funko[];

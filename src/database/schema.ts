@@ -9,6 +9,7 @@ export interface Funko {
   current_value?: number;
   purchase_date?: string;
   notes?: string;
+  has_protector_case?: boolean;
   image_paths?: string[];
   created_at: string;
   updated_at: string;

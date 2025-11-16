@@ -85,10 +85,13 @@ export const useDeleteFunko = (options?: {
 
   return useMutation({
     mutationFn: async (id: string) => {
-      // Get funko to delete associated image
+      // Get funko to delete associated images
       const funko = await db.getFunkoById(id);
-      if (funko?.image_path) {
-        await images.deleteImage(funko.image_path);
+      if (funko?.image_paths && funko.image_paths.length > 0) {
+        // Delete all images associated with this funko
+        await Promise.all(
+          funko.image_paths.map((imagePath) => images.deleteImage(imagePath))
+        );
       }
       await db.deleteFunko(id);
     },
