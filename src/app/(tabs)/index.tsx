@@ -17,7 +17,7 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   const theme = useTheme();
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteFunkos(20);
+    useInfiniteFunkos(3);
   const insets = useSafeAreaInsets();
   const { playFeedback } = useHapticFeedback();
 
@@ -162,7 +162,7 @@ export default function HomeScreen() {
               fetchNextPage();
             }
           }}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.9}
           ListFooterComponent={
             isFetchingNextPage ? (
               <View style={styles.footerLoader}>

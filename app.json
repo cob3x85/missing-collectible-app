@@ -4,7 +4,7 @@
     "slug": "fun-kollection",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/missingfunko.png",
+    "icon": "./assets/icons/FunKollection_Icon-iOS-Default.png",
     "scheme": "missingfunkoapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -69,12 +69,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/missingfunko.png",
+          "image": "./assets/icons/FunKollection_Splash-iOS-Default.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
           "dark": {
-            "image": "./assets/images/missingfunko.png",
+            "image": "./assets/icons/FunKollection_Splash-iOS-Dark.png",
             "backgroundColor": "#000000"
           }
         }

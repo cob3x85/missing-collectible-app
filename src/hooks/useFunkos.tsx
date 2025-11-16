@@ -27,10 +27,18 @@ export const useFunko = (id: string) => {
   });
 };
 
+/**
+ * Infinite query hook for fetching funkos with pagination 
+ * @param pageSize  Number of items to fetch per page
+ * @returns 
+ */
 export const useInfiniteFunkos = (pageSize: number = 20) => {
   return useInfiniteQuery({
     queryKey: ["funkos", "infinite"],
     queryFn: async ({ pageParam = 0 }) => {
+      // Add 1500ms delay to show loading state
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      
       const funkos = await db.getFunkosPaginated(pageSize, pageParam);
       return {
         funkos,
@@ -42,6 +50,7 @@ export const useInfiniteFunkos = (pageSize: number = 20) => {
       if (lastPage.funkos.length < pageSize) {
         return undefined;
       }
+      console.log("Number of funkos fetched:", lastPage.funkos.length);
       return lastPage.nextOffset;
     },
     initialPageParam: 0,
