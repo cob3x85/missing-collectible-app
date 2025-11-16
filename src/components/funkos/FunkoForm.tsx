@@ -1,5 +1,5 @@
 import { ThemedText } from "@/components/themed-text";
-import { Funko, FunkoSize, FunkoType } from "@/database/schema";
+import { Funko, FunkoSize, FunkoType, FunkoVariant } from "@/database/schema";
 import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -66,6 +66,28 @@ const funkoValidationSchema = yup.object().shape({
       "Invalid type selected"
     )
     .optional(),
+  variant: yup
+    .string()
+    .oneOf(
+      [
+        "normal",
+        "chase",
+        "chrome",
+        "flocked",
+        "glow_in_the_dark",
+        "metallic",
+        "translucent",
+        "glitter",
+        "blacklight",
+        "diamond",
+        "scented",
+        "exclusive",
+        "limited_edition",
+        "other",
+      ],
+      "Invalid variant selected"
+    )
+    .optional(),
   purchase_price: yup
     .number()
     .transform((value, originalValue) =>
@@ -102,6 +124,7 @@ type FunkoFormData = {
   condition: "mint" | "near_mint" | "good" | "fair" | "poor";
   size: FunkoSize;
   type: FunkoType;
+  variant: FunkoVariant;
   purchase_price: string;
   current_value: string;
   purchase_date: string;
@@ -128,6 +151,7 @@ export default function FunkoForm({
     condition: initialData?.condition || "mint",
     size: initialData?.size || "standard",
     type: initialData?.type || "standard_pop",
+    variant: initialData?.variant || "normal",
     purchase_price: initialData?.purchase_price
       ? initialData.purchase_price.toString()
       : "",
@@ -156,6 +180,7 @@ export default function FunkoForm({
         condition: initialData.condition || "mint",
         size: initialData.size || "standard",
         type: initialData.type || "standard_pop",
+        variant: initialData.variant || "normal",
         purchase_price: initialData.purchase_price
           ? initialData.purchase_price.toString()
           : "",
@@ -182,6 +207,7 @@ export default function FunkoForm({
         condition: "mint",
         size: "standard",
         type: "standard_pop",
+        variant: "normal",
         purchase_price: "",
         current_value: "",
         purchase_date: "",
@@ -243,6 +269,7 @@ export default function FunkoForm({
           condition: formData.condition,
           size: formData.size,
           type: formData.type,
+          variant: formData.variant,
           purchase_price: formData.purchase_price
             ? parseFloat(formData.purchase_price)
             : null,
@@ -267,6 +294,7 @@ export default function FunkoForm({
           condition: formData.condition,
           size: formData.size,
           type: formData.type,
+          variant: formData.variant,
           purchase_price: formData.purchase_price
             ? parseFloat(formData.purchase_price)
             : null,
@@ -522,6 +550,55 @@ export default function FunkoForm({
           </View>
           {errors.type && (
             <ThemedText style={styles.errorText}>{errors.type}</ThemedText>
+          )}
+        </View>
+
+        {/* Variant Field */}
+        <View style={styles.fieldContainer}>
+          <ThemedText style={styles.label}>Variant</ThemedText>
+          <View style={styles.conditionButtons}>
+            {(
+              [
+                "normal",
+                "chase",
+                "chrome",
+                "flocked",
+                "glow_in_the_dark",
+                "metallic",
+                "translucent",
+                "glitter",
+                "blacklight",
+                "diamond",
+                "exclusive",
+                "other",
+              ] as const
+            ).map((variant) => (
+              <TouchableOpacity
+                key={variant}
+                style={[
+                  styles.conditionButton,
+                  formData.variant === variant && styles.conditionButtonActive,
+                ]}
+                onPress={() => updateField("variant", variant)}
+              >
+                <ThemedText
+                  style={[
+                    styles.conditionButtonText,
+                    formData.variant === variant &&
+                      styles.conditionButtonTextActive,
+                  ]}
+                >
+                  {variant === "glow_in_the_dark"
+                    ? "GITD"
+                    : variant
+                        .replace(/_/g, " ")
+                        .replace(/\b\w/g, (l) => l.toUpperCase())}
+                </ThemedText>
+              </TouchableOpacity>
+            ))}
+          </View>
+          {errors.variant && (
+            <ThemedText style={styles.errorText}>{errors.variant}</ThemedText>
           )}
         </View>
 

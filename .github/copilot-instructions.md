@@ -94,6 +94,7 @@ const allowedFields = [
   "condition",
   "size", // Funko size: "standard" | "super_sized" | "jumbo"
   "type", // Funko type: "standard_pop" | "pop_ride" | "pop_town" | etc.
+  "variant", // Funko variant: "normal" | "chase" | "chrome" | "flocked" | etc.
   "purchase_price",
   "current_value",
   "purchase_date",
@@ -128,23 +129,42 @@ const allowedFields = [
 - `vinyl_gold` - Vinyl Gold collectible
 - `other` - Other Funko variant
 
+**Variant Options** (FunkoVariant enum):
+
+- `normal` - Standard release (default)
+- `chase` - Chase variant (rare, limited production)
+- `chrome` - Chrome finish
+- `flocked` - Flocked/fuzzy texture
+- `glow_in_the_dark` - GITD variant
+- `metallic` - Metallic paint finish
+- `translucent` - Clear/translucent material
+- `glitter` - Glitter finish
+- `blacklight` - Blacklight reactive
+- `diamond` - Diamond collection (glitter variant)
+- `scented` - Scented variant
+- `exclusive` - Store/convention exclusive
+- `limited_edition` - Limited edition run
+- `other` - Other special variant
+
 **Database Storage**:
 
-- Both stored as TEXT in SQLite
-- Default values: `size = 'standard'`, `type = 'standard_pop'`
+- All stored as TEXT in SQLite
+- Default values: `size = 'standard'`, `type = 'standard_pop'`, `variant = 'normal'`
 - Added via ALTER TABLE migrations (safe for existing databases)
 
 **Form Implementation**:
 
 - Size picker: 3 button options with dimensions displayed
 - Type picker: 8 common button options (full enum available in schema)
-- Both follow condition picker pattern (TouchableOpacity buttons)
-- Labels display human-readable format (e.g., "Pop Ride" not "pop_ride")
+- Variant picker: 12 common button options (chase, chrome, flocked, GITD, etc.)
+- All follow condition picker pattern (TouchableOpacity buttons)
+- Labels display human-readable format (e.g., "Pop Ride" not "pop_ride", "GITD" not "glow_in_the_dark")
 
 **Display in Detail View**:
 
 - Size shows with dimensions: "Standard (3.75\")", "Super-Sized (6\")", "Jumbo (10\")"
 - Type shows title-cased with spaces: "Standard Pop", "Pop Ride", "Pop 2Pack"
+- Variant shows only if not "normal": "Chase", "Chrome", "Glow In The Dark"
 
 ## Component Patterns
 

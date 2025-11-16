@@ -31,6 +31,7 @@ class DatabaseService {
         condition TEXT CHECK(condition IN ('mint', 'near_mint', 'good', 'fair', 'poor')) NOT NULL,
         size TEXT CHECK(size IN ('standard', 'super_sized', 'jumbo')) DEFAULT 'standard',
         type TEXT CHECK(type IN ('standard_pop', 'pop_ride', 'pop_town', 'pop_moment', 'pop_album', 'pop_comic_cover', 'pop_deluxe', 'pop_2pack', 'pop_3pack', 'pop_keychain', 'pop_tee', 'soda', 'vinyl_gold', 'other')) DEFAULT 'standard_pop',
+        variant TEXT CHECK(variant IN ('normal', 'chase', 'chrome', 'flocked', 'glow_in_the_dark', 'metallic', 'translucent', 'glitter', 'blacklight', 'diamond', 'scented', 'exclusive', 'limited_edition', 'other')) DEFAULT 'normal',
         purchase_price REAL,
         current_value REAL,
         purchase_date TEXT,
@@ -78,6 +79,18 @@ class DatabaseService {
       }
     }
 
+    // Migration: Add variant column if it doesn't exist
+    try {
+      await this.db.execAsync(`
+        ALTER TABLE funkos ADD COLUMN variant TEXT CHECK(variant IN ('normal', 'chase', 'chrome', 'flocked', 'glow_in_the_dark', 'metallic', 'translucent', 'glitter', 'blacklight', 'diamond', 'scented', 'exclusive', 'limited_edition', 'other')) DEFAULT 'normal';
+      `);
+    } catch (error) {
+      // Column already exists, ignore error
+      if (!(error as Error).message.includes("duplicate column name")) {
+        console.error("Migration error (variant):", error);
+      }
+    }
+
     // Create Collections table
     await this.db.execAsync(`
       CREATE TABLE IF NOT EXISTS collections (
@@ -117,10 +130,10 @@ class DatabaseService {
 
     await this.db.runAsync(
       `INSERT INTO funkos (
-        id, name, series, number, category, condition, size, type,
+        id, name, series, number, category, condition, size, type, variant,
         purchase_price, current_value, purchase_date, notes, has_protector_case, image_path,
         created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         id,
         funko.name,
@@ -130,6 +143,7 @@ class DatabaseService {
         funko.condition ?? null,
         funko.size ?? "standard",
         funko.type ?? "standard_pop",
+        funko.variant ?? "normal",
         funko.purchase_price ?? null,
         funko.current_value ?? null,
         funko.purchase_date ?? null,
@@ -292,6 +306,7 @@ class DatabaseService {
       "condition",
       "size",
       "type",
+      "variant",
       "purchase_price",
       "current_value",
       "purchase_date",

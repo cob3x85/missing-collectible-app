@@ -44,6 +44,7 @@ export const FunkoDetail = ({
     condition,
     size,
     type,
+    variant,
     purchase_price,
     current_value,
     purchase_date,
@@ -151,7 +152,9 @@ export const FunkoDetail = ({
                 <View style={styles.detailRow}>
                   <ThemedText style={styles.detailLabel}>Condition:</ThemedText>
                   <ThemedText style={styles.detailValue}>
-                    {condition.replace("_", " ")}
+                    {condition
+                      .replace(/_/g, " ")
+                      .replace(/\b\w/g, (l) => l.toUpperCase())}
                   </ThemedText>
                 </View>
               )}
@@ -174,6 +177,18 @@ export const FunkoDetail = ({
                     {type
                       .replace(/_/g, " ")
                       .replace(/\b\w/g, (l) => l.toUpperCase())}
+                  </ThemedText>
+                </View>
+              )}
+              {variant && variant !== "normal" && (
+                <View style={styles.detailRow}>
+                  <ThemedText style={styles.detailLabel}>Variant:</ThemedText>
+                  <ThemedText style={styles.detailValue}>
+                    {variant === "glow_in_the_dark"
+                      ? "Glow In The Dark"
+                      : variant
+                          .replace(/_/g, " ")
+                          .replace(/\b\w/g, (l) => l.toUpperCase())}
                   </ThemedText>
                 </View>
               )}

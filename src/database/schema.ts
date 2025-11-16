@@ -21,6 +21,23 @@ export type FunkoType =
   | "vinyl_gold"
   | "other";
 
+// Special Funko variant finishes and editions
+export type FunkoVariant =
+  | "normal"
+  | "chase"
+  | "chrome"
+  | "flocked"
+  | "glow_in_the_dark"
+  | "metallic"
+  | "translucent"
+  | "glitter"
+  | "blacklight"
+  | "diamond"
+  | "scented"
+  | "exclusive"
+  | "limited_edition"
+  | "other";
+
 export interface Funko {
   id: string;
   name: string;
@@ -30,6 +47,7 @@ export interface Funko {
   condition: FunkoCondition;
   size?: FunkoSize; // Default: "standard" (3.75" figure)
   type?: FunkoType; // Default: "standard_pop"
+  variant?: FunkoVariant; // Default: "normal"
   purchase_price?: number | null;
   current_value?: number | null;
   purchase_date?: string | null;
