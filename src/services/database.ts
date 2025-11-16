@@ -29,6 +29,8 @@ class DatabaseService {
         number TEXT NOT NULL,
         category TEXT NOT NULL,
         condition TEXT CHECK(condition IN ('mint', 'near_mint', 'good', 'fair', 'poor')) NOT NULL,
+        size TEXT CHECK(size IN ('standard', 'super_sized', 'jumbo')) DEFAULT 'standard',
+        type TEXT CHECK(type IN ('standard_pop', 'pop_ride', 'pop_town', 'pop_moment', 'pop_album', 'pop_comic_cover', 'pop_deluxe', 'pop_2pack', 'pop_3pack', 'pop_keychain', 'pop_tee', 'soda', 'vinyl_gold', 'other')) DEFAULT 'standard_pop',
         purchase_price REAL,
         current_value REAL,
         purchase_date TEXT,
@@ -49,6 +51,30 @@ class DatabaseService {
       // Column already exists, ignore error
       if (!(error as Error).message.includes("duplicate column name")) {
         console.error("Migration error:", error);
+      }
+    }
+
+    // Migration: Add size column if it doesn't exist
+    try {
+      await this.db.execAsync(`
+        ALTER TABLE funkos ADD COLUMN size TEXT CHECK(size IN ('standard', 'super_sized', 'jumbo')) DEFAULT 'standard';
+      `);
+    } catch (error) {
+      // Column already exists, ignore error
+      if (!(error as Error).message.includes("duplicate column name")) {
+        console.error("Migration error (size):", error);
+      }
+    }
+
+    // Migration: Add type column if it doesn't exist
+    try {
+      await this.db.execAsync(`
+        ALTER TABLE funkos ADD COLUMN type TEXT CHECK(type IN ('standard_pop', 'pop_ride', 'pop_town', 'pop_moment', 'pop_album', 'pop_comic_cover', 'pop_deluxe', 'pop_2pack', 'pop_3pack', 'pop_keychain', 'pop_tee', 'soda', 'vinyl_gold', 'other')) DEFAULT 'standard_pop';
+      `);
+    } catch (error) {
+      // Column already exists, ignore error
+      if (!(error as Error).message.includes("duplicate column name")) {
+        console.error("Migration error (type):", error);
       }
     }
 
@@ -91,10 +117,10 @@ class DatabaseService {
 
     await this.db.runAsync(
       `INSERT INTO funkos (
-        id, name, series, number, category, condition, 
+        id, name, series, number, category, condition, size, type,
         purchase_price, current_value, purchase_date, notes, has_protector_case, image_path,
         created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         id,
         funko.name,
@@ -102,6 +128,8 @@ class DatabaseService {
         funko.number ?? null,
         funko.category ?? null,
         funko.condition ?? null,
+        funko.size ?? "standard",
+        funko.type ?? "standard_pop",
         funko.purchase_price ?? null,
         funko.current_value ?? null,
         funko.purchase_date ?? null,
@@ -262,6 +290,8 @@ class DatabaseService {
       "number",
       "category",
       "condition",
+      "size",
+      "type",
       "purchase_price",
       "current_value",
       "purchase_date",

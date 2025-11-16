@@ -42,6 +42,8 @@ export const FunkoDetail = ({
     series,
     category,
     condition,
+    size,
+    type,
     purchase_price,
     current_value,
     purchase_date,
@@ -76,7 +78,11 @@ export const FunkoDetail = ({
                   }}
                 >
                   <ThemedText style={styles.editButtonText}>
-                    <IconSymbol name="pencil.and.list.clipboard" size={18} color="white" />
+                    <IconSymbol
+                      name="pencil.and.list.clipboard"
+                      size={18}
+                      color="white"
+                    />
                   </ThemedText>
                 </TouchableOpacity>
               )}
@@ -146,6 +152,28 @@ export const FunkoDetail = ({
                   <ThemedText style={styles.detailLabel}>Condition:</ThemedText>
                   <ThemedText style={styles.detailValue}>
                     {condition.replace("_", " ")}
+                  </ThemedText>
+                </View>
+              )}
+              {size && (
+                <View style={styles.detailRow}>
+                  <ThemedText style={styles.detailLabel}>Size:</ThemedText>
+                  <ThemedText style={styles.detailValue}>
+                    {size === "standard"
+                      ? 'Standard (3.75")'
+                      : size === "super_sized"
+                      ? 'Super-Sized (6")'
+                      : 'Jumbo (10")'}
+                  </ThemedText>
+                </View>
+              )}
+              {type && (
+                <View style={styles.detailRow}>
+                  <ThemedText style={styles.detailLabel}>Type:</ThemedText>
+                  <ThemedText style={styles.detailValue}>
+                    {type
+                      .replace(/_/g, " ")
+                      .replace(/\b\w/g, (l) => l.toUpperCase())}
                   </ThemedText>
                 </View>
               )}

@@ -1,5 +1,5 @@
 import { ThemedText } from "@/components/themed-text";
-import { Funko } from "@/database/schema";
+import { Funko, FunkoSize, FunkoType } from "@/database/schema";
 import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -40,6 +40,32 @@ const funkoValidationSchema = yup.object().shape({
       ["mint", "near_mint", "good", "fair", "poor"],
       "Invalid condition selected"
     ),
+  size: yup
+    .string()
+    .oneOf(["standard", "super_sized", "jumbo"], "Invalid size selected")
+    .optional(),
+  type: yup
+    .string()
+    .oneOf(
+      [
+        "standard_pop",
+        "pop_ride",
+        "pop_town",
+        "pop_moment",
+        "pop_album",
+        "pop_comic_cover",
+        "pop_deluxe",
+        "pop_2pack",
+        "pop_3pack",
+        "pop_keychain",
+        "pop_tee",
+        "soda",
+        "vinyl_gold",
+        "other",
+      ],
+      "Invalid type selected"
+    )
+    .optional(),
   purchase_price: yup
     .number()
     .transform((value, originalValue) =>
@@ -74,6 +100,8 @@ type FunkoFormData = {
   number: string;
   category: string;
   condition: "mint" | "near_mint" | "good" | "fair" | "poor";
+  size: FunkoSize;
+  type: FunkoType;
   purchase_price: string;
   current_value: string;
   purchase_date: string;
@@ -98,6 +126,8 @@ export default function FunkoForm({
     number: initialData?.number || "",
     category: initialData?.category || "Pop!",
     condition: initialData?.condition || "mint",
+    size: initialData?.size || "standard",
+    type: initialData?.type || "standard_pop",
     purchase_price: initialData?.purchase_price
       ? initialData.purchase_price.toString()
       : "",
@@ -124,6 +154,8 @@ export default function FunkoForm({
         number: initialData.number || "",
         category: initialData.category || "Pop!",
         condition: initialData.condition || "mint",
+        size: initialData.size || "standard",
+        type: initialData.type || "standard_pop",
         purchase_price: initialData.purchase_price
           ? initialData.purchase_price.toString()
           : "",
@@ -148,6 +180,8 @@ export default function FunkoForm({
         number: "",
         category: "Pop!",
         condition: "mint",
+        size: "standard",
+        type: "standard_pop",
         purchase_price: "",
         current_value: "",
         purchase_date: "",
@@ -207,6 +241,8 @@ export default function FunkoForm({
           number: formData.number,
           category: formData.category || undefined,
           condition: formData.condition,
+          size: formData.size,
+          type: formData.type,
           purchase_price: formData.purchase_price
             ? parseFloat(formData.purchase_price)
             : null,
@@ -229,6 +265,8 @@ export default function FunkoForm({
           number: formData.number,
           category: formData.category || undefined,
           condition: formData.condition,
+          size: formData.size,
+          type: formData.type,
           purchase_price: formData.purchase_price
             ? parseFloat(formData.purchase_price)
             : null,
@@ -409,6 +447,81 @@ export default function FunkoForm({
           </View>
           {errors.condition && (
             <ThemedText style={styles.errorText}>{errors.condition}</ThemedText>
+          )}
+        </View>
+
+        {/* Size Field */}
+        <View style={styles.fieldContainer}>
+          <ThemedText style={styles.label}>Size</ThemedText>
+          <View style={styles.conditionButtons}>
+            {(["standard", "super_sized", "jumbo"] as const).map((size) => (
+              <TouchableOpacity
+                key={size}
+                style={[
+                  styles.conditionButton,
+                  formData.size === size && styles.conditionButtonActive,
+                ]}
+                onPress={() => updateField("size", size)}
+              >
+                <ThemedText
+                  style={[
+                    styles.conditionButtonText,
+                    formData.size === size && styles.conditionButtonTextActive,
+                  ]}
+                >
+                  {size === "standard"
+                    ? 'Standard (3.75")'
+                    : size === "super_sized"
+                    ? 'Super (6")'
+                    : 'Jumbo (10")'}
+                </ThemedText>
+              </TouchableOpacity>
+            ))}
+          </View>
+          {errors.size && (
+            <ThemedText style={styles.errorText}>{errors.size}</ThemedText>
+          )}
+        </View>
+
+        {/* Type Field */}
+        <View style={styles.fieldContainer}>
+          <ThemedText style={styles.label}>Type</ThemedText>
+          <View style={styles.conditionButtons}>
+            {(
+              [
+                "standard_pop",
+                "pop_ride",
+                "pop_town",
+                "pop_moment",
+                "pop_deluxe",
+                "pop_2pack",
+                "soda",
+                "other",
+              ] as const
+            ).map((type) => (
+              <TouchableOpacity
+                key={type}
+                style={[
+                  styles.conditionButton,
+                  formData.type === type && styles.conditionButtonActive,
+                ]}
+                onPress={() => updateField("type", type)}
+              >
+                <ThemedText
+                  style={[
+                    styles.conditionButtonText,
+                    formData.type === type && styles.conditionButtonTextActive,
+                  ]}
+                >
+                  {type
+                    .replace(/_/g, " ")
+                    .replace(/\b\w/g, (l) => l.toUpperCase())}
+                </ThemedText>
+              </TouchableOpacity>
+            ))}
+          </View>
+          {errors.type && (
+            <ThemedText style={styles.errorText}>{errors.type}</ThemedText>
           )}
         </View>
 

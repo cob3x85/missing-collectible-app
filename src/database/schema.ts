@@ -1,10 +1,35 @@
+// Funko condition options
+export type FunkoCondition = "mint" | "near_mint" | "good" | "fair" | "poor";
+
+// Standard Funko sizes based on figure height
+export type FunkoSize = "standard" | "super_sized" | "jumbo";
+
+// Common Funko Pop product line variants
+export type FunkoType =
+  | "standard_pop"
+  | "pop_ride"
+  | "pop_town"
+  | "pop_moment"
+  | "pop_album"
+  | "pop_comic_cover"
+  | "pop_deluxe"
+  | "pop_2pack"
+  | "pop_3pack"
+  | "pop_keychain"
+  | "pop_tee"
+  | "soda"
+  | "vinyl_gold"
+  | "other";
+
 export interface Funko {
   id: string;
   name: string;
   series?: string;
   number: string;
   category?: string;
-  condition: "mint" | "near_mint" | "good" | "fair" | "poor";
+  condition: FunkoCondition;
+  size?: FunkoSize; // Default: "standard" (3.75" figure)
+  type?: FunkoType; // Default: "standard_pop"
   purchase_price?: number | null;
   current_value?: number | null;
   purchase_date?: string | null;

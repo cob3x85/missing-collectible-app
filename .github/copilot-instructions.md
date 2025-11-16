@@ -92,6 +92,8 @@ const allowedFields = [
   "number",
   "category",
   "condition",
+  "size", // Funko size: "standard" | "super_sized" | "jumbo"
+  "type", // Funko type: "standard_pop" | "pop_ride" | "pop_town" | etc.
   "purchase_price",
   "current_value",
   "purchase_date",
@@ -100,6 +102,49 @@ const allowedFields = [
   "image_paths", // Note: gets transformed to "image_path" internally
 ];
 ```
+
+### Funko Size and Type Fields
+
+**Size Options** (FunkoSize enum):
+
+- `standard` - 3.75" figure (default)
+- `super_sized` - 6" figure
+- `jumbo` - 10" figure
+
+**Type Options** (FunkoType enum):
+
+- `standard_pop` - Regular Funko Pop (default)
+- `pop_ride` - Pop with vehicle/ride
+- `pop_town` - Pop with building/location
+- `pop_moment` - Pop with scene/moment
+- `pop_album` - Pop with album cover
+- `pop_comic_cover` - Pop with comic book
+- `pop_deluxe` - Deluxe/oversized Pop
+- `pop_2pack` - 2-pack set
+- `pop_3pack` - 3-pack set
+- `pop_keychain` - Keychain version
+- `pop_tee` - Pop & Tee bundle
+- `soda` - Funko Soda can variant
+- `vinyl_gold` - Vinyl Gold collectible
+- `other` - Other Funko variant
+
+**Database Storage**:
+
+- Both stored as TEXT in SQLite
+- Default values: `size = 'standard'`, `type = 'standard_pop'`
+- Added via ALTER TABLE migrations (safe for existing databases)
+
+**Form Implementation**:
+
+- Size picker: 3 button options with dimensions displayed
+- Type picker: 8 common button options (full enum available in schema)
+- Both follow condition picker pattern (TouchableOpacity buttons)
+- Labels display human-readable format (e.g., "Pop Ride" not "pop_ride")
+
+**Display in Detail View**:
+
+- Size shows with dimensions: "Standard (3.75\")", "Super-Sized (6\")", "Jumbo (10\")"
+- Type shows title-cased with spaces: "Standard Pop", "Pop Ride", "Pop 2Pack"
 
 ## Component Patterns
 
