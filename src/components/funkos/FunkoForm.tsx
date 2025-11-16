@@ -7,7 +7,6 @@ import * as Haptics from "expo-haptics";
 import React, { useEffect, useState } from "react";
 import {
   Alert,
-  Button,
   Platform,
   ScrollView,
   StyleSheet,
@@ -43,17 +42,24 @@ const funkoValidationSchema = yup.object().shape({
     ),
   purchase_price: yup
     .number()
+    .transform((value, originalValue) => originalValue === "" || originalValue === null ? null : value)
     .positive("Price must be a positive number")
     .max(999999, "Price is too high")
+    .nullable()
     .optional(),
   current_value: yup
     .number()
+    .transform((value, originalValue) => originalValue === "" || originalValue === null ? null : value)
     .positive("Value must be a positive number")
     .max(999999, "Value is too high")
+    .nullable()
     .optional(),
   purchase_date: yup
     .string()
-    .matches(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format").optional(),
+    .transform((value) => value === "" ? null : value)
+    .matches(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format")
+    .nullable()
+    .optional(),
   notes: yup.string().max(500, "Notes must be less than 500 characters"),
   hasProtectorCase: yup.boolean().optional(),
 });
@@ -199,11 +205,11 @@ export default function FunkoForm({
           condition: formData.condition,
           purchase_price: formData.purchase_price
             ? parseFloat(formData.purchase_price)
-            : undefined,
+            : null,
           current_value: formData.current_value
             ? parseFloat(formData.current_value)
-            : undefined,
-          purchase_date: formData.purchase_date || undefined,
+            : null,
+          purchase_date: formData.purchase_date || null,
           notes: formData.notes || undefined,
           has_protector_case: formData.hasProtectorCase,
           image_paths: imagePaths.length > 0 ? imagePaths : undefined,
@@ -221,11 +227,11 @@ export default function FunkoForm({
           condition: formData.condition,
           purchase_price: formData.purchase_price
             ? parseFloat(formData.purchase_price)
-            : undefined,
+            : null,
           current_value: formData.current_value
             ? parseFloat(formData.current_value)
-            : undefined,
-          purchase_date: formData.purchase_date || undefined,
+            : null,
+          purchase_date: formData.purchase_date || null,
           notes: formData.notes || undefined,
           has_protector_case: formData.hasProtectorCase,
           image_paths: imagePaths.length > 0 ? imagePaths : undefined,
@@ -533,7 +539,15 @@ export default function FunkoForm({
         {/* Image Picker */}
         <View style={styles.fieldContainer}>
           <ThemedText style={styles.label}>Images</ThemedText>
-          <Button title="Add Image" onPress={handlePickImage} />
+          <TouchableOpacity 
+            style={styles.addImageButton} 
+            onPress={handlePickImage}
+          >
+            <View style={styles.addImageIcon}>
+              <ThemedText style={styles.addImageIconText}>+</ThemedText>
+            </View>
+            <ThemedText style={styles.addImageText}>Add Image</ThemedText>
+          </TouchableOpacity>
           {imagePaths.length > 0 && (
             <View style={styles.imagesList}>
               {imagePaths.map((path, index) => (
@@ -653,6 +667,35 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  addImageButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 12,
+    gap: 8,
+  },
+  addImageIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#007AFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addImageIconText: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    lineHeight: 28,
+  },
+  addImageText: {
+    fontSize: 16,
+    color: '#007AFF',
+    fontWeight: '600',
   },
   imagesList: {
     marginTop: 8,

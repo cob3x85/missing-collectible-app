@@ -5,9 +5,9 @@ export interface Funko {
   number: string;
   category?: string;
   condition: "mint" | "near_mint" | "good" | "fair" | "poor";
-  purchase_price?: number;
-  current_value?: number;
-  purchase_date?: string;
+  purchase_price?: number | null;
+  current_value?: number | null;
+  purchase_date?: string | null;
   notes?: string;
   has_protector_case?: boolean;
   image_paths?: string[];
