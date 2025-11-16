@@ -17,11 +17,10 @@
         "NSPhotoLibraryAddUsageDescription": "This app needs access to save Funko Pop images to your photo library."
       },
       "icon": {
-        "light": "./assets/images/icons/FunKollection_Icon-iOS-Default.png",
-        "dark": "./assets/images/icons/FunKollection_Icon-iOS-Dark.png",
-        "tinted": "./assets/images/icons/"
+        "light": "./assets/icons/FunKollection_Icon-iOS-Default.png",
+        "dark": "./assets/icons/FunKollection_Icon-iOS-Dark.png",
+        "tinted": "./assets/icons/FunKollection_Icon-iOS-Tinted.png"
       }
-
     },
     "android": {
       "icon": "./assets/images/missingfunko.png",
