@@ -789,7 +789,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     padding: 20,
-    backgroundColor: Platform.OS === "web" ? "white" : "transparent",
+    backgroundColor: "transparent",
   },
   title: {
     fontSize: 24,

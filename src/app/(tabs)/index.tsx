@@ -239,7 +239,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   emptyLabel: {
-    color: "#333333",
     fontSize: 18,
   },
   icon: {

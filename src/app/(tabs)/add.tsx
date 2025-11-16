@@ -1,39 +1,27 @@
+import FunkoForm from "@/components/funkos/FunkoForm";
+import ParallaxScrollView from "@/components/parallax-scroll-view";
 import { Image } from "expo-image";
 import React from "react";
-import { Platform, StyleSheet, View } from "react-native";
-
-import ParallaxScrollView from "@/components/parallax-scroll-view";
-import FunkoForm from "@/components/funkos/FunkoForm";
+import { StyleSheet } from "react-native";
 import { globalThemeStyles } from "../../config/theme/global-theme";
 
-const headerImageUrl = Platform.OS === "web"
-? require("@/assets/images/funkollection-banner.jpeg")
-: require("@/assets/images/dbzBackground.jpg");
+const headerImageUrl = require("@/assets/images/dbzBackground.jpg");
+
 export default function AddFunkoScreen() {
-  const content = (
+  return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#f46d03", dark: "#f46d03" }}
       headerImage={
         <Image
           source={headerImageUrl}
           style={globalThemeStyles.headerImageContainer}
-          contentFit={Platform.OS === "web" ? "fill" : "fill"}
+          contentFit="fill"
         />
       }
     >
       <FunkoForm />
     </ParallaxScrollView>
   );
-
-  if (Platform.OS === "web") {
-    return (
-      <View style={styles.webContainer}>
-        <View style={styles.webContent}>{content}</View>
-      </View>
-    );
-  }
-
-  return content;
 }
 
 const styles = StyleSheet.create({

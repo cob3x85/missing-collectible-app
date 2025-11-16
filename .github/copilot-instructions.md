@@ -2,16 +2,17 @@
 
 ## Project Overview
 
-A React Native/Expo cross-platform Funko collection tracking app with SQLite persistence, TanStack Query state management, haptic feedback, and glassmorphism UI. Runs on iOS, Android, and Web.
+A React Native/Expo mobile Funko collection tracking app with SQLite persistence, TanStack Query state management, haptic feedback, and glassmorphism UI. Runs on iOS and Android only.
 
 ## Architecture & Tech Stack
 
 ### Core Technologies
 
 - **React Native 0.81.5** with **Expo SDK 54**
+- **Platforms**: iOS and Android (no web support)
 - **Navigation**: React Navigation with `@bottom-tabs/react-navigation` (native iOS tab bar, NOT expo-router)
 - **State Management**: TanStack Query v5 for server state, React hooks for UI state
-- **Database**: SQLite (native) with platform proxy pattern (`src/services/db.ts`)
+- **Database**: SQLite (native) via expo-sqlite (`src/services/db.ts`)
 - **UI**: `expo-glass-effect` for glassmorphism, `expo-haptics` for feedback
 - **Validation**: Yup schemas for form validation
 - **Images**: expo-file-system with JSON array storage in database
@@ -34,7 +35,7 @@ navigation.navigate("Add" as never);
 
 - **Interface**: `src/database/schema.ts` - TypeScript interfaces
 - **Implementation**: `src/services/database.ts` - SQLite with migrations
-- **Proxy**: `src/services/db.ts` - Platform-aware database selection
+- **Export**: `src/services/db.ts` - Direct database service export (no proxy needed)
 
 ### Critical Database Patterns
 

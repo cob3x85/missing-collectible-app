@@ -3,15 +3,14 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { useTheme } from "@react-navigation/native";
 import { GlassContainer, GlassView } from "expo-glass-effect";
 import {
-  Alert,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  View,
+    Alert,
+    Platform,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function SettingsScreen() {
   const theme = useTheme();
@@ -81,21 +80,12 @@ export default function SettingsScreen() {
                 onPress={handleDeleteInfo}
               >
                 <View style={styles.rowLeft}>
-                  {Platform.OS === "web" ? (
-                    <FontAwesome
-                      name="trash"
-                      size={20}
-                      color={theme.colors.primary}
-                      style={styles.rowIcon}
-                    />
-                  ) : (
-                    <IconSymbol
-                      size={20}
-                      name="trash.fill"
-                      color={theme.colors.primary}
-                      style={styles.rowIcon}
-                    />
-                  )}
+                  <IconSymbol
+                    size={20}
+                    name="trash.fill"
+                    color={theme.colors.primary}
+                    style={styles.rowIcon}
+                  />
                   <View>
                     <ThemedText style={styles.label}>
                       How to Delete Items
@@ -105,11 +95,7 @@ export default function SettingsScreen() {
                     </ThemedText>
                   </View>
                 </View>
-                {Platform.OS === "web" ? (
-                  <FontAwesome name="chevron-right" size={16} color="#999" />
-                ) : (
-                  <IconSymbol size={16} name="chevron.right" color="#999" />
-                )}
+                <IconSymbol size={16} name="chevron.right" color="#999" />
               </Pressable>
             </View>
           </View>
@@ -127,21 +113,12 @@ export default function SettingsScreen() {
                 onPress={handleImageStorageInfo}
               >
                 <View style={styles.rowLeft}>
-                  {Platform.OS === "web" ? (
-                    <FontAwesome
-                      name="info-circle"
-                      size={20}
-                      color={theme.colors.primary}
-                      style={styles.rowIcon}
-                    />
-                  ) : (
-                    <IconSymbol
-                      size={20}
-                      name="info.circle.fill"
-                      color={theme.colors.primary}
-                      style={styles.rowIcon}
-                    />
-                  )}
+                  <IconSymbol
+                    size={20}
+                    name="info.circle.fill"
+                    color={theme.colors.primary}
+                    style={styles.rowIcon}
+                  />
                   <View>
                     <ThemedText style={styles.label}>
                       Image Storage Info
@@ -151,31 +128,18 @@ export default function SettingsScreen() {
                     </ThemedText>
                   </View>
                 </View>
-                {Platform.OS === "web" ? (
-                  <FontAwesome name="chevron-right" size={16} color="#999" />
-                ) : (
-                  <IconSymbol size={16} name="chevron.right" color="#999" />
-                )}
+                <IconSymbol size={16} name="chevron.right" color="#999" />
               </Pressable>
             </View>
 
             {/* Warning Banner */}
             <View style={styles.warningBanner}>
-              {Platform.OS === "web" ? (
-                <FontAwesome
-                  name="exclamation-triangle"
-                  size={20}
-                  color="#ff9500"
-                  style={styles.warningIcon}
-                />
-              ) : (
-                <IconSymbol
-                  size={20}
-                  name="exclamationmark.triangle.fill"
-                  color="#ff9500"
-                  style={styles.warningIcon}
-                />
-              )}
+              <IconSymbol
+                size={20}
+                name="exclamationmark.triangle.fill"
+                color="#ff9500"
+                style={styles.warningIcon}
+              />
               <View style={styles.warningTextContainer}>
                 <ThemedText style={styles.warningTitle}>
                   Important Note
@@ -223,7 +187,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Platform.OS === "web" ? "white" : undefined,
+    backgroundColor: undefined,
   },
   header: {
     backgroundColor: "#f46d03",
@@ -249,7 +213,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 12,
-    color: "#333",
   },
   card: {
     backgroundColor: "white",

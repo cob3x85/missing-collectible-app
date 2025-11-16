@@ -3,16 +3,14 @@ import ParallaxScrollView from "@/components/parallax-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
-import { Platform, StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { globalThemeStyles } from "../../config/theme/global-theme";
 
-const headerImageUrl =
-  Platform.OS === "web"
-    ? require("@/assets/images/funkollection-banner.jpeg")
-    : require("@/assets/images/dbzBackground.jpg");
+const headerImageUrl = require("@/assets/images/dbzBackground.jpg");
+
 export default function AboutScreen() {
   const theme = useTheme();
-  const content = (
+  return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#f46d03", dark: "#f46d03" }}
       customBackgroundColor="white"
@@ -20,18 +18,16 @@ export default function AboutScreen() {
         <Image
           source={headerImageUrl}
           style={globalThemeStyles.headerImageContainer}
-          contentFit={Platform.OS === "web" ? "fill" : "fill"}
+          contentFit="fill"
         />
       }
     >
-      {Platform.OS === "web" ? null : (
-        <View style={[globalThemeStyles.titleContainer]}>
-          <ThemedText type="title" style={{ color: "black" }}>
-            Fun-Kollection!
-          </ThemedText>
-          <HelloWave />
-        </View>
-      )}
+      <View style={[globalThemeStyles.titleContainer]}>
+        <ThemedText type="title" style={{ color: "black" }}>
+          Fun-Kollection!
+        </ThemedText>
+        <HelloWave />
+      </View>
       <View style={globalThemeStyles.stepContainer}>
         <ThemedText style={{ color: "black" }}>
           This is a Funko companion app to help track your collection. You can
@@ -61,31 +57,5 @@ export default function AboutScreen() {
         </ThemedText>
       </View>
     </ParallaxScrollView>
-    
   );
-
-  if (Platform.OS === "web") {
-    return (
-      <View style={styles.webContainer}>
-        <View style={styles.webContent}>{content}</View>
-      </View>
-    );
-  }
-
-  return content;
 }
-
-const styles = StyleSheet.create({
-  webContainer: {
-    flex: 1,
-    backgroundColor: "white",
-    alignItems: "center",
-    height: "100%",
-  },
-  webContent: {
-    width: "100%",
-    maxWidth: 1200,
-    flex: 1,
-    
-  },
-});
