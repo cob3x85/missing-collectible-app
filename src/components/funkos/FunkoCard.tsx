@@ -61,11 +61,6 @@ export const FunkoCard = (funko: FunkoCardProps) => {
         onPress={handlePress}
         onLongPress={handleLongPress}
       >
-        {/* Edit icon overlay - top left */}
-        <View style={styles.editIconOverlay}>
-          <ThemedText style={styles.editIconText}>✎</ThemedText>
-        </View>
-
         {/* Number badge - top right */}
         {number && (
           <View style={styles.numberBadge}>
@@ -156,7 +151,7 @@ export const FunkoCard = (funko: FunkoCardProps) => {
             <TouchableOpacity
               style={styles.editModalCloseButton}
               onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                 setShowEditModal(false);
               }}
             >

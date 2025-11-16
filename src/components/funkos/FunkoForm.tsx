@@ -97,10 +97,6 @@ export default function FunkoForm({
     hasProtectorCase: initialData?.has_protector_case ?? false,
   });
 
-  console.log(
-    "[FunkoForm] State initialized with hasProtectorCase:",
-    formData.hasProtectorCase
-  );
   const [imagePaths, setImagePaths] = useState<string[]>(
     initialData?.image_paths || []
   );

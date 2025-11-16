@@ -25,6 +25,14 @@ export default function SettingsScreen() {
     );
   };
 
+  const handleDeleteInfo = () => {
+    Alert.alert(
+      "How to Delete Funko Items",
+      "To delete a Funko from your collection:\n\n1. Long press on any Funko card\n2. Tap 'Delete' from the menu\n3. Confirm deletion when prompted\n\nNote: This action cannot be undone and will also delete all associated images.",
+      [{ text: "Got it" }]
+    );
+  };
+
   return (
     <GlassContainer style={styles.container}>
       <GlassView style={[styles.header, { paddingTop: insets.top }]}>
@@ -34,7 +42,7 @@ export default function SettingsScreen() {
       </GlassView>
 
       <ScrollView style={styles.scrollView}>
-        <View style={styles.content}>
+        <GlassView style={styles.content}>
           {/* App Information Section */}
           <View style={styles.section}>
             <ThemedText style={styles.sectionTitle}>App Information</ThemedText>
@@ -47,6 +55,67 @@ export default function SettingsScreen() {
                 <ThemedText style={styles.label}>Platform</ThemedText>
                 <ThemedText style={styles.value}>{Platform.OS}</ThemedText>
               </View>
+              <View style={styles.row}></View>
+              <ThemedText style={styles.label}>Theme</ThemedText>
+              <ThemedText style={styles.value}>
+                {theme.dark ? "Dark" : "Light"}
+              </ThemedText>
+              <View style={styles.row}>
+                <ThemedText style={styles.label}>Developer</ThemedText>
+                <ThemedText style={styles.value}>Carlos Ortiz</ThemedText>
+              </View>
+              <View style={styles.row}>
+                <ThemedText style={styles.label}>Support</ThemedText>
+                <ThemedText style={styles.value}>
+                  cob3x85.apple@outlook.com
+                </ThemedText>
+              </View>
+            </View>
+          </View>
+
+          {/* User Guide Section */}
+          <View style={styles.section}>
+            <ThemedText style={styles.sectionTitle}>Help & Guide</ThemedText>
+            <View style={styles.card}>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.row,
+                  styles.pressable,
+                  pressed && styles.pressed,
+                ]}
+                onPress={handleDeleteInfo}
+              >
+                <View style={styles.rowLeft}>
+                  {Platform.OS === "web" ? (
+                    <FontAwesome
+                      name="trash"
+                      size={20}
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  ) : (
+                    <IconSymbol
+                      size={20}
+                      name="trash.fill"
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  )}
+                  <View>
+                    <ThemedText style={styles.label}>
+                      How to Delete Items
+                    </ThemedText>
+                    <ThemedText style={styles.sublabel}>
+                      Learn how to remove Funkos
+                    </ThemedText>
+                  </View>
+                </View>
+                {Platform.OS === "web" ? (
+                  <FontAwesome name="chevron-right" size={16} color="#999" />
+                ) : (
+                  <IconSymbol size={16} name="chevron.right" color="#999" />
+                )}
+              </Pressable>
             </View>
           </View>
 
@@ -125,7 +194,7 @@ export default function SettingsScreen() {
           </View>
 
           {/* Future Settings Placeholder */}
-          <View style={styles.section}>
+          <View style={[styles.section, { marginBottom: 100 }]}>
             <ThemedText style={styles.sectionTitle}>Coming Soon</ThemedText>
             <View style={styles.card}>
               <View style={[styles.row, styles.disabled]}>
@@ -145,7 +214,7 @@ export default function SettingsScreen() {
               </View>
             </View>
           </View>
-        </View>
+        </GlassView>
       </ScrollView>
     </GlassContainer>
   );

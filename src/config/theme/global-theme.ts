@@ -17,4 +17,15 @@ export const globalThemeStyles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
   },
+  flatList: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "white",
+  },
+  flatListContent: {
+    padding: 15,
+  },
+  row: {
+    justifyContent: "space-between",
+  },
 });
