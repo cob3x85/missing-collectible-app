@@ -24,12 +24,9 @@
 
     },
     "android": {
-      "icon": "./assets/images/icons/FunKollection_Icon-Android-Default.png",
+      "icon": "./assets/images/missingfunko.png",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#E6F4FE"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
