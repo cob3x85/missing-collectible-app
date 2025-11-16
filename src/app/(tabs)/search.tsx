@@ -49,7 +49,6 @@ export default function SearchScreen() {
           cursorColor={"black"}
           onChangeText={(text) => setSearchQuery(text)}
           autoCapitalize="none"
-          autoFocus
           autoCorrect={false}
         />
       </View>

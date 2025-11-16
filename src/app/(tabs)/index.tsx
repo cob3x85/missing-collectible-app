@@ -11,13 +11,12 @@ import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
 import { FlatList, Platform, Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const theme = useTheme();
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteFunkos(3);
+    useInfiniteFunkos(20);
   const insets = useSafeAreaInsets();
   const { playFeedback } = useHapticFeedback();
 
@@ -62,21 +61,12 @@ export default function HomeScreen() {
         </GlassView>
 
         <GlassView style={styles.emptyContainer}>
-          {Platform.OS === "web" ? (
-            <FontAwesome
-              name="inbox"
-              size={80}
-              color="#333333"
-              style={styles.icon}
-            />
-          ) : (
-            <IconSymbol
-              size={80}
-              name="tray.fill"
-              color={theme.colors.text}
-              style={styles.icon}
-            />
-          )}
+          <IconSymbol
+            size={80}
+            name="tray.fill"
+            color={theme.colors.text}
+            style={styles.icon}
+          />
 
           <ThemedText
             type="subtitle"
@@ -106,21 +96,13 @@ export default function HomeScreen() {
               navigation.navigate("Add" as never);
             }}
           >
-            {Platform.OS === "web" ? (
-              <FontAwesome
-                name="plus-circle"
-                size={24}
-                color="white"
-                style={{ marginRight: 8 }}
-              />
-            ) : (
-              <IconSymbol
-                size={24}
-                name="plus.circle.fill"
-                color="white"
-                style={{ marginRight: 8 }}
-              />
-            )}
+            <IconSymbol
+              size={24}
+              name="plus.circle.fill"
+              color="white"
+              style={{ marginRight: 8 }}
+            />
+
             <ThemedText style={styles.addButtonText}>
               Add Your First Funko
             </ThemedText>
@@ -180,7 +162,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Platform.OS === "web" ? "white" : undefined,
   },
   titleContainer: {
     alignItems: "center",
