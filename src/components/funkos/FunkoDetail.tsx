@@ -1,4 +1,5 @@
 import { Funko } from "@/database/schema";
+import { useFunko } from "@/hooks/useFunkos";
 import * as Haptics from "expo-haptics";
 import {
   Dimensions,
@@ -27,6 +28,12 @@ export const FunkoDetail = ({
   funko,
   onEdit,
 }: FunkoDetailProps) => {
+  // Query fresh data from cache - this will auto-update when cache is invalidated
+  const { data: freshFunko } = useFunko(funko.id);
+
+  // Use fresh data if available, otherwise fall back to prop
+  const currentFunko = freshFunko || funko;
+
   const {
     name,
     image_paths,
@@ -39,7 +46,7 @@ export const FunkoDetail = ({
     purchase_date,
     notes,
     has_protector_case,
-  } = funko;
+  } = currentFunko;
 
   return (
     <Modal

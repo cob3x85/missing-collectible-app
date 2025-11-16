@@ -4,7 +4,7 @@ import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Haptics from "expo-haptics";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Button,
@@ -94,13 +94,41 @@ export default function FunkoForm({
       : "",
     purchase_date: initialData?.purchase_date || "",
     notes: initialData?.notes || "",
-    hasProtectorCase: initialData?.has_protector_case || false,
+    hasProtectorCase: initialData?.has_protector_case ?? false,
   });
+
+  console.log(
+    "[FunkoForm] State initialized with hasProtectorCase:",
+    formData.hasProtectorCase
+  );
   const [imagePaths, setImagePaths] = useState<string[]>(
     initialData?.image_paths || []
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showDatePicker, setShowDatePicker] = useState(false);
+
+  // Sync form state when initialData changes (important for edit mode)
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        name: initialData.name || "",
+        series: initialData.series || "",
+        number: initialData.number || "",
+        category: initialData.category || "Pop!",
+        condition: initialData.condition || "mint",
+        purchase_price: initialData.purchase_price
+          ? initialData.purchase_price.toString()
+          : "",
+        current_value: initialData.current_value
+          ? initialData.current_value.toString()
+          : "",
+        purchase_date: initialData.purchase_date || "",
+        notes: initialData.notes || "",
+        hasProtectorCase: initialData.has_protector_case ?? false,
+      });
+      setImagePaths(initialData.image_paths || []);
+    }
+  }, [initialData?.id, initialData?.has_protector_case]);
 
   const createFunko = useCreateFunko({
     onSuccess: () => {
@@ -165,25 +193,26 @@ export default function FunkoForm({
 
       // If validation passes, create or update the Funko
       if (mode === "edit" && initialData) {
+        const updateData = {
+          name: formData.name,
+          series: formData.series || undefined,
+          number: formData.number,
+          category: formData.category || undefined,
+          condition: formData.condition,
+          purchase_price: formData.purchase_price
+            ? parseFloat(formData.purchase_price)
+            : undefined,
+          current_value: formData.current_value
+            ? parseFloat(formData.current_value)
+            : undefined,
+          purchase_date: formData.purchase_date || undefined,
+          notes: formData.notes || undefined,
+          has_protector_case: formData.hasProtectorCase,
+          image_paths: imagePaths.length > 0 ? imagePaths : undefined,
+        };
         updateFunko.mutate({
           id: initialData.id,
-          updates: {
-            name: formData.name,
-            series: formData.series || undefined,
-            number: formData.number,
-            category: formData.category || undefined,
-            condition: formData.condition,
-            purchase_price: formData.purchase_price
-              ? parseFloat(formData.purchase_price)
-              : undefined,
-            current_value: formData.current_value
-              ? parseFloat(formData.current_value)
-              : undefined,
-            purchase_date: formData.purchase_date || undefined,
-            notes: formData.notes || undefined,
-            has_protector_case: formData.hasProtectorCase,
-            image_paths: imagePaths.length > 0 ? imagePaths : undefined,
-          },
+          updates: updateData,
         });
       } else {
         createFunko.mutate({
@@ -380,10 +409,14 @@ export default function FunkoForm({
           <View style={styles.toggleRow}>
             <ThemedText style={styles.label}>Has Protector Case</ThemedText>
             <Switch
-              value={formData.hasProtectorCase}
+              key={`protector-${initialData?.id}-${formData.hasProtectorCase}`}
+              value={Boolean(formData.hasProtectorCase)}
               onValueChange={(value) => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                setFormData((prev) => ({ ...prev, hasProtectorCase: value }));
+                setFormData((prev) => ({
+                  ...prev,
+                  hasProtectorCase: Boolean(value),
+                }));
               }}
               trackColor={{ false: "#767577", true: "#81b0ff" }}
               thumbColor={formData.hasProtectorCase ? "#007AFF" : "#f4f3f4"}
@@ -577,6 +610,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
+    color: "#000",
   },
   inputError: {
     borderColor: "red",

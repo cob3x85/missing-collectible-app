@@ -228,19 +228,31 @@ class DatabaseService {
       "purchase_date",
       "notes",
       "has_protector_case",
-      "image_path",
+      "image_paths",
     ];
 
-    // Filter updates to only allowed fields
+    // Filter updates to only allowed fields and transform them
     const filteredUpdates: Record<string, any> = {};
     for (const key of Object.keys(updates)) {
       if (allowedFields.includes(key)) {
-        filteredUpdates[key] = (updates as any)[key];
+        let value = (updates as any)[key];
+
+        // Transform fields to match database format
+        if (key === "image_paths" && Array.isArray(value)) {
+          // Convert image_paths array to image_path JSON string for database
+          filteredUpdates["image_path"] = JSON.stringify(value);
+        } else if (key === "has_protector_case" && typeof value === "boolean") {
+          // Convert boolean to INTEGER for SQLite
+          const intValue = value ? 1 : 0;
+          filteredUpdates[key] = intValue;
+        } else {
+          filteredUpdates[key] = value;
+        }
       }
     }
 
     const fields = Object.keys(filteredUpdates);
-    if (fields.length === 0) return; // Nothing to update
+    if (fields.length === 0) return;
 
     const values = Object.values(filteredUpdates);
     const setClause = fields.map((field) => `${field} = ?`).join(", ");
@@ -250,7 +262,6 @@ class DatabaseService {
       [...values, now, id]
     );
   }
-
   async deleteFunko(id: string): Promise<void> {
     if (!this.db) throw new Error("Database not initialized");
 

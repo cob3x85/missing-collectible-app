@@ -5,17 +5,16 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageSpinner } from "@/components/ui/image-spinner";
 import { useFunkos } from "@/hooks/useFunkos";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
-import { useTheme } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
-import { useRouter } from "expo-router";
 import { FlatList, Platform, Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function HomeScreen() {
-  const router = useRouter();
+  const navigation = useNavigation();
   const theme = useTheme();
   const { isLoading, data: funkos } = useFunkos();
   const insets = useSafeAreaInsets();
@@ -49,11 +48,13 @@ export default function HomeScreen() {
           <ThemedText type="subtitle" style={styles.textTitle}>
             Fun-Kollection
           </ThemedText>
-          <Image
-            source={require("@/assets/images/missingfunko.png")}
-            style={{ width: 80, height: 80 }}
-            contentFit="scale-down"
-          />
+          <View style={styles.headerRight}>
+            <Image
+              source={require("@/assets/images/missingfunko.png")}
+              style={{ width: 80, height: 80 }}
+              contentFit="scale-down"
+            />
+          </View>
         </GlassView>
 
         <GlassView style={styles.emptyContainer}>
@@ -98,7 +99,7 @@ export default function HomeScreen() {
             ]}
             onPress={() => {
               playFeedback("medium");
-              router.push("/add");
+              navigation.navigate("Add" as never);
             }}
           >
             {Platform.OS === "web" ? (
@@ -133,11 +134,13 @@ export default function HomeScreen() {
         <ThemedText type="subtitle" style={styles.textTitle}>
           Fun-Kollection
         </ThemedText>
-        <Image
-          source={require("@/assets/images/missingfunko.png")}
-          style={{ width: 80, height: 80 }}
-          contentFit="scale-down"
-        />
+        <View style={styles.headerRight}>
+          <Image
+            source={require("@/assets/images/missingfunko.png")}
+            style={{ width: 80, height: 80 }}
+            contentFit="scale-down"
+          />
+        </View>
       </GlassView>
 
       <GlassView style={{ flex: 1 }}>
@@ -170,6 +173,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignContent: "center",
+  },
+  headerRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  settingsButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+  },
+  settingsButtonPressed: {
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    transform: [{ scale: 0.95 }],
   },
   textTitle: {
     color: "white",

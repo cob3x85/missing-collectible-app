@@ -5,6 +5,7 @@ import AboutScreen from "./about";
 import AddScreen from "./add";
 import HomeScreen from "./index";
 import Search from "./search";
+import SettingsScreen from "./settings";
 
 const Tab = createNativeBottomTabNavigator();
 
@@ -22,8 +23,11 @@ export default function TabLayout() {
         component={HomeScreen}
         options={{
           title: "Home",
-          tabBarIcon: () => ({
+          tabBarIcon: ({ focused }) => ({
             sfSymbol: "house.fill",
+            hierarchicalColor: focused
+              ? Colors[colorScheme ?? "light"].tabIconSelected
+              : Colors[colorScheme ?? "light"].tabIconDefault,
           }),
         }}
       />
@@ -32,7 +36,12 @@ export default function TabLayout() {
         component={AddScreen}
         options={{
           title: "Add",
-          tabBarIcon: () => ({ sfSymbol: "plus.circle.fill" }),
+          tabBarIcon: ({ focused }) => ({
+            sfSymbol: "plus.circle.fill",
+            hierarchicalColor: focused
+              ? Colors[colorScheme ?? "light"].tabIconSelected
+              : Colors[colorScheme ?? "light"].tabIconDefault,
+          }),
         }}
       />
       <Tab.Screen
@@ -40,7 +49,12 @@ export default function TabLayout() {
         component={AboutScreen}
         options={{
           title: "About",
-          tabBarIcon: () => ({ sfSymbol: "info.circle.fill" }),
+          tabBarIcon: ({ focused }) => ({
+            sfSymbol: "info.circle.fill",
+            hierarchicalColor: focused
+              ? Colors[colorScheme ?? "light"].tabIconSelected
+              : Colors[colorScheme ?? "light"].tabIconDefault,
+          }),
         }}
       />
       <Tab.Screen
@@ -48,7 +62,25 @@ export default function TabLayout() {
         component={Search}
         options={{
           title: "Search",
-          tabBarIcon: () => ({ sfSymbol: "magnifyingglass" }),
+          tabBarIcon: ({ focused }) => ({
+            sfSymbol: "magnifyingglass",
+            hierarchicalColor: focused
+              ? Colors[colorScheme ?? "light"].tabIconSelected
+              : Colors[colorScheme ?? "light"].tabIconDefault,
+          }),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ focused }) => ({
+            sfSymbol: "gear",
+            hierarchicalColor: focused
+              ? Colors[colorScheme ?? "light"].tabIconSelected
+              : Colors[colorScheme ?? "light"].tabIconDefault,
+          }),
         }}
       />
     </Tab.Navigator>
