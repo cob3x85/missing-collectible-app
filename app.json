@@ -19,7 +19,7 @@
       "icon": {
         "light": "./assets/icons/FunKollection_Icon-iOS-Default.png",
         "dark": "./assets/icons/FunKollection_Icon-iOS-Dark.png",
-        "tinted": "./assets/icons/FunKollection_Icon-iOS-Tinted.png"
+        "tinted": "./assets/icons/FunKollection_Icon-iOS-TintedLight.png"
       }
     },
     "android": {
