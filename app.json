@@ -49,7 +49,14 @@
           "root": "./src/app"
         }
       ],
-      ["react-native-bottom-tabs"],
+      [
+        "react-native-bottom-tabs",
+        {
+          "ios": {
+            "tabBarAppearance": "liquidGlass"
+          }
+        }
+      ],
       [
         "expo-build-properties",
         {
