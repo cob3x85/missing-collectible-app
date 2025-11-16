@@ -55,11 +55,6 @@ export default function SettingsScreen() {
                 <ThemedText style={styles.label}>Platform</ThemedText>
                 <ThemedText style={styles.value}>{Platform.OS}</ThemedText>
               </View>
-              <View style={styles.row}></View>
-              <ThemedText style={styles.label}>Theme</ThemedText>
-              <ThemedText style={styles.value}>
-                {theme.dark ? "Dark" : "Light"}
-              </ThemedText>
               <View style={styles.row}>
                 <ThemedText style={styles.label}>Developer</ThemedText>
                 <ThemedText style={styles.value}>Carlos Ortiz</ThemedText>
@@ -210,6 +205,11 @@ export default function SettingsScreen() {
               <View style={[styles.row, styles.disabled]}>
                 <ThemedText style={[styles.label, styles.disabledText]}>
                   Export Collection
+                </ThemedText>
+              </View>
+              <View style={[styles.row, styles.disabled]}>
+                <ThemedText style={[styles.label, styles.disabledText]}>
+                  Localization: Spanish, Portuguese, French, German, and more.
                 </ThemedText>
               </View>
             </View>

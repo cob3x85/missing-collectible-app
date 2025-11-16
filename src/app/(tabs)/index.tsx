@@ -3,7 +3,7 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { ThemedText } from "@/components/themed-text";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageSpinner } from "@/components/ui/image-spinner";
-import { useFunkos } from "@/hooks/useFunkos";
+import { useInfiniteFunkos } from "@/hooks/useFunkos";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
@@ -16,9 +16,13 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 export default function HomeScreen() {
   const navigation = useNavigation();
   const theme = useTheme();
-  const { isLoading, data: funkos } = useFunkos();
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteFunkos(20);
   const insets = useSafeAreaInsets();
   const { playFeedback } = useHapticFeedback();
+
+  // Flatten pages into single array
+  const funkos = data?.pages.flatMap((page) => page.funkos) ?? [];
 
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
@@ -153,6 +157,19 @@ export default function HomeScreen() {
           numColumns={2}
           columnWrapperStyle={styles.row}
           showsVerticalScrollIndicator={false}
+          onEndReached={() => {
+            if (hasNextPage && !isFetchingNextPage) {
+              fetchNextPage();
+            }
+          }}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+            isFetchingNextPage ? (
+              <View style={styles.footerLoader}>
+                <ImageSpinner />
+              </View>
+            ) : null
+          }
         />
       </GlassView>
       {Platform.OS === "ios" ? null : <SearchBar />}
@@ -247,5 +264,9 @@ const styles = StyleSheet.create({
   icon: {
     opacity: 0.5,
     marginBottom: 20,
+  },
+  footerLoader: {
+    paddingVertical: 20,
+    alignItems: "center",
   },
 });

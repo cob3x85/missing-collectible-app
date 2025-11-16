@@ -146,6 +146,45 @@ class DatabaseService {
     }) as Funko[];
   }
 
+  async getFunkosPaginated(limit: number, offset: number): Promise<Funko[]> {
+    if (!this.db) throw new Error("Database not initialized");
+
+    const result = await this.db.getAllAsync(
+      "SELECT * FROM funkos ORDER BY created_at DESC LIMIT ? OFFSET ?",
+      [limit, offset]
+    );
+
+    // Convert image_path to image_paths array (handle both JSON string and single path)
+    return (result as any[]).map((funko) => {
+      let image_paths: string[] | undefined;
+
+      if (funko.image_path) {
+        try {
+          // Try to parse as JSON array
+          image_paths = JSON.parse(funko.image_path);
+        } catch {
+          // If not JSON, treat as single path
+          image_paths = [funko.image_path];
+        }
+      }
+
+      return {
+        ...funko,
+        has_protector_case: funko.has_protector_case === 1,
+        image_paths,
+      };
+    }) as Funko[];
+  }
+
+  async getTotalFunkosCount(): Promise<number> {
+    if (!this.db) throw new Error("Database not initialized");
+
+    const result = await this.db.getFirstAsync(
+      "SELECT COUNT(*) as count FROM funkos"
+    );
+    return (result as any)?.count || 0;
+  }
+
   async getFunkoById(id: string): Promise<Funko | null> {
     if (!this.db) throw new Error("Database not initialized");
 

@@ -23,6 +23,8 @@ export interface DatabaseServiceInterface {
     funko: Omit<Funko, "id" | "created_at" | "updated_at">
   ): Promise<string>;
   getAllFunkos(): Promise<Funko[]>;
+  getFunkosPaginated(limit: number, offset: number): Promise<Funko[]>;
+  getTotalFunkosCount(): Promise<number>;
   getFunkoById(id: string): Promise<Funko | null>;
   updateFunko(
     id: string,
@@ -65,6 +67,16 @@ class DatabaseProxy implements DatabaseServiceInterface {
   async getAllFunkos(): Promise<Funko[]> {
     const service = await this.servicePromise;
     return service.getAllFunkos();
+  }
+
+  async getFunkosPaginated(limit: number, offset: number): Promise<Funko[]> {
+    const service = await this.servicePromise;
+    return service.getFunkosPaginated(limit, offset);
+  }
+
+  async getTotalFunkosCount(): Promise<number> {
+    const service = await this.servicePromise;
+    return service.getTotalFunkosCount();
   }
 
   async getFunkoById(id: string): Promise<Funko | null> {

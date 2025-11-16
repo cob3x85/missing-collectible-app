@@ -1,7 +1,12 @@
 import { Funko } from "@/database/schema";
 import { db } from "@/services/db";
 import { images } from "@/services/images";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 export const useFunkos = () => {
   return useQuery({
@@ -22,6 +27,27 @@ export const useFunko = (id: string) => {
   });
 };
 
+export const useInfiniteFunkos = (pageSize: number = 20) => {
+  return useInfiniteQuery({
+    queryKey: ["funkos", "infinite"],
+    queryFn: async ({ pageParam = 0 }) => {
+      const funkos = await db.getFunkosPaginated(pageSize, pageParam);
+      return {
+        funkos,
+        nextOffset: pageParam + pageSize,
+      };
+    },
+    getNextPageParam: (lastPage) => {
+      // If we got fewer items than pageSize, there's no more data
+      if (lastPage.funkos.length < pageSize) {
+        return undefined;
+      }
+      return lastPage.nextOffset;
+    },
+    initialPageParam: 0,
+  });
+};
+
 export const useCreateFunko = (options?: {
   onSuccess?: () => void;
   onError?: (error: unknown) => void;
@@ -36,6 +62,7 @@ export const useCreateFunko = (options?: {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["funkos"] });
+      queryClient.invalidateQueries({ queryKey: ["funkos", "infinite"] });
       options?.onSuccess?.();
     },
     onError: (error) => {
@@ -68,6 +95,7 @@ export const useUpdateFunko = (options?: {
     },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["funkos"] });
+      queryClient.invalidateQueries({ queryKey: ["funkos", "infinite"] });
       queryClient.invalidateQueries({ queryKey: ["funko", variables.id] });
       options?.onSuccess?.(data, variables);
     },
@@ -97,6 +125,7 @@ export const useDeleteFunko = (options?: {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["funkos"] });
+      queryClient.invalidateQueries({ queryKey: ["funkos", "infinite"] });
       options?.onSuccess?.();
     },
     onError: (error) => {
