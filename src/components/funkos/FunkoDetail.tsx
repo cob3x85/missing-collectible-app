@@ -104,7 +104,7 @@ export const FunkoDetail = ({
                   data={image_paths}
                   horizontal
                   pagingEnabled
-                  showsHorizontalScrollIndicator={false}
+                  showsHorizontalScrollIndicator={true}
                   snapToInterval={SCREEN_WIDTH - 40}
                   decelerationRate="fast"
                   keyExtractor={(item, index) => index.toString()}

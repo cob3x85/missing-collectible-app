@@ -44,14 +44,16 @@ const funkoValidationSchema = yup.object().shape({
   purchase_price: yup
     .number()
     .positive("Price must be a positive number")
-    .max(999999, "Price is too high"),
+    .max(999999, "Price is too high")
+    .optional(),
   current_value: yup
     .number()
     .positive("Value must be a positive number")
-    .max(999999, "Value is too high"),
+    .max(999999, "Value is too high")
+    .optional(),
   purchase_date: yup
     .string()
-    .matches(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
+    .matches(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format").optional(),
   notes: yup.string().max(500, "Notes must be less than 500 characters"),
   hasProtectorCase: yup.boolean().optional(),
 });

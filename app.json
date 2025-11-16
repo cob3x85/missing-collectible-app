@@ -16,10 +16,15 @@
         "NSCameraUsageDescription": "This app needs access to your camera to let you take photos of your Funko Pops.",
         "NSPhotoLibraryAddUsageDescription": "This app needs access to save Funko Pop images to your photo library."
       },
-      "icon": "./assets/images/missingfunko.png"
+      "icon": {
+        "light": "./assets/images/icons/FunKollection_Icon-iOS-Default.png",
+        "dark": "./assets/images/icons/FunKollection_Icon-iOS-Dark.png",
+        "tinted": "./assets/images/icons/"
+      }
+
     },
     "android": {
-      "icon": "./assets/images/missingfunko.png",
+      "icon": "./assets/images/icons/FunKollection_Icon-Android-Default.png",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
