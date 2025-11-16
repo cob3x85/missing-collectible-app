@@ -12,6 +12,7 @@ import {
   View,
 } from "react-native";
 import { ThemedText } from "../themed-text";
+import { IconSymbol } from "../ui/icon-symbol";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -74,7 +75,9 @@ export const FunkoDetail = ({
                     onEdit();
                   }}
                 >
-                  <ThemedText style={styles.editButtonText}>✎</ThemedText>
+                  <ThemedText style={styles.editButtonText}>
+                    <IconSymbol name="pencil.and.list.clipboard" size={18} color="white" />
+                  </ThemedText>
                 </TouchableOpacity>
               )}
               <TouchableOpacity
