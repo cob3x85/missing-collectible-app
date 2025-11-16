@@ -1,52 +1,82 @@
+import { Tabs } from "expo-router";
+import React from "react";
+import { Platform } from "react-native";
+
+import { HapticTab } from "@/components/haptic-tab";
+import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { createNativeBottomTabNavigator } from "@react-navigation/bottom-tabs/unstable";
-import AboutScreen from "./about";
-import AddScreen from "./add";
-import HomeScreen from "./index";
-
-const Tab = createNativeBottomTabNavigator();
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tab.Navigator
+    <Tabs
       screenOptions={{
+        tabBarActiveTintColor:
+          Platform.OS === "web"
+            ? "#f46d03"
+            : Colors[colorScheme ?? "light"].tint,
+        tabBarInactiveTintColor: Platform.OS === "web" ? "#666666" : undefined,
         headerShown: false,
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        tabBarBlurEffect: "prominent",
+        tabBarButton: HapticTab,
+        tabBarStyle: Platform.select({
+          web: {
+            position: "relative",
+            borderTopWidth: 1,
+            borderTopColor: "#e0e0e0",
+            backgroundColor: "white",
+            height: 60,
+            paddingBottom: 0,
+          },
+          default: undefined,
+        }),
+        tabBarItemStyle: Platform.select({
+          web: {
+            borderBottomWidth: 3,
+            borderBottomColor: "transparent",
+          },
+          default: undefined,
+        }),
+        tabBarPosition: Platform.OS === "web" ? "top" : "bottom",
       }}
     >
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+      <Tabs.Screen
+        name="index"
         options={{
           title: "Home",
-          tabBarActiveIndicatorEnabled: true,
-          // tabBarIcon: {
-          //   type: "image",
-          //   source: require("../../../assets/images/missingfunko.png"),
-          // }
-          // tabBarIcon: () => ({ sfSymbolName: "house.fill" } as any),
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="house.fill" color={color} />
+          ),
         }}
       />
-      <Tab.Screen
-        name="Add"
-        component={AddScreen}
+
+      <Tabs.Screen
+        name="search"
+        options={{
+          href: null,
+        }}
+      />
+
+      <Tabs.Screen
+        name="add"
         options={{
           title: "Add",
-          // tabBarIcon: () => ({ sfSymbolName: "plus.circle.fill" } as any),
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="plus.circle.fill" color={color} />
+          ),
         }}
       />
-      <Tab.Screen
-        name="About"
-        component={AboutScreen}
+
+      <Tabs.Screen
+        name="about"
         options={{
           title: "About",
-          // tabBarIcon: () => ({ sfSymbolName: "info.circle.fill" } as any),
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="info.circle.fill" color={color} />
+          ),
         }}
       />
-    </Tab.Navigator>
+    </Tabs>
   );
 }
