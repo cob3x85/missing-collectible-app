@@ -88,14 +88,6 @@
           "cameraPermission": "Allow Fun-Kollection to use your camera to take photos of your Funko Pops."
         }
       ],
-      [
-        "@sentry/react-native/expo",
-        {
-          "url": "https://sentry.io/",
-          "project": "fun-collection",
-          "organization": "carlos-ortiz-aa"
-        }
-      ],
       "expo-font",
       "expo-audio"
     ],
