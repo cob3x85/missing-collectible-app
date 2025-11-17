@@ -1,16 +1,16 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { renderHook, waitFor } from "@testing-library/react-native";
-import React from "react";
-import { Funko } from "../database/schema";
+import { Funko } from "@/database/schema";
 import {
   useCreateFunko,
   useDeleteFunko,
   useFunkos,
   useUpdateFunko,
-} from "../hooks/useFunkos";
+} from "@/hooks/useFunkos";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { renderHook, waitFor } from "@testing-library/react-native";
+import React from "react";
 
 // Mock database
-jest.mock("../services/db", () => ({
+jest.mock("@/services/db", () => ({
   db: {
     getAllFunkos: jest.fn(),
     getFunkoById: jest.fn(),
@@ -23,7 +23,7 @@ jest.mock("../services/db", () => ({
 }));
 
 // Mock images service
-jest.mock("../services/images", () => ({
+jest.mock("@/services/images", () => ({
   images: {
     deleteImage: jest.fn(),
   },
@@ -66,7 +66,7 @@ const createWrapper = () => {
 
 describe("useFunkos hook", () => {
   it("fetches all funkos successfully", async () => {
-    const { db } = require("../services/db");
+    const { db } = require("@/services/db");
     db.getAllFunkos.mockResolvedValue(mockFunkos);
 
     const { result } = renderHook(() => useFunkos(), {
@@ -82,7 +82,7 @@ describe("useFunkos hook", () => {
   });
 
   it("handles fetch error gracefully", async () => {
-    const { db } = require("../services/db");
+    const { db } = require("@/services/db");
     db.getAllFunkos.mockRejectedValue(new Error("Database error"));
 
     const { result } = renderHook(() => useFunkos(), {
@@ -99,7 +99,7 @@ describe("useFunkos hook", () => {
 
 describe("useCreateFunko hook", () => {
   it("creates a funko and invalidates cache", async () => {
-    const { db } = require("../services/db");
+    const { db } = require("@/services/db");
     db.createFunko.mockResolvedValue("new-id");
 
     const onSuccess = jest.fn();
@@ -131,7 +131,7 @@ describe("useCreateFunko hook", () => {
 
 describe("useUpdateFunko hook", () => {
   it("updates a funko and invalidates cache", async () => {
-    const { db } = require("../services/db");
+    const { db } = require("@/services/db");
     db.updateFunko.mockResolvedValue(undefined);
 
     const onSuccess = jest.fn();
@@ -157,8 +157,8 @@ describe("useUpdateFunko hook", () => {
 
 describe("useDeleteFunko hook", () => {
   it("deletes a funko and its images", async () => {
-    const { db } = require("../services/db");
-    const { images } = require("../services/images");
+    const { db } = require("@/services/db");
+    const { images } = require("@/services/images");
 
     db.getFunkoById.mockResolvedValue(mockFunkos[0]);
     db.deleteFunko.mockResolvedValue(undefined);

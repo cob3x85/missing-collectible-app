@@ -1,5 +1,5 @@
-import { Funko } from "../database/schema";
-import { databaseService } from "../services/database";
+import { Funko } from "@/database/schema";
+import { databaseService } from "@/services/database";
 
 describe("DatabaseService", () => {
   beforeEach(() => {

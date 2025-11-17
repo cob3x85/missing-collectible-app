@@ -14,7 +14,8 @@
       "@/screens/*": ["./src/screens/*"],
       "@/utils/*": ["./src/utils/*"]
 
-    }
+    },
+    "types": ["jest", "react-native"]
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

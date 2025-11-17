@@ -1,15 +1,15 @@
+import { FunkoCard } from "@/components/funkos/FunkoCard";
+import { Funko } from "@/database/schema";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react-native";
 import React from "react";
 import { Image } from "react-native";
-import { FunkoCard } from "../components/funkos/FunkoCard";
-import { Funko } from "../database/schema";
 
 // Mock navigation
 jest.mock("@react-navigation/native");
 
 // Mock haptics
-jest.mock("../hooks/useHapticFeedback", () => ({
+jest.mock("@/hooks/useHapticFeedback", () => ({
   useHapticFeedback: () => ({
     playFeedback: jest.fn(),
   }),
@@ -32,12 +32,12 @@ const mockFunko: Funko = {
   variant: "chase",
   purchase_price: 15.99,
   current_value: 25.0,
-  purchase_date: Date.now(),
+  purchase_date: Date.now().toString(),
   notes: "First Funko",
   has_protector_case: true,
   image_paths: ["/path/to/image.jpg"],
-  created_at: Date.now(),
-  updated_at: Date.now(),
+  created_at: Date.now().toString(),
+  updated_at: Date.now().toString(),
 };
 
 const queryClient = new QueryClient({
