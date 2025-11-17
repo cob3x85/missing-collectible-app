@@ -69,12 +69,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/icons/FunKollection_Splash-iOS-Default.png",
+          "image": "./assets/icons/FunKollection_iOS-Default.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
           "dark": {
-            "image": "./assets/icons/FunKollection_Splash-iOS-Dark.png",
+            "image": "./assets/icons/FunKollection_iOS-Dark.png",
             "backgroundColor": "#000000"
           }
         }
