@@ -322,9 +322,15 @@ class DatabaseService {
         let value = (updates as any)[key];
 
         // Transform fields to match database format
-        if (key === "image_paths" && Array.isArray(value)) {
+        if (key === "image_paths") {
           // Convert image_paths array to image_path JSON string for database
-          filteredUpdates["image_path"] = JSON.stringify(value);
+          // Handle undefined, null, empty array, or valid array
+          if (Array.isArray(value) && value.length > 0) {
+            filteredUpdates["image_path"] = JSON.stringify(value);
+          } else {
+            // Set to null when no images (undefined, null, or empty array)
+            filteredUpdates["image_path"] = null;
+          }
         } else if (key === "has_protector_case" && typeof value === "boolean") {
           // Convert boolean to INTEGER for SQLite
           const intValue = value ? 1 : 0;

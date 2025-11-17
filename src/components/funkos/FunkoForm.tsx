@@ -1,6 +1,7 @@
 import { ThemedText } from "@/components/themed-text";
 import { Funko, FunkoSize, FunkoType, FunkoVariant } from "@/database/schema";
 import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
+import { useThemeColor } from "@/hooks/use-theme-color";
 import { images } from "@/services/images";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Haptics from "expo-haptics";
@@ -143,6 +144,8 @@ export default function FunkoForm({
   initialData,
   onSuccess,
 }: FunkoFormProps) {
+  const selectionColor = useThemeColor({}, "selectionColor");
+  
   const [formData, setFormData] = useState<FunkoFormData>({
     name: initialData?.name || "",
     series: initialData?.series || "",
@@ -371,9 +374,6 @@ export default function FunkoForm({
   return (
     <ScrollView style={styles.container}>
       <View style={styles.formContainer}>
-        {/* <Pressable onPress={() => {}}>
-          <ThemedText>Auto Fill</ThemedText>
-        </Pressable> */}
 
         {/* Name Field */}
         <View style={styles.fieldContainer}>
@@ -387,6 +387,7 @@ export default function FunkoForm({
             value={formData.name}
             onChangeText={(value) => updateField("name", value)}
             autoCapitalize="words"
+            selectionColor={selectionColor}
           />
           {errors.name && (
             <ThemedText style={styles.errorText}>{errors.name}</ThemedText>
@@ -403,6 +404,7 @@ export default function FunkoForm({
             value={formData.series}
             onChangeText={(value) => updateField("series", value)}
             autoCapitalize="words"
+            selectionColor={selectionColor}
           />
           {errors.series && (
             <ThemedText style={styles.errorText}>{errors.series}</ThemedText>
@@ -421,6 +423,7 @@ export default function FunkoForm({
             value={formData.number}
             onChangeText={(value) => updateField("number", value)}
             keyboardType="numeric"
+            selectionColor={selectionColor}
           />
           {errors.number && (
             <ThemedText style={styles.errorText}>{errors.number}</ThemedText>
@@ -437,6 +440,7 @@ export default function FunkoForm({
             value={formData.category}
             onChangeText={(value) => updateField("category", value)}
             autoCapitalize="words"
+            selectionColor={selectionColor}
           />
           {errors.category && (
             <ThemedText style={styles.errorText}>{errors.category}</ThemedText>
@@ -633,6 +637,7 @@ export default function FunkoForm({
             value={formData.purchase_price}
             onChangeText={(value) => updateField("purchase_price", value)}
             keyboardType="decimal-pad"
+            selectionColor={selectionColor}
           />
           {errors.purchase_price && (
             <ThemedText style={styles.errorText}>
@@ -651,6 +656,7 @@ export default function FunkoForm({
             value={formData.current_value}
             onChangeText={(value) => updateField("current_value", value)}
             keyboardType="decimal-pad"
+            selectionColor={selectionColor}
           />
           {errors.current_value && (
             <ThemedText style={styles.errorText}>
@@ -724,6 +730,7 @@ export default function FunkoForm({
             multiline
             numberOfLines={4}
             textAlignVertical="top"
+            selectionColor={selectionColor}
           />
           {errors.notes && (
             <ThemedText style={styles.errorText}>{errors.notes}</ThemedText>

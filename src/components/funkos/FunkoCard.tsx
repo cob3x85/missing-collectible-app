@@ -328,7 +328,6 @@ const styles = StyleSheet.create({
   },
   editModalContainer: {
     flex: 1,
-    backgroundColor: "white",
   },
   editModalHeader: {
     flexDirection: "row",
