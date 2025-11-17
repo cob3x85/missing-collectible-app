@@ -3,8 +3,8 @@ import { Funko, FunkoSize, FunkoType, FunkoVariant } from "@/database/schema";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
-import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native";
 import * as Haptics from "expo-haptics";
 import React, { useEffect, useRef, useState } from "react";
 import {
