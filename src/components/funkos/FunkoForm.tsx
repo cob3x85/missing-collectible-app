@@ -3,9 +3,10 @@ import { Funko, FunkoSize, FunkoType, FunkoVariant } from "@/database/schema";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
+import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Haptics from "expo-haptics";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Platform,
@@ -145,6 +146,8 @@ export default function FunkoForm({
   onSuccess,
 }: FunkoFormProps) {
   const selectionColor = useThemeColor({}, "selectionColor");
+  const scrollViewRef = useRef<ScrollView>(null);
+  const navigation = useNavigation();
 
   const [formData, setFormData] = useState<FunkoFormData>({
     name: initialData?.name || "",
@@ -200,7 +203,6 @@ export default function FunkoForm({
 
   const createFunko = useCreateFunko({
     onSuccess: () => {
-      Alert.alert("Success", "Funko added successfully!");
       // Reset form
       setFormData({
         name: "",
@@ -219,6 +221,9 @@ export default function FunkoForm({
       });
       setImagePaths([]);
       setErrors({});
+      // Navigate to Home screen
+      navigation.navigate("Home" as never);
+      Alert.alert("Success", "Funko added successfully!");
       onSuccess?.();
     },
     onError: (error: unknown) => {
@@ -228,6 +233,8 @@ export default function FunkoForm({
 
   const updateFunko = useUpdateFunko({
     onSuccess: () => {
+      // Navigate to Home screen
+      navigation.navigate("Home" as never);
       Alert.alert("Success", "Funko updated successfully!");
       onSuccess?.();
     },
@@ -372,7 +379,7 @@ export default function FunkoForm({
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView ref={scrollViewRef} style={styles.container}>
       <View style={styles.formContainer}>
         {/* Name Field */}
         <View style={styles.fieldContainer}>
