@@ -164,7 +164,7 @@ class DatabaseService {
     if (!this.db) throw new Error("Database not initialized");
 
     const result = await this.db.getAllAsync(
-      "SELECT * FROM funkos ORDER BY created_at DESC"
+      "SELECT * FROM funkos ORDER BY CAST(number AS INTEGER) ASC"
     );
 
     // Convert image_path to image_paths array (handle both JSON string and single path)
@@ -192,7 +192,7 @@ class DatabaseService {
     if (!this.db) throw new Error("Database not initialized");
 
     const result = await this.db.getAllAsync(
-      "SELECT * FROM funkos ORDER BY created_at DESC LIMIT ? OFFSET ?",
+      "SELECT * FROM funkos ORDER BY CAST(number AS INTEGER) ASC LIMIT ? OFFSET ?",
       [limit, offset]
     );
 
