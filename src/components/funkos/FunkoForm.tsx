@@ -1,7 +1,7 @@
 import { ThemedText } from "@/components/themed-text";
 import { Funko, FunkoSize, FunkoType, FunkoVariant } from "@/database/schema";
-import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { useThemeColor } from "@/hooks/use-theme-color";
+import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Haptics from "expo-haptics";
@@ -145,7 +145,7 @@ export default function FunkoForm({
   onSuccess,
 }: FunkoFormProps) {
   const selectionColor = useThemeColor({}, "selectionColor");
-  
+
   const [formData, setFormData] = useState<FunkoFormData>({
     name: initialData?.name || "",
     series: initialData?.series || "",
@@ -374,7 +374,6 @@ export default function FunkoForm({
   return (
     <ScrollView style={styles.container}>
       <View style={styles.formContainer}>
-
         {/* Name Field */}
         <View style={styles.fieldContainer}>
           <ThemedText style={styles.label}>

@@ -77,7 +77,8 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0f9af0b4",
+    backgroundColor: "#fff",
+    // backgroundColor: "#0f9af0b4",
   },
   searchInputContainer: {
     flexDirection: "row",
