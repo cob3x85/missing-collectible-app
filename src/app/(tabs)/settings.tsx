@@ -30,8 +30,17 @@ export default function SettingsScreen() {
   }, []);
 
   const handleQualityChange = async (quality: ImageQuality) => {
+    const prevQuality = imageQuality;
     setImageQuality(quality);
-    await settingsService.setImageQuality(quality);
+    try {
+      await settingsService.setImageQuality(quality);
+    } catch (error) {
+      setImageQuality(prevQuality);
+      Alert.alert(
+        "Failed to Save",
+        "Could not update image quality. Please try again."
+      );
+    }
   };
 
   const handleImageStorageInfo = () => {
@@ -121,6 +130,9 @@ export default function SettingsScreen() {
                       styles.qualityOptionSelected,
                   ]}
                   onPress={() => handleQualityChange(option.value)}
+                  accessibilityRole="radio"
+                  accessibilityState={{ checked: imageQuality === option.value }}
+                  accessibilityLabel={`${option.label}, ${option.size}${option.value === "medium" ? ", Recommended" : ""}`}
                 >
                   <View style={styles.qualityOptionLeft}>
                     <View

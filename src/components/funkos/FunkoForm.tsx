@@ -287,6 +287,17 @@ export default function FunkoForm({
     }
   };
 
+  const handleTakePhoto = async () => {
+    try {
+      const path = await images.takePhoto();
+      if (path) {
+        setImagePaths((prev) => [...prev, path]);
+      }
+    } catch (error) {
+      Alert.alert("Error", (error as Error).message || "Failed to take photo");
+    }
+  };
+
   const handleRemoveImage = (index: number) => {
     setImagePaths((prev) => prev.filter((_, i) => i !== index));
   };
@@ -787,15 +798,26 @@ export default function FunkoForm({
         {/* Image Picker */}
         <View style={styles.fieldContainer}>
           <ThemedText style={styles.label}>Images</ThemedText>
-          <TouchableOpacity
-            style={styles.addImageButton}
-            onPress={handlePickImage}
-          >
-            <View style={styles.addImageIcon}>
-              <ThemedText style={styles.addImageIconText}>+</ThemedText>
-            </View>
-            <ThemedText style={styles.addImageText}>Add Image</ThemedText>
-          </TouchableOpacity>
+          <View style={styles.imageButtonsRow}>
+            <TouchableOpacity
+              style={[styles.addImageButton, styles.imageButtonHalf]}
+              onPress={handlePickImage}
+            >
+              <View style={styles.addImageIcon}>
+                <ThemedText style={styles.addImageIconText}>📷</ThemedText>
+              </View>
+              <ThemedText style={styles.addImageText}>Gallery</ThemedText>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.addImageButton, styles.imageButtonHalf]}
+              onPress={handleTakePhoto}
+            >
+              <View style={styles.addImageIcon}>
+                <ThemedText style={styles.addImageIconText}>📸</ThemedText>
+              </View>
+              <ThemedText style={styles.addImageText}>Camera</ThemedText>
+            </TouchableOpacity>
+          </View>
           {imagePaths.length > 0 && (
             <View style={styles.imagesList}>
               {imagePaths.map((path, index) => (
@@ -916,6 +938,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  imageButtonsRow: {
+    flexDirection: "row",
+    gap: 12,
+  },
   addImageButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -925,6 +951,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     gap: 8,
+  },
+  imageButtonHalf: {
+    flex: 1,
   },
   addImageIcon: {
     width: 32,
