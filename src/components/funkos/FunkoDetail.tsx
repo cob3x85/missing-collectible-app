@@ -16,6 +16,26 @@ import { IconSymbol } from "../ui/icon-symbol";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
+// Helper function to get image URIs from Funko data
+const getImageUris = (funko: Funko): string[] => {
+  // Priority 1: Use image_data (base64, persists across updates)
+  if (funko.image_data) {
+    try {
+      const base64Array = JSON.parse(funko.image_data);
+      return base64Array.map((base64: string) => `data:image/jpeg;base64,${base64}`);
+    } catch (error) {
+      console.warn("Failed to parse image_data:", error);
+    }
+  }
+
+  // Priority 2: Fall back to image_paths (legacy file paths)
+  if (funko.image_paths && funko.image_paths.length > 0) {
+    return funko.image_paths;
+  }
+
+  return [];
+};
+
 interface FunkoDetailProps {
   visible: boolean;
   onClose: () => void;
@@ -35,9 +55,10 @@ export const FunkoDetail = ({
   // Use fresh data if available, otherwise fall back to prop
   const currentFunko = freshFunko || funko;
 
+  const imageUris = getImageUris(currentFunko);
+
   const {
     name,
-    image_paths,
     number,
     series,
     category,
@@ -105,17 +126,17 @@ export const FunkoDetail = ({
             contentContainerStyle={styles.scrollContent}
           >
             {/* Image Gallery */}
-            {image_paths && image_paths.length > 0 && (
+            {imageUris.length > 0 && (
               <View style={styles.imageGallery} pointerEvents="box-none">
                 <FlatList
-                  data={image_paths}
+                  data={imageUris}
                   horizontal
                   pagingEnabled
                   showsHorizontalScrollIndicator={true}
                   snapToInterval={SCREEN_WIDTH - 40}
                   decelerationRate="fast"
                   keyExtractor={(item, index) => index.toString()}
-                  scrollEnabled={image_paths.length > 1}
+                  scrollEnabled={imageUris.length > 1}
                   renderItem={({ item }) => (
                     <View style={styles.imageSlide}>
                       <Image

@@ -91,6 +91,18 @@ class DatabaseService {
       }
     }
 
+    // Migration: Add image_data column for base64 storage (persists across updates)
+    try {
+      await this.db.execAsync(`
+        ALTER TABLE funkos ADD COLUMN image_data TEXT;
+      `);
+    } catch (error) {
+      // Column already exists, ignore error
+      if (!(error as Error).message.includes("duplicate column name")) {
+        console.error("Migration error (image_data):", error);
+      }
+    }
+
     // Create Collections table
     await this.db.execAsync(`
       CREATE TABLE IF NOT EXISTS collections (
@@ -115,6 +127,57 @@ class DatabaseService {
     `);
   }
 
+  // Migration: Convert existing file-based images to base64
+  async migrateImagesToBase64(): Promise<void> {
+    if (!this.db) throw new Error("Database not initialized");
+    
+    const funkos = await this.getAllFunkos();
+    let migratedCount = 0;
+    let errorCount = 0;
+
+    for (const funko of funkos) {
+      // Skip if already has base64 data or no images
+      if (funko.image_data || !funko.image_paths || funko.image_paths.length === 0) {
+        continue;
+      }
+
+      try {
+        const FileSystem = require("expo-file-system/legacy");
+        const base64Images: string[] = [];
+
+        for (const imagePath of funko.image_paths) {
+          try {
+            // Check if file exists
+            const fileInfo = await FileSystem.getInfoAsync(imagePath);
+            if (fileInfo.exists) {
+              // Read file as base64
+              const base64 = await FileSystem.readAsStringAsync(imagePath, {
+                encoding: FileSystem.EncodingType.Base64,
+              });
+              base64Images.push(base64);
+            }
+          } catch (err) {
+            console.warn(`Failed to read image: ${imagePath}`, err);
+          }
+        }
+
+        if (base64Images.length > 0) {
+          // Store base64 images in database
+          await this.db.runAsync(
+            "UPDATE funkos SET image_data = ? WHERE id = ?",
+            [JSON.stringify(base64Images), funko.id]
+          );
+          migratedCount++;
+        }
+      } catch (error) {
+        console.error(`Failed to migrate images for funko ${funko.id}:`, error);
+        errorCount++;
+      }
+    }
+
+    console.log(`Migration complete: ${migratedCount} funkos migrated, ${errorCount} errors`);
+  }
+
   // Funko CRUD operations
   async createFunko(
     funko: Omit<Funko, "id" | "created_at" | "updated_at">
@@ -131,9 +194,9 @@ class DatabaseService {
     await this.db.runAsync(
       `INSERT INTO funkos (
         id, name, series, number, category, condition, size, type, variant,
-        purchase_price, current_value, purchase_date, notes, has_protector_case, image_path,
+        purchase_price, current_value, purchase_date, notes, has_protector_case, image_path, image_data,
         created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         id,
         funko.name,
@@ -152,6 +215,7 @@ class DatabaseService {
         funko.image_paths && funko.image_paths.length > 0
           ? JSON.stringify(funko.image_paths)
           : null,
+        funko.image_data ?? null,
         now,
         now,
       ]
@@ -183,7 +247,9 @@ class DatabaseService {
 
       return {
         ...funko,
+        has_protector_case: funko.has_protector_case === 1,
         image_paths,
+        image_data: funko.image_data,
       };
     }) as Funko[];
   }
@@ -214,6 +280,7 @@ class DatabaseService {
         ...funko,
         has_protector_case: funko.has_protector_case === 1,
         image_paths,
+        image_data: funko.image_data,
       };
     }) as Funko[];
   }
@@ -255,6 +322,7 @@ class DatabaseService {
       ...funko,
       has_protector_case: funko.has_protector_case === 1,
       image_paths,
+      image_data: funko.image_data,
     } as Funko;
   }
 
@@ -286,6 +354,7 @@ class DatabaseService {
         ...funko,
         has_protector_case: funko.has_protector_case === 1,
         image_paths,
+        image_data: funko.image_data,
       };
     }) as Funko[];
   }
@@ -313,6 +382,7 @@ class DatabaseService {
       "notes",
       "has_protector_case",
       "image_paths",
+      "image_data",
     ];
 
     // Filter updates to only allowed fields and transform them
@@ -331,6 +401,9 @@ class DatabaseService {
             // Set to null when no images (undefined, null, or empty array)
             filteredUpdates["image_path"] = null;
           }
+        } else if (key === "image_data") {
+          // Store image_data as-is (already JSON string of base64 array)
+          filteredUpdates["image_data"] = value;
         } else if (key === "has_protector_case" && typeof value === "boolean") {
           // Convert boolean to INTEGER for SQLite
           const intValue = value ? 1 : 0;
@@ -392,6 +465,7 @@ class DatabaseService {
         ...funko,
         has_protector_case: funko.has_protector_case === 1,
         image_paths,
+        image_data: funko.image_data,
       };
     }) as Funko[];
   }

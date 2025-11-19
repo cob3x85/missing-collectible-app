@@ -169,9 +169,19 @@ export default function FunkoForm({
     hasProtectorCase: initialData?.has_protector_case ?? false,
   });
 
-  const [imagePaths, setImagePaths] = useState<string[]>(
-    initialData?.image_paths || []
-  );
+  const [imagePaths, setImagePaths] = useState<string[]>(() => {
+    if (initialData?.image_data) {
+      try {
+        const base64Array = JSON.parse(initialData.image_data);
+        return base64Array.map(
+          (base64: string) => `data:image/jpeg;base64,${base64}`
+        );
+      } catch (error) {
+        console.warn("Failed to parse image_data:", error);
+      }
+    }
+    return initialData?.image_paths || [];
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -197,9 +207,29 @@ export default function FunkoForm({
         notes: initialData.notes || "",
         hasProtectorCase: initialData.has_protector_case ?? false,
       });
-      setImagePaths(initialData.image_paths || []);
+
+      // Load images from image_data or fall back to image_paths
+      if (initialData.image_data) {
+        try {
+          const base64Array = JSON.parse(initialData.image_data);
+          setImagePaths(
+            base64Array.map(
+              (base64: string) => `data:image/jpeg;base64,${base64}`
+            )
+          );
+        } catch (error) {
+          console.warn("Failed to parse image_data:", error);
+          setImagePaths(initialData.image_paths || []);
+        }
+      } else {
+        setImagePaths(initialData.image_paths || []);
+      }
     }
-  }, [initialData?.id, initialData?.has_protector_case]);
+  }, [
+    initialData?.id,
+    initialData?.has_protector_case,
+    initialData?.image_data,
+  ]);
 
   const createFunko = useCreateFunko({
     onSuccess: () => {
@@ -269,6 +299,15 @@ export default function FunkoForm({
       // Validate form data
       await funkoValidationSchema.validate(formData, { abortEarly: false });
 
+      // Convert data URI images to base64 strings for database storage
+      const base64Images = imagePaths.map((path) => {
+        // Extract base64 from data URI (data:image/jpeg;base64,xxx)
+        if (path.startsWith("data:image")) {
+          return path.split(",")[1]; // Get the base64 part
+        }
+        return path; // Keep legacy file paths as-is for backward compatibility
+      });
+
       // If validation passes, create or update the Funko
       if (mode === "edit" && initialData) {
         const updateData = {
@@ -289,7 +328,8 @@ export default function FunkoForm({
           purchase_date: formData.purchase_date || null,
           notes: formData.notes || undefined,
           has_protector_case: formData.hasProtectorCase,
-          image_paths: imagePaths.length > 0 ? imagePaths : undefined,
+          image_data:
+            base64Images.length > 0 ? JSON.stringify(base64Images) : undefined,
         };
         updateFunko.mutate({
           id: initialData.id,
@@ -314,7 +354,8 @@ export default function FunkoForm({
           purchase_date: formData.purchase_date || null,
           notes: formData.notes || undefined,
           has_protector_case: formData.hasProtectorCase,
-          image_paths: imagePaths.length > 0 ? imagePaths : undefined,
+          image_data:
+            base64Images.length > 0 ? JSON.stringify(base64Images) : undefined,
         });
       }
     } catch (err) {

@@ -48,14 +48,19 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   useEffect(() => {
     // Initialize database when app starts
-    db.init().catch((error: unknown) => {
-      console.error(error);
-      Alert.alert(
-        "Database Error",
-        "Failed to initialize the database. Please restart the app or contact support.",
-        [{ text: "OK" }]
-      );
-    });
+    db.init()
+      .then(async () => {
+        // Run migration to convert file-based images to base64
+        await db.migrateImagesToBase64();
+      })
+      .catch((error: unknown) => {
+        console.error(error);
+        Alert.alert(
+          "Database Error",
+          "Failed to initialize the database. Please restart the app or contact support.",
+          [{ text: "OK" }]
+        );
+      });
   }, []);
 
   return (

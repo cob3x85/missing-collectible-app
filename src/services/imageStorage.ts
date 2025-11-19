@@ -5,7 +5,6 @@ class ImageStorageService {
   private imagesDirectoryPath: string;
 
   constructor() {
-    // Use the reliable legacy API for all operations
     this.imagesDirectoryPath = `${FileSystem.documentDirectory}funko_images/`;
     this.ensureDirectoryExists();
   }
@@ -90,24 +89,28 @@ class ImageStorageService {
   }
 
   async saveImage(sourceUri: string): Promise<string> {
-    const filename = this.generateUniqueFilename();
-    const destinationUri = `${this.imagesDirectoryPath}${filename}`;
-
     try {
-      await FileSystem.copyAsync({
-        from: sourceUri,
-        to: destinationUri,
+      // Convert image to base64
+      const base64 = await FileSystem.readAsStringAsync(sourceUri, {
+        encoding: FileSystem.EncodingType.Base64,
       });
 
-      return destinationUri;
+      // Return base64 string with data URI prefix for React Native Image component
+      return `data:image/jpeg;base64,${base64}`;
     } catch (error) {
-      console.warn("Failed to save image:", error);
+      console.warn("Failed to convert image to base64:", error);
       throw error;
     }
   }
 
   async deleteImage(imagePath: string): Promise<void> {
     try {
+      // If it's a base64 data URI, nothing to delete
+      if (imagePath.startsWith("data:image")) {
+        return;
+      }
+
+      // Legacy: Delete file if it exists
       const fileInfo = await FileSystem.getInfoAsync(imagePath);
       if (fileInfo.exists) {
         await FileSystem.deleteAsync(imagePath);
@@ -119,6 +122,12 @@ class ImageStorageService {
 
   async getImageUri(imagePath: string): Promise<string | null> {
     try {
+      // If already a data URI (base64), return as-is
+      if (imagePath.startsWith("data:image")) {
+        return imagePath;
+      }
+
+      // Legacy: Check if it's a file path
       const fileInfo = await FileSystem.getInfoAsync(imagePath);
       return fileInfo.exists ? imagePath : null;
     } catch (error) {

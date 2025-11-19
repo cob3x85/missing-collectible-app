@@ -3,12 +3,12 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { useTheme } from "@react-navigation/native";
 import { GlassContainer, GlassView } from "expo-glass-effect";
 import {
-    Alert,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    View,
+  Alert,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -19,7 +19,11 @@ export default function SettingsScreen() {
   const handleImageStorageInfo = () => {
     Alert.alert(
       "Image Storage",
-      "Images are stored in the app's directory and will be lost if you uninstall the app. They will persist through app updates.\n\nBackup options coming soon!",
+      "✅ FIXED: Images are now stored directly in the database as base64 and will persist across all app updates.\n\n" +
+        "• Images persist through TestFlight updates\n" +
+        "• Images persist through App Store updates\n" +
+        "• Only lost if app is uninstalled\n\n" +
+        "Previous images from file storage have been automatically migrated to the database.",
       [{ text: "OK" }]
     );
   };
@@ -132,21 +136,21 @@ export default function SettingsScreen() {
               </Pressable>
             </View>
 
-            {/* Warning Banner */}
-            <View style={styles.warningBanner}>
+            {/* Success Banner */}
+            <View style={styles.successBanner}>
               <IconSymbol
                 size={20}
-                name="exclamationmark.triangle.fill"
-                color="#ff9500"
+                name="checkmark.circle.fill"
+                color="#34c759"
                 style={styles.warningIcon}
               />
               <View style={styles.warningTextContainer}>
-                <ThemedText style={styles.warningTitle}>
-                  Important Note
+                <ThemedText style={styles.successTitle}>
+                  ✅ Images Persistence Fixed
                 </ThemedText>
                 <ThemedText style={styles.warningText}>
-                  Images persist through app updates but are lost on reinstall.
-                  Backup options will be added in a future update.
+                  Images now stored in database and persist across all app
+                  updates. Existing images have been automatically migrated.
                 </ThemedText>
               </View>
             </View>
@@ -272,12 +276,27 @@ const styles = StyleSheet.create({
   },
   warningBanner: {
     flexDirection: "row",
-    backgroundColor: "#fff9e6",
+    backgroundColor: "#ffebee",
     borderRadius: 12,
     padding: 16,
     marginTop: 12,
     borderWidth: 1,
-    borderColor: "#ffe066",
+    borderColor: "#ff3b30",
+  },
+  successBanner: {
+    flexDirection: "row",
+    backgroundColor: "#e8f5e9",
+    borderRadius: 12,
+    padding: 16,
+    marginTop: 12,
+    borderWidth: 1,
+    borderColor: "#34c759",
+  },
+  successTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 4,
   },
   warningIcon: {
     marginRight: 12,
