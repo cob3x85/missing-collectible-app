@@ -1,13 +1,16 @@
 import { ThemedText } from "@/components/themed-text";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { ImageQuality, settingsService } from "@/services/settings";
 import { useTheme } from "@react-navigation/native";
 import { GlassContainer, GlassView } from "expo-glass-effect";
+import { useEffect, useState } from "react";
 import {
   Alert,
   Platform,
   Pressable,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -15,15 +18,31 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function SettingsScreen() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const [imageQuality, setImageQuality] = useState<ImageQuality>("medium");
+
+  // Load current setting
+  useEffect(() => {
+    const loadSettings = async () => {
+      const quality = await settingsService.getImageQuality();
+      setImageQuality(quality);
+    };
+    loadSettings();
+  }, []);
+
+  const handleQualityChange = async (quality: ImageQuality) => {
+    setImageQuality(quality);
+    await settingsService.setImageQuality(quality);
+  };
 
   const handleImageStorageInfo = () => {
     Alert.alert(
       "Image Storage",
-      "✅ FIXED: Images are now stored directly in the database as base64 and will persist across all app updates.\n\n" +
-        "• Images persist through TestFlight updates\n" +
-        "• Images persist through App Store updates\n" +
-        "• Only lost if app is uninstalled\n\n" +
-        "Previous images from file storage have been automatically migrated to the database.",
+      "Images are stored directly in the app's database and will persist across app updates.\n\n" +
+        "Storage Details:\n" +
+        "• Images are saved as part of the app's database\n" +
+        "• They persist through app updates\n" +
+        "• Only removed if the app is uninstalled\n\n" +
+        "Your images are safe and will not be lost during updates.",
       [{ text: "OK" }]
     );
   };
@@ -69,6 +88,75 @@ export default function SettingsScreen() {
                 </ThemedText>
               </View>
             </View>
+          </View>
+
+          {/* Image Quality Section */}
+          <View style={styles.section}>
+            <ThemedText style={styles.sectionTitle}>Image Quality</ThemedText>
+            <ThemedText style={styles.sectionDescription}>
+              Choose image quality for new photos. Lower quality saves storage
+              space.
+            </ThemedText>
+            <View style={styles.card}>
+              {(
+                [
+                  {
+                    value: "high",
+                    label: "High Quality",
+                    size: "~500KB/image",
+                  },
+                  {
+                    value: "medium",
+                    label: "Medium Quality",
+                    size: "~250KB/image",
+                  },
+                  { value: "low", label: "Low Quality", size: "~150KB/image" },
+                ] as const
+              ).map((option) => (
+                <TouchableOpacity
+                  key={option.value}
+                  style={[
+                    styles.qualityOption,
+                    imageQuality === option.value &&
+                      styles.qualityOptionSelected,
+                  ]}
+                  onPress={() => handleQualityChange(option.value)}
+                >
+                  <View style={styles.qualityOptionLeft}>
+                    <View
+                      style={[
+                        styles.radioOuter,
+                        imageQuality === option.value &&
+                          styles.radioOuterSelected,
+                      ]}
+                    >
+                      {imageQuality === option.value && (
+                        <View style={styles.radioInner} />
+                      )}
+                    </View>
+                    <View>
+                      <ThemedText style={styles.qualityLabel}>
+                        {option.label}
+                      </ThemedText>
+                      <ThemedText style={styles.qualitySize}>
+                        {option.size}
+                      </ThemedText>
+                    </View>
+                  </View>
+                  {option.value === "medium" && (
+                    <View style={styles.recommendedBadge}>
+                      <ThemedText style={styles.recommendedText}>
+                        Recommended
+                      </ThemedText>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              ))}
+            </View>
+            <ThemedText style={styles.qualityNote}>
+              💡 This setting only affects new photos. Existing images won't
+              change.
+            </ThemedText>
           </View>
 
           {/* User Guide Section */}
@@ -128,31 +216,12 @@ export default function SettingsScreen() {
                       Image Storage Info
                     </ThemedText>
                     <ThemedText style={styles.sublabel}>
-                      Learn about image persistence
+                      How images are stored on your device
                     </ThemedText>
                   </View>
                 </View>
                 <IconSymbol size={16} name="chevron.right" color="#999" />
               </Pressable>
-            </View>
-
-            {/* Success Banner */}
-            <View style={styles.successBanner}>
-              <IconSymbol
-                size={20}
-                name="checkmark.circle.fill"
-                color="#34c759"
-                style={styles.warningIcon}
-              />
-              <View style={styles.warningTextContainer}>
-                <ThemedText style={styles.successTitle}>
-                  ✅ Images Persistence Fixed
-                </ThemedText>
-                <ThemedText style={styles.warningText}>
-                  Images now stored in database and persist across all app
-                  updates. Existing images have been automatically migrated.
-                </ThemedText>
-              </View>
             </View>
           </View>
 
@@ -160,21 +229,6 @@ export default function SettingsScreen() {
           <View style={[styles.section, { marginBottom: 100 }]}>
             <ThemedText style={styles.sectionTitle}>Coming Soon</ThemedText>
             <View style={styles.card}>
-              <View style={[styles.row, styles.disabled]}>
-                <ThemedText style={[styles.label, styles.disabledText]}>
-                  Backup & Restore
-                </ThemedText>
-              </View>
-              <View style={[styles.row, styles.disabled]}>
-                <ThemedText style={[styles.label, styles.disabledText]}>
-                  Save to Photo Library
-                </ThemedText>
-              </View>
-              <View style={[styles.row, styles.disabled]}>
-                <ThemedText style={[styles.label, styles.disabledText]}>
-                  Export Collection
-                </ThemedText>
-              </View>
               <View style={[styles.row, styles.disabled]}>
                 <ThemedText style={[styles.label, styles.disabledText]}>
                   Localization: Spanish, Portuguese, French, German, and more.
@@ -315,5 +369,74 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#666",
     lineHeight: 20,
+  },
+  sectionDescription: {
+    fontSize: 14,
+    color: "#666",
+    marginBottom: 12,
+    lineHeight: 20,
+  },
+  qualityOption: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
+  },
+  qualityOptionSelected: {
+    backgroundColor: "#f0f8ff",
+  },
+  qualityOptionLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+  radioOuter: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#ccc",
+    marginRight: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  radioOuterSelected: {
+    borderColor: "#f46d03",
+  },
+  radioInner: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: "#f46d03",
+  },
+  qualityLabel: {
+    fontSize: 16,
+    color: "#333",
+    fontWeight: "500",
+  },
+  qualitySize: {
+    fontSize: 13,
+    color: "#666",
+    marginTop: 2,
+  },
+  recommendedBadge: {
+    backgroundColor: "#34c759",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+  recommendedText: {
+    fontSize: 11,
+    color: "white",
+    fontWeight: "600",
+  },
+  qualityNote: {
+    fontSize: 13,
+    color: "#666",
+    marginTop: 12,
+    lineHeight: 18,
+    fontStyle: "italic",
   },
 });

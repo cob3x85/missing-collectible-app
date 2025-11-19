@@ -1,5 +1,6 @@
 import * as FileSystem from "expo-file-system/legacy";
 import * as ImagePicker from "expo-image-picker";
+import { settingsService } from "./settings";
 
 class ImageStorageService {
   private imagesDirectoryPath: string;
@@ -22,6 +23,12 @@ class ImageStorageService {
     }
   }
 
+  // Get dynamic image quality from settings
+  private async getImageQuality(): Promise<number> {
+    const quality = await settingsService.getImageQuality();
+    return settingsService.getCompressionQuality(quality);
+  }
+
   async pickImageFromLibrary(): Promise<string | null> {
     try {
       // Request permission
@@ -38,7 +45,7 @@ class ImageStorageService {
         mediaTypes: ["images"],
         allowsEditing: true,
         aspect: [1, 1], // Square aspect ratio for Funko images
-        quality: 0.8,
+        quality: await this.getImageQuality(),
       });
 
       if (!result.canceled && result.assets && result.assets[0]) {
@@ -67,7 +74,7 @@ class ImageStorageService {
       const result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
         aspect: [1, 1],
-        quality: 0.8,
+        quality: await this.getImageQuality(),
       });
 
       if (!result.canceled && result.assets && result.assets[0]) {

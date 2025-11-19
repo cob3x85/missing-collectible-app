@@ -174,8 +174,6 @@ class DatabaseService {
         errorCount++;
       }
     }
-
-    console.log(`Migration complete: ${migratedCount} funkos migrated, ${errorCount} errors`);
   }
 
   // Funko CRUD operations

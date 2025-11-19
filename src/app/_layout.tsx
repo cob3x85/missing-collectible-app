@@ -1,5 +1,6 @@
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { db } from "@/services/db";
+import { settingsService } from "@/services/settings";
 import {
   DarkTheme,
   DefaultTheme,
@@ -47,11 +48,13 @@ const queryClient = new QueryClient();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   useEffect(() => {
-    // Initialize database when app starts
+    // Initialize database and settings when app starts
     db.init()
       .then(async () => {
         // Run migration to convert file-based images to base64
         await db.migrateImagesToBase64();
+        // Initialize settings service
+        await settingsService.init();
       })
       .catch((error: unknown) => {
         console.error(error);

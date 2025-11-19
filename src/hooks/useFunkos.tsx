@@ -50,7 +50,6 @@ export const useInfiniteFunkos = (pageSize: number = 20) => {
       if (lastPage.funkos.length < pageSize) {
         return undefined;
       }
-      console.log("Number of funkos fetched:", lastPage.funkos.length);
       return lastPage.nextOffset;
     },
     initialPageParam: 0,
