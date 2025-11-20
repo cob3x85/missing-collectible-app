@@ -359,10 +359,37 @@ This project follows AI-agent friendly development patterns. See `.github/copilo
 - State management conventions
 - Platform-specific best practices
 
-## 📄 License
+## 📄 License & Usage
 
-MIT License - Educational React Native project showcasing cross-platform development.
+**Copyright © 2025 Carlos Ortiz Bravo. All Rights Reserved.**
+
+This is a **proprietary project** provided for reference and portfolio demonstration purposes only.
+
+### ⚠️ Important Usage Terms
+
+- ✅ **Allowed**: View source code for educational purposes
+- ✅ **Allowed**: Study implementation patterns and techniques
+- ✅ **Allowed**: Reference in discussions or educational contexts
+- ❌ **Prohibited**: Commercial use without written permission
+- ❌ **Prohibited**: Distribution or redistribution of the code
+- ❌ **Prohibited**: Creating derivative works or modified versions
+- ❌ **Prohibited**: Using in production applications or products
+
+See [LICENSE](./LICENSE) file for full terms and conditions.
+
+### 💼 Commercial Licensing & Collaboration
+
+Interested in using this code commercially, collaboration opportunities, or custom development?
+
+**Contact:** cob3x85.apple@outlook.com  
+**Repository:** https://github.com/cob3x85/missing-funko-app
+
+### 🏷️ Trademark Notice
+
+"Fun-Kollection" and associated branding materials are trademarks of Carlos Ortiz Bravo.
 
 ---
 
 **Built with ❤️ using React Native, Expo, and modern mobile development practices**
+
+_This project is not affiliated with or endorsed by Funko, Inc._
