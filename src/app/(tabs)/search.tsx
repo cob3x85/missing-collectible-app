@@ -1,10 +1,15 @@
 import { FunkoCard } from "@/components/funkos/FunkoCard";
+import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { IconSymbol } from "@/components/ui/icon-symbol";
 import { globalThemeStyles } from "@/config/theme/global-theme";
 import { useDebounceValue } from "@/hooks/useDebounceValue";
 import { useFunkos, useSearchFunkos } from "@/hooks/useFunkos";
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useTheme } from "@react-navigation/native";
+import { GlassView } from "expo-glass-effect";
+import { Image } from "expo-image";
+import { useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -16,6 +21,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function SearchScreen() {
   const insets = useSafeAreaInsets();
+  const theme = useTheme();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { debouncedValue } = useDebounceValue(searchQuery, 500);
 
@@ -33,7 +39,20 @@ export default function SearchScreen() {
   const isLoading = shouldSearch ? isSearching : isLoadingAll;
 
   return (
-    <ThemedView style={[styles.container, { paddingTop: insets.top }]}>
+    <ThemedView style={styles.container}>
+      <GlassView style={[styles.header, { paddingTop: insets.top }]}>
+        <View style={styles.headerContent}>
+          <ThemedText type="title" style={styles.headerTitle}>
+            Search
+          </ThemedText>
+          <Image
+            source={require("@/assets/images/missingfunko.png")}
+            style={styles.headerImage}
+            contentFit="scale-down"
+          />
+        </View>
+      </GlassView>
+
       <View style={styles.searchInputContainer} pointerEvents="auto">
         <Ionicons
           name="search"
@@ -57,6 +76,42 @@ export default function SearchScreen() {
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#dd7d16" />
         </View>
+      ) : displayList.length === 0 && shouldSearch ? (
+        <View style={styles.emptyContainer}>
+          <IconSymbol
+            size={80}
+            name="magnifyingglass"
+            color="#ccc"
+            style={styles.emptyIcon}
+          />
+          <ThemedText type="subtitle" style={styles.emptyTitle}>
+            No Results Found
+          </ThemedText>
+          <ThemedText style={styles.emptyMessage}>
+            No Funkos match "{searchQuery}"
+          </ThemedText>
+          <ThemedText style={styles.emptyHint}>
+            Try different keywords or check your spelling
+          </ThemedText>
+        </View>
+      ) : displayList.length === 0 && !shouldSearch ? (
+        <View style={styles.emptyContainer}>
+          <IconSymbol
+            size={80}
+            name="tray.fill"
+            color="#ccc"
+            style={styles.emptyIcon}
+          />
+          <ThemedText type="subtitle" style={styles.emptyTitle}>
+            No Funkos Available
+          </ThemedText>
+          <ThemedText style={styles.emptyMessage}>
+            Your collection is empty
+          </ThemedText>
+          <ThemedText style={styles.emptyHint}>
+            Add your first Funko from the Add tab to get started
+          </ThemedText>
+        </View>
       ) : (
         <FlatList
           style={styles.flatList}
@@ -78,7 +133,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    // backgroundColor: "#0f9af0b4",
+  },
+  header: {
+    backgroundColor: "#f46d03",
+    padding: 20,
+  },
+  headerContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  headerTitle: {
+    color: "white",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  headerImage: {
+    width: 60,
+    height: 60,
   },
   searchInputContainer: {
     flexDirection: "row",
@@ -88,6 +160,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     marginHorizontal: 16,
+    marginTop: 12,
     marginBottom: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -115,5 +188,32 @@ const styles = StyleSheet.create({
   },
   flatListContent: {
     padding: 10,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 40,
+  },
+  emptyIcon: {
+    opacity: 0.5,
+    marginBottom: 20,
+  },
+  emptyTitle: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 8,
+  },
+  emptyMessage: {
+    fontSize: 16,
+    color: "#666",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  emptyHint: {
+    fontSize: 14,
+    color: "#999",
+    textAlign: "center",
   },
 });

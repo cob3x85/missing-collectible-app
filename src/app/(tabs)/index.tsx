@@ -116,14 +116,14 @@ export default function HomeScreen() {
 
   return (
     <GlassContainer style={styles.container}>
-      <GlassView style={[styles.titleContainer, { paddingTop: insets.top }]}>
-        <ThemedText type="subtitle" style={styles.textTitle}>
-          Fun-Kollection
-        </ThemedText>
-        <View style={styles.headerRight}>
+      <GlassView style={[styles.header, { paddingTop: insets.top }]}>
+        <View style={styles.headerContent}>
+          <ThemedText type="title" style={styles.headerTitle}>
+            Fun-Kollection
+          </ThemedText>
           <Image
             source={require("@/assets/images/missingfunko.png")}
-            style={{ width: 80, height: 80 }}
+            style={styles.headerImage}
             contentFit="scale-down"
           />
         </View>
@@ -162,7 +162,26 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom:60,
+    paddingBottom: 60,
+  },
+  header: {
+    backgroundColor: "#f46d03",
+    padding: 20,
+  },
+  headerContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  headerTitle: {
+    color: "white",
+    fontFamily: "Slackey",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  headerImage: {
+    width: 60,
+    height: 60,
   },
   titleContainer: {
     alignItems: "center",

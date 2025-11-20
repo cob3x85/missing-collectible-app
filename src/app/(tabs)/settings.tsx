@@ -3,6 +3,7 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageQuality, settingsService } from "@/services/settings";
 import { useTheme } from "@react-navigation/native";
 import { GlassContainer, GlassView } from "expo-glass-effect";
+import { Image } from "expo-image";
 import { useEffect, useState } from "react";
 import {
   Alert,
@@ -67,9 +68,16 @@ export default function SettingsScreen() {
   return (
     <GlassContainer style={styles.container}>
       <GlassView style={[styles.header, { paddingTop: insets.top }]}>
-        <ThemedText type="title" style={styles.headerTitle}>
-          Settings
-        </ThemedText>
+        <View style={styles.headerContent}>
+          <ThemedText type="title" style={styles.headerTitle}>
+            Settings
+          </ThemedText>
+          <Image
+            source={require("@/assets/images/missingfunko.png")}
+            style={styles.headerImage}
+            contentFit="scale-down"
+          />
+        </View>
       </GlassView>
 
       <ScrollView style={styles.scrollView}>
@@ -102,7 +110,9 @@ export default function SettingsScreen() {
           {/* Image Quality Section */}
           <View style={styles.section}>
             <ThemedText style={styles.sectionTitle}>Image Quality</ThemedText>
-            <ThemedText style={[styles.sectionDescription, {color: theme.colors.text}]}>
+            <ThemedText
+              style={[styles.sectionDescription, { color: theme.colors.text }]}
+            >
               Choose image quality for new photos. Lower quality saves storage
               space.
             </ThemedText>
@@ -131,8 +141,12 @@ export default function SettingsScreen() {
                   ]}
                   onPress={() => handleQualityChange(option.value)}
                   accessibilityRole="radio"
-                  accessibilityState={{ checked: imageQuality === option.value }}
-                  accessibilityLabel={`${option.label}, ${option.size}${option.value === "medium" ? ", Recommended" : ""}`}
+                  accessibilityState={{
+                    checked: imageQuality === option.value,
+                  }}
+                  accessibilityLabel={`${option.label}, ${option.size}${
+                    option.value === "medium" ? ", Recommended" : ""
+                  }`}
                 >
                   <View style={styles.qualityOptionLeft}>
                     <View
@@ -165,7 +179,9 @@ export default function SettingsScreen() {
                 </TouchableOpacity>
               ))}
             </View>
-            <ThemedText style={[styles.qualityNote, {color: theme.colors.text}]}>
+            <ThemedText
+              style={[styles.qualityNote, { color: theme.colors.text }]}
+            >
               💡 This setting only affects new photos. Existing images won't
               change.
             </ThemedText>
@@ -262,12 +278,20 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#f46d03",
     padding: 20,
+  },
+  headerContent: {
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   headerTitle: {
     color: "white",
     fontSize: 24,
     fontWeight: "bold",
+  },
+  headerImage: {
+    width: 60,
+    height: 60,
   },
   scrollView: {
     flex: 1,
