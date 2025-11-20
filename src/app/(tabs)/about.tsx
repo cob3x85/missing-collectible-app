@@ -35,7 +35,7 @@ export default function AboutScreen() {
           details about each Funko.
         </ThemedText>
       </View>
-      <View style={globalThemeStyles.stepContainer}>
+      <View style={[globalThemeStyles.stepContainer, { marginBottom :60}]}>
         <ThemedText type="subtitle" style={{ color: "black" }}>
           Problem{" "}
         </ThemedText>

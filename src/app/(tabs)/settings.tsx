@@ -102,7 +102,7 @@ export default function SettingsScreen() {
           {/* Image Quality Section */}
           <View style={styles.section}>
             <ThemedText style={styles.sectionTitle}>Image Quality</ThemedText>
-            <ThemedText style={styles.sectionDescription}>
+            <ThemedText style={[styles.sectionDescription, {color: theme.colors.text}]}>
               Choose image quality for new photos. Lower quality saves storage
               space.
             </ThemedText>
@@ -165,7 +165,7 @@ export default function SettingsScreen() {
                 </TouchableOpacity>
               ))}
             </View>
-            <ThemedText style={styles.qualityNote}>
+            <ThemedText style={[styles.qualityNote, {color: theme.colors.text}]}>
               💡 This setting only affects new photos. Existing images won't
               change.
             </ThemedText>

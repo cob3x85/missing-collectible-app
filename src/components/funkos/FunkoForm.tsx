@@ -446,6 +446,7 @@ export default function FunkoForm({
             onChangeText={(value) => updateField("name", value)}
             autoCapitalize="words"
             selectionColor={selectionColor}
+            autoCorrect={false}
           />
           {errors.name && (
             <ThemedText style={styles.errorText}>{errors.name}</ThemedText>
@@ -463,6 +464,7 @@ export default function FunkoForm({
             onChangeText={(value) => updateField("series", value)}
             autoCapitalize="words"
             selectionColor={selectionColor}
+            autoCorrect={false}
           />
           {errors.series && (
             <ThemedText style={styles.errorText}>{errors.series}</ThemedText>
