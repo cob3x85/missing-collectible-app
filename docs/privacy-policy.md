@@ -20,6 +20,7 @@ The app stores the following information **exclusively on your device**:
 - **App Settings**: Your preferences and configuration within the app
 
 All data is stored locally using:
+
 - SQLite database on your device
 - Local file system for images
 - No cloud synchronization or external storage
@@ -27,6 +28,7 @@ All data is stored locally using:
 ## How We Use Your Information
 
 Your data is used solely to:
+
 - Display your Funko collection within the app
 - Allow you to add, edit, search, and delete Funko Pops from your collection
 - Provide collection statistics and insights
@@ -35,6 +37,7 @@ Your data is used solely to:
 ## Data Sharing and Disclosure
 
 **We do NOT:**
+
 - Share your data with third parties
 - Sell your data to advertisers
 - Upload your data to any servers
@@ -43,6 +46,7 @@ Your data is used solely to:
 - Use cookies or tracking technologies
 
 **Optional Sharing by You:**
+
 - You may choose to share individual Funko card images using your device's native share sheet (Messages, Email, Social Media, etc.)
 - When you share, the data goes directly to the app/service you select—we do not intercept or store this information
 
@@ -51,6 +55,7 @@ Your data is used solely to:
 The app does not integrate with any third-party analytics, advertising, or tracking services.
 
 **Expo Services:**
+
 - The app is built using Expo framework
 - Crash reports may be sent to Sentry for debugging purposes (no personal data included)
 - No user-identifiable information is transmitted
@@ -58,6 +63,7 @@ The app does not integrate with any third-party analytics, advertising, or track
 ## Data Security
 
 Your data security is important to us:
+
 - All data remains on your device
 - Images are stored using iOS secure file system
 - Database is stored in the app's protected sandbox
@@ -72,6 +78,7 @@ Fun-Kollection does not knowingly collect any information from children. The app
 ## Your Rights
 
 Since all data is stored locally on your device, you have complete control:
+
 - **Access**: View all your data within the app
 - **Delete**: Remove individual items or delete the app to remove all data
 - **Export**: Share your collection data via the app's share features (future enhancement planned)
@@ -80,6 +87,7 @@ Since all data is stored locally on your device, you have complete control:
 ## Changes to This Privacy Policy
 
 We may update this Privacy Policy from time to time. We will notify you of any changes by:
+
 - Updating the "Last Updated" date at the top of this policy
 - Displaying a notice within the app (for significant changes)
 
@@ -94,6 +102,7 @@ Continued use of the app after changes constitutes acceptance of the updated pol
 ## International Users
 
 Since all data is stored locally on your device:
+
 - No data crosses international borders
 - GDPR, CCPA, and other privacy regulations are inherently satisfied
 - No data processing agreements needed
@@ -112,6 +121,7 @@ By using Fun-Kollection, you consent to this Privacy Policy and agree to its ter
 ---
 
 **Technical Details:**
+
 - **Platform:** iOS (iPhone and iPad)
 - **Framework:** React Native with Expo
 - **Database:** SQLite (local)
