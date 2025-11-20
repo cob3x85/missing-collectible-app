@@ -51,8 +51,6 @@ export default function RootLayout() {
     // Initialize database and settings when app starts
     db.init()
       .then(async () => {
-        // Run migration to convert file-based images to base64
-        await db.migrateImagesToBase64();
         // Initialize settings service
         await settingsService.init();
       })

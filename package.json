@@ -7,11 +7,16 @@
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "ios:device": "expo run:ios --device",
     "web": "expo start --web",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --verbose",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "build:ios:local": "eas build --platform ios --local",
+    "build:ios:cloud": "eas build --platform ios --profile production",
+    "submit:ios": "eas submit --platform ios --latest",
+    "build:submit:ios": "npm run build:ios:local && npm run submit:ios"
   },
   "dependencies": {
     "@bottom-tabs/react-navigation": "^1.0.2",
