@@ -78,7 +78,7 @@ xcrun simctl list devices
 npx expo run:ios --device
 
 # If multiple devices connected, specify by name
-npx expo run:ios --device "Carlos's iPhone"
+npx expo run:ios --device "Your iPhone Name"
 
 # First time: Trust developer certificate on device
 # Settings → General → VPN & Device Management → Trust
@@ -264,7 +264,7 @@ cd ios && pod install      # Install iOS pods
 xcrun xctrace list devices
 
 # Fixes:
-# 1. Unlock iPhone
+# 1. Unlock device
 # 2. Trust computer on device
 # 3. Restart Xcode
 # 4. Unplug and replug USB
