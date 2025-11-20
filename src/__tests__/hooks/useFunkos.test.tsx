@@ -22,13 +22,6 @@ jest.mock("@/services/db", () => ({
   },
 }));
 
-// Mock images service
-jest.mock("@/services/images", () => ({
-  images: {
-    deleteImage: jest.fn(),
-  },
-}));
-
 const mockFunkos: Funko[] = [
   {
     id: "1",
@@ -42,12 +35,12 @@ const mockFunkos: Funko[] = [
     variant: "normal",
     purchase_price: 15.99,
     current_value: 25.0,
-    purchase_date: Date.now(),
+    purchase_date: new Date().toISOString(),
     notes: "First Funko",
     has_protector_case: true,
-    image_paths: ["/path/to/image.jpg"],
-    created_at: Date.now(),
-    updated_at: Date.now(),
+    image_data: JSON.stringify(["/9j/4AAQSkZJRgABAQAA..."]),
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
   },
 ];
 
@@ -156,13 +149,10 @@ describe("useUpdateFunko hook", () => {
 });
 
 describe("useDeleteFunko hook", () => {
-  it("deletes a funko and its images", async () => {
+  it("deletes a funko", async () => {
     const { db } = require("@/services/db");
-    const { images } = require("@/services/images");
 
-    db.getFunkoById.mockResolvedValue(mockFunkos[0]);
     db.deleteFunko.mockResolvedValue(undefined);
-    images.deleteImage.mockResolvedValue(undefined);
 
     const onSuccess = jest.fn();
     const { result } = renderHook(() => useDeleteFunko({ onSuccess }), {
@@ -175,6 +165,7 @@ describe("useDeleteFunko hook", () => {
       expect(result.current.isSuccess).toBe(true);
     });
 
+    // Base64 images in image_data are automatically deleted with the row
     expect(db.deleteFunko).toHaveBeenCalledWith("1");
     expect(onSuccess).toHaveBeenCalled();
   });

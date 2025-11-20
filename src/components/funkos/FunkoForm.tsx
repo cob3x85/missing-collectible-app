@@ -180,7 +180,7 @@ export default function FunkoForm({
         console.warn("Failed to parse image_data:", error);
       }
     }
-    return initialData?.image_paths || [];
+    return [];
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -208,7 +208,7 @@ export default function FunkoForm({
         hasProtectorCase: initialData.has_protector_case ?? false,
       });
 
-      // Load images from image_data or fall back to image_paths
+      // Load images from image_data (base64 only)
       if (initialData.image_data) {
         try {
           const base64Array = JSON.parse(initialData.image_data);
@@ -219,10 +219,10 @@ export default function FunkoForm({
           );
         } catch (error) {
           console.warn("Failed to parse image_data:", error);
-          setImagePaths(initialData.image_paths || []);
+          setImagePaths([]);
         }
       } else {
-        setImagePaths(initialData.image_paths || []);
+        setImagePaths([]);
       }
     }
   }, [

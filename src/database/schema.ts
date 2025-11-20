@@ -53,8 +53,7 @@ export interface Funko {
   purchase_date?: string | null;
   notes?: string;
   has_protector_case?: boolean;
-  image_paths?: string[]; // Legacy: file paths (deprecated)
-  image_data?: string; // New: JSON array of base64 strings (persists across updates)
+  image_data?: string; // JSON array of base64 strings (persists across updates)
   created_at: string;
   updated_at: string;
 }

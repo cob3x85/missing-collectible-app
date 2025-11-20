@@ -8,9 +8,9 @@ export const MOCK_FUNKOS: Funko[] = [
     number: "517",
     category: "Pop!",
     condition: "mint",
-    image_paths: [
-      "https://i.ebayimg.com/images/g/bUEAAOSw-wJl8rIL/s-l1200.jpg",
-    ],
+    image_data: JSON.stringify([
+      "iVBORw0KGgoAAAANSUhEUgAAAAUA...", // Base64 placeholder
+    ]),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   },
@@ -21,9 +21,9 @@ export const MOCK_FUNKOS: Funko[] = [
     number: "593",
     category: "Pop!",
     condition: "near_mint",
-    image_paths: [
-      "https://i.ebayimg.com/images/g/N7oAAOSwIZ5mLhY~/s-l1200.jpg",
-    ],
+    image_data: JSON.stringify([
+      "iVBORw0KGgoAAAANSUhEUgAAAAUA...", // Base64 placeholder
+    ]),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   },

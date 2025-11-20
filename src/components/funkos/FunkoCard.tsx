@@ -17,19 +17,16 @@ import FunkoForm from "./FunkoForm";
 
 // Helper function to get image URIs from Funko data
 const getImageUris = (funko: Funko): string[] => {
-  // Priority 1: Use image_data (base64, persists across updates)
+  // Use image_data (base64 only, persists across updates)
   if (funko.image_data) {
     try {
       const base64Array = JSON.parse(funko.image_data);
-      return base64Array.map((base64: string) => `data:image/jpeg;base64,${base64}`);
+      return base64Array.map(
+        (base64: string) => `data:image/jpeg;base64,${base64}`
+      );
     } catch (error) {
       console.warn("Failed to parse image_data:", error);
     }
-  }
-
-  // Priority 2: Fall back to image_paths (legacy file paths)
-  if (funko.image_paths && funko.image_paths.length > 0) {
-    return funko.image_paths;
   }
 
   return [];

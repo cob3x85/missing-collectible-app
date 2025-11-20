@@ -19,10 +19,10 @@ describe("DatabaseService", () => {
         variant: "normal",
         purchase_price: 15.99,
         current_value: 25.0,
-        purchase_date: Date.now(),
-        notes: "Test note",
+        purchase_date: new Date().toISOString(),
+        notes: "Test notes",
         has_protector_case: true,
-        image_paths: ["/path/to/image.jpg"],
+        image_data: JSON.stringify(["iVBORw0KGgoAAAANSUhEUgAAAAUA..."]),
       };
 
       const result = await databaseService.createFunko(mockFunko);

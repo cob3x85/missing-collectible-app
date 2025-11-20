@@ -35,7 +35,7 @@ const mockFunko: Funko = {
   purchase_date: Date.now().toString(),
   notes: "First Funko",
   has_protector_case: true,
-  image_paths: ["/path/to/image.jpg"],
+  image_data: JSON.stringify(["iVBORw0KGgoAAAANSUhEUgAAAAUA..."]),
   created_at: Date.now().toString(),
   updated_at: Date.now().toString(),
 };
@@ -69,12 +69,12 @@ describe("FunkoCard", () => {
   });
 
   it("shows placeholder when no image is provided", () => {
-    const noImageFunko = { ...mockFunko, image_paths: [] };
+    const noImageFunko = { ...mockFunko, image_data: undefined };
     render(<FunkoCard {...noImageFunko} />, { wrapper });
     expect(screen.getByText("No Image")).toBeTruthy();
   });
 
-  it("renders with image when image_paths is provided", () => {
+  it("renders with image when image_data is provided", () => {
     const { UNSAFE_getByType } = render(<FunkoCard {...mockFunko} />, {
       wrapper,
     });

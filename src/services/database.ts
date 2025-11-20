@@ -127,55 +127,6 @@ class DatabaseService {
     `);
   }
 
-  // Migration: Convert existing file-based images to base64
-  async migrateImagesToBase64(): Promise<void> {
-    if (!this.db) throw new Error("Database not initialized");
-    
-    const funkos = await this.getAllFunkos();
-    let migratedCount = 0;
-    let errorCount = 0;
-
-    for (const funko of funkos) {
-      // Skip if already has base64 data or no images
-      if (funko.image_data || !funko.image_paths || funko.image_paths.length === 0) {
-        continue;
-      }
-
-      try {
-        const FileSystem = require("expo-file-system/legacy");
-        const base64Images: string[] = [];
-
-        for (const imagePath of funko.image_paths) {
-          try {
-            // Check if file exists
-            const fileInfo = await FileSystem.getInfoAsync(imagePath);
-            if (fileInfo.exists) {
-              // Read file as base64
-              const base64 = await FileSystem.readAsStringAsync(imagePath, {
-                encoding: FileSystem.EncodingType.Base64,
-              });
-              base64Images.push(base64);
-            }
-          } catch (err) {
-            console.warn(`Failed to read image: ${imagePath}`, err);
-          }
-        }
-
-        if (base64Images.length > 0) {
-          // Store base64 images in database
-          await this.db.runAsync(
-            "UPDATE funkos SET image_data = ? WHERE id = ?",
-            [JSON.stringify(base64Images), funko.id]
-          );
-          migratedCount++;
-        }
-      } catch (error) {
-        console.error(`Failed to migrate images for funko ${funko.id}:`, error);
-        errorCount++;
-      }
-    }
-  }
-
   // Funko CRUD operations
   async createFunko(
     funko: Omit<Funko, "id" | "created_at" | "updated_at">
@@ -210,9 +161,7 @@ class DatabaseService {
         funko.purchase_date ?? null,
         funko.notes ?? null,
         funko.has_protector_case ? 1 : 0,
-        funko.image_paths && funko.image_paths.length > 0
-          ? JSON.stringify(funko.image_paths)
-          : null,
+        null, // image_path column (legacy, not used)
         funko.image_data ?? null,
         now,
         now,
@@ -229,27 +178,11 @@ class DatabaseService {
       "SELECT * FROM funkos ORDER BY CAST(number AS INTEGER) ASC"
     );
 
-    // Convert image_path to image_paths array (handle both JSON string and single path)
-    return (result as any[]).map((funko) => {
-      let image_paths: string[] | undefined;
-
-      if (funko.image_path) {
-        try {
-          // Try to parse as JSON array
-          image_paths = JSON.parse(funko.image_path);
-        } catch {
-          // If not JSON, treat as single path
-          image_paths = [funko.image_path];
-        }
-      }
-
-      return {
-        ...funko,
-        has_protector_case: funko.has_protector_case === 1,
-        image_paths,
-        image_data: funko.image_data,
-      };
-    }) as Funko[];
+    return (result as any[]).map((funko) => ({
+      ...funko,
+      has_protector_case: funko.has_protector_case === 1,
+      image_data: funko.image_data,
+    })) as Funko[];
   }
 
   async getFunkosPaginated(limit: number, offset: number): Promise<Funko[]> {
@@ -260,27 +193,11 @@ class DatabaseService {
       [limit, offset]
     );
 
-    // Convert image_path to image_paths array (handle both JSON string and single path)
-    return (result as any[]).map((funko) => {
-      let image_paths: string[] | undefined;
-
-      if (funko.image_path) {
-        try {
-          // Try to parse as JSON array
-          image_paths = JSON.parse(funko.image_path);
-        } catch {
-          // If not JSON, treat as single path
-          image_paths = [funko.image_path];
-        }
-      }
-
-      return {
-        ...funko,
-        has_protector_case: funko.has_protector_case === 1,
-        image_paths,
-        image_data: funko.image_data,
-      };
-    }) as Funko[];
+    return (result as any[]).map((funko) => ({
+      ...funko,
+      has_protector_case: funko.has_protector_case === 1,
+      image_data: funko.image_data,
+    })) as Funko[];
   }
 
   async getTotalFunkosCount(): Promise<number> {
@@ -302,24 +219,11 @@ class DatabaseService {
 
     if (!result) return null;
 
-    // Convert image_path to image_paths array (handle both JSON string and single path)
     const funko = result as any;
-    let image_paths: string[] | undefined;
-
-    if (funko.image_path) {
-      try {
-        // Try to parse as JSON array
-        image_paths = JSON.parse(funko.image_path);
-      } catch {
-        // If not JSON, treat as single path
-        image_paths = [funko.image_path];
-      }
-    }
 
     return {
       ...funko,
       has_protector_case: funko.has_protector_case === 1,
-      image_paths,
       image_data: funko.image_data,
     } as Funko;
   }
@@ -334,27 +238,11 @@ class DatabaseService {
       [`%${name}%`, `%${name}%`]
     );
 
-    // Convert image_path to image_paths array (handle both JSON string and single path)
-    return (result as any[]).map((funko) => {
-      let image_paths: string[] | undefined;
-
-      if (funko.image_path) {
-        try {
-          // Try to parse as JSON array
-          image_paths = JSON.parse(funko.image_path);
-        } catch {
-          // If not JSON, treat as single path
-          image_paths = [funko.image_path];
-        }
-      }
-
-      return {
-        ...funko,
-        has_protector_case: funko.has_protector_case === 1,
-        image_paths,
-        image_data: funko.image_data,
-      };
-    }) as Funko[];
+    return (result as any[]).map((funko) => ({
+      ...funko,
+      has_protector_case: funko.has_protector_case === 1,
+      image_data: funko.image_data,
+    })) as Funko[];
   }
 
   async updateFunko(
@@ -379,7 +267,6 @@ class DatabaseService {
       "purchase_date",
       "notes",
       "has_protector_case",
-      "image_paths",
       "image_data",
     ];
 
@@ -390,16 +277,7 @@ class DatabaseService {
         let value = (updates as any)[key];
 
         // Transform fields to match database format
-        if (key === "image_paths") {
-          // Convert image_paths array to image_path JSON string for database
-          // Handle undefined, null, empty array, or valid array
-          if (Array.isArray(value) && value.length > 0) {
-            filteredUpdates["image_path"] = JSON.stringify(value);
-          } else {
-            // Set to null when no images (undefined, null, or empty array)
-            filteredUpdates["image_path"] = null;
-          }
-        } else if (key === "image_data") {
+        if (key === "image_data") {
           // Store image_data as-is (already JSON string of base64 array)
           filteredUpdates["image_data"] = value;
         } else if (key === "has_protector_case" && typeof value === "boolean") {
@@ -445,27 +323,11 @@ class DatabaseService {
       [`%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`]
     );
 
-    // Convert image_path to image_paths array (handle both JSON string and single path)
-    return (result as any[]).map((funko) => {
-      let image_paths: string[] | undefined;
-
-      if (funko.image_path) {
-        try {
-          // Try to parse as JSON array
-          image_paths = JSON.parse(funko.image_path);
-        } catch {
-          // If not JSON, treat as single path
-          image_paths = [funko.image_path];
-        }
-      }
-
-      return {
-        ...funko,
-        has_protector_case: funko.has_protector_case === 1,
-        image_paths,
-        image_data: funko.image_data,
-      };
-    }) as Funko[];
+    return (result as any[]).map((funko) => ({
+      ...funko,
+      has_protector_case: funko.has_protector_case === 1,
+      image_data: funko.image_data,
+    })) as Funko[];
   }
 }
 

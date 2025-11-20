@@ -53,21 +53,31 @@ await db.runAsync("INSERT ... VALUES (?)", [intValue]);
 return { ...row, has_protector_case: row.has_protector_case === 1 };
 ```
 
-#### Image Storage Pattern
+#### Image Storage Pattern (Base64 Only)
 
 ```typescript
-// Images stored as JSON array in singular column name
-// Form sends: image_paths (plural array)
-// Database column: image_path (singular, JSON string)
+// Images stored as base64 JSON array in database
+// Database column: image_data (TEXT, JSON string of base64 array)
+// First release - no legacy file-based storage
 
-// Write transformation:
-if (key === "image_paths" && Array.isArray(value)) {
-  filteredUpdates["image_path"] = JSON.stringify(value);
-}
+// Form Storage:
+const base64Images = [
+  "iVBORw0KGgoAAAANSUhEUgAAAAUA...",
+  "/9j/4AAQSkZJRgABAQAA...",
+];
+const image_data = JSON.stringify(base64Images);
+await db.createFunko({ ...funkoData, image_data });
 
-// Read transformation:
-const image_paths = funko.image_path ? JSON.parse(funko.image_path) : [];
-return { ...funko, image_paths };
+// Form Loading:
+const base64Array = funko.image_data ? JSON.parse(funko.image_data) : [];
+const imageUris = base64Array.map(
+  (base64: string) => `data:image/jpeg;base64,${base64}`
+);
+
+// Deletion:
+// Base64 images are automatically deleted when database row is deleted
+// No file system cleanup needed
+await db.deleteFunko(id);
 ```
 
 #### Database Migrations
@@ -86,7 +96,7 @@ try {
 ### Update Method Field Whitelist
 
 ```typescript
-// updateFunko requires explicit field whitelist
+// updateFunko requires explicit field whitelist (image_data only, no legacy image_paths)
 const allowedFields = [
   "name",
   "series",
@@ -101,7 +111,7 @@ const allowedFields = [
   "purchase_date",
   "notes",
   "has_protector_case",
-  "image_paths", // Note: gets transformed to "image_path" internally
+  "image_data", // JSON string array of base64 images (persists across updates)
 ];
 ```
 
@@ -250,14 +260,11 @@ queryClient.invalidateQueries({ queryKey: ["funko", id] });
 // Use custom hooks from src/hooks/useFunkos.tsx
 const createFunko = useCreateFunko({ onSuccess: () => {} });
 const updateFunko = useUpdateFunko({ onSuccess: (data, variables) => {} });
+
+// Deletion hook - no image cleanup needed (base64 auto-deleted with row)
 const deleteFunko = useDeleteFunko({
-  onSuccess: async (data, variables) => {
-    // Clean up images before deletion
-    if (funko?.image_paths?.length) {
-      await Promise.all(
-        funko.image_paths.map((path) => images.deleteImage(path))
-      );
-    }
+  onSuccess: () => {
+    // Base64 images in image_data are automatically deleted when row is deleted
   },
 });
 ```

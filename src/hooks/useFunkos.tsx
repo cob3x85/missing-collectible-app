@@ -1,6 +1,5 @@
 import { Funko } from "@/database/schema";
 import { db } from "@/services/db";
-import { images } from "@/services/images";
 import {
   useInfiniteQuery,
   useMutation,
@@ -28,9 +27,9 @@ export const useFunko = (id: string) => {
 };
 
 /**
- * Infinite query hook for fetching funkos with pagination 
+ * Infinite query hook for fetching funkos with pagination
  * @param pageSize  Number of items to fetch per page
- * @returns 
+ * @returns
  */
 export const useInfiniteFunkos = (pageSize: number = 20) => {
   return useInfiniteQuery({
@@ -38,7 +37,7 @@ export const useInfiniteFunkos = (pageSize: number = 20) => {
     queryFn: async ({ pageParam = 0 }) => {
       // Add 1500ms delay to show loading state
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      
+
       const funkos = await db.getFunkosPaginated(pageSize, pageParam);
       return {
         funkos,
@@ -121,14 +120,8 @@ export const useDeleteFunko = (options?: {
 
   return useMutation({
     mutationFn: async (id: string) => {
-      // Get funko to delete associated images
-      const funko = await db.getFunkoById(id);
-      if (funko?.image_paths && funko.image_paths.length > 0) {
-        // Delete all images associated with this funko
-        await Promise.all(
-          funko.image_paths.map((imagePath) => images.deleteImage(imagePath))
-        );
-      }
+      // Base64 images stored in image_data column are automatically deleted when the database row is deleted
+      // No file system cleanup needed since we use base64 storage
       await db.deleteFunko(id);
     },
     onSuccess: () => {
