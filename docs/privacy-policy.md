@@ -5,7 +5,7 @@
 
 ## Overview
 
-Fun-Kollection ("we," "our," or "the app") is committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our Funko Pop collection tracking mobile application.
+Pop Kollection ("we," "our," or "the app") is committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our pop vinyl figure collection tracking mobile application.
 
 ## Information We Collect
 
@@ -15,8 +15,8 @@ Fun-Kollection ("we," "our," or "the app") is committed to protecting your priva
 
 The app stores the following information **exclusively on your device**:
 
-- **Funko Collection Data**: Names, series, numbers, categories, conditions, sizes, types, variants, purchase prices, current values, purchase dates, and notes about your Funko Pops
-- **Photos**: Images you take or select from your photo library to associate with your Funko Pops
+- **Collection Data**: Names, series, numbers, categories, conditions, sizes, types, variants, purchase prices, current values, purchase dates, and notes about your collectible items
+- **Photos**: Images you take or select from your photo library to associate with your items
 - **App Settings**: Your preferences and configuration within the app
 
 All data is stored locally using:
@@ -29,10 +29,10 @@ All data is stored locally using:
 
 Your data is used solely to:
 
-- Display your Funko collection within the app
-- Allow you to add, edit, search, and delete Funko Pops from your collection
+- Display your collection within the app
+- Allow you to add, edit, search, and delete items from your collection
 - Provide collection statistics and insights
-- Enable you to share individual Funko cards via your device's native share functionality
+- Enable you to share individual item cards via your device's native share functionality
 
 ## Data Sharing and Disclosure
 
@@ -47,7 +47,7 @@ Your data is used solely to:
 
 **Optional Sharing by You:**
 
-- You may choose to share individual Funko card images using your device's native share sheet (Messages, Email, Social Media, etc.)
+- You may choose to share individual item card images using your device's native share sheet (Messages, Email, Social Media, etc.)
 - When you share, the data goes directly to the app/service you select—we do not intercept or store this information
 
 ## Third-Party Services
@@ -73,7 +73,7 @@ Your data security is important to us:
 
 ## Children's Privacy
 
-Fun-Kollection does not knowingly collect any information from children. The app does not require users to provide any personal information. Since Funko Pop collecting is enjoyed by all ages, the app is designed to be family-friendly.
+Pop Kollection does not knowingly collect any information from children. The app does not require users to provide any personal information. Since pop vinyl collecting is enjoyed by all ages, the app is designed to be family-friendly.
 
 ## Your Rights
 

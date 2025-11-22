@@ -1,14 +1,14 @@
-# Fun-Kollection Support
+# Pop Kollection Support
 
-Welcome to Fun-Kollection support! This page provides help and answers to common questions about using the app.
+Welcome to Pop Kollection support! This page provides help and answers to common questions about using the app.
 
 ## Getting Started
 
-Fun-Kollection is a simple, offline Funko Pop collection tracker for iOS. All your data stays on your device—no account required!
+Pop Kollection is a simple, offline pop vinyl figure collection tracker for iOS. All your data stays on your device—no account required!
 
 ### First Steps
 
-1. **Add Your First Funko**
+1. **Add Your First Item**
 
    - Tap the "Add" tab (➕ icon)
    - Fill in the details (name, series, number, etc.)
@@ -17,12 +17,12 @@ Fun-Kollection is a simple, offline Funko Pop collection tracker for iOS. All yo
 
 2. **Browse Your Collection**
 
-   - Tap the "Home" tab to see all your Funkos
+   - Tap the "Home" tab to see all your items
    - Use the search bar to find specific items
-   - Tap any Funko card to view details
+   - Tap any card to view details
 
 3. **Edit or Delete Items**
-   - Long press on any Funko card
+   - Long press on any card
    - Select "Edit" or "Delete" from the menu
    - Changes are saved instantly
 
@@ -97,7 +97,7 @@ Not yet. Currently, data stays on one device. Cloud sync is planned for a future
 
 ### How do I share my collection?
 
-Currently, you can share individual Funko cards using the share button (coming soon). Full collection export/sharing is planned for future updates.
+Currently, you can share individual item cards using the share button (coming soon). Full collection export/sharing is planned for future updates.
 
 ### Can I import data from a spreadsheet?
 
@@ -130,7 +130,7 @@ Not yet. iOS-only for now. Android support is planned for future releases.
 ### Can't add photos
 
 - **Check Permissions:** Settings → Fun-Kollection → Camera/Photos
-- **Photo Limit:** Max 10 photos per Funko
+- **Photo Limit:** Max 10 photos per item
 - **File Size:** Very large images may fail (try smaller photos)
 
 ## Contact & Support
@@ -177,7 +177,7 @@ For any other questions or concerns, feel free to reach out:
 
 ### Premium Features (Planned)
 
-- Unlimited Funkos (free tier: 50 limit)
+- Unlimited items (free tier: 50 limit)
 - CSV/Excel import
 - Advanced statistics
 - Price predictions
@@ -237,4 +237,4 @@ We typically respond within 24-48 hours. Thank you for using Fun-Kollection!
 
 ---
 
-_Fun-Kollection is an independent app and is not affiliated with or endorsed by Funko, Inc._
+_Pop Kollection is an independent app and is not affiliated with, endorsed by, or sponsored by Funko, Inc. or any other vinyl figure manufacturer. All product names, trademarks, and registered trademarks are property of their respective owners._

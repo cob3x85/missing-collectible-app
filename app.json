@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "fun-kollection",
-    "slug": "fun-kollection",
+    "name": "Pop Kollection",
+    "slug": "pop-kollection",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/FunKollection_Icon-iOS-Default.png",
@@ -12,9 +12,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.cob3x85s.missingfunkoapp",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to let you select Funko Pop images for your collection.",
-        "NSCameraUsageDescription": "This app needs access to your camera to let you take photos of your Funko Pops.",
-        "NSPhotoLibraryAddUsageDescription": "This app needs access to save Funko Pop images to your photo library.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to let you select images for your collection.",
+        "NSCameraUsageDescription": "This app needs access to your camera to let you take photos of your collectibles.",
+        "NSPhotoLibraryAddUsageDescription": "This app needs access to save images to your photo library.",
         "ITSAppUsesNonExemptEncryption": false
       },
       "icon": {
@@ -84,8 +84,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow Fun-Kollection to access your photos to add Funko Pop images to your collection.",
-          "cameraPermission": "Allow Fun-Kollection to use your camera to take photos of your Funko Pops."
+          "photosPermission": "Allow Pop Kollection to access your photos to add images to your collection.",
+          "cameraPermission": "Allow Pop Kollection to use your camera to take photos of your collectibles."
         }
       ],
       "expo-font",

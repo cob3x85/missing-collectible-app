@@ -88,7 +88,7 @@ export default function SearchScreen() {
             No Results Found
           </ThemedText>
           <ThemedText style={styles.emptyMessage}>
-            No Funkos match "{searchQuery}"
+            No items match "{searchQuery}"
           </ThemedText>
           <ThemedText style={styles.emptyHint}>
             Try different keywords or check your spelling
@@ -103,13 +103,13 @@ export default function SearchScreen() {
             style={styles.emptyIcon}
           />
           <ThemedText type="subtitle" style={styles.emptyTitle}>
-            No Funkos Available
+            No Items Available
           </ThemedText>
           <ThemedText style={styles.emptyMessage}>
             Your collection is empty
           </ThemedText>
           <ThemedText style={styles.emptyHint}>
-            Add your first Funko from the Add tab to get started
+            Add your first item from the Add tab to get started
           </ThemedText>
         </View>
       ) : (

@@ -1,6 +1,6 @@
-# Fun-Kollection App 🎯
+# Pop Kollection App 🎯
 
-A React Native/Expo cross-platform Funko Pop collection tracker with smart search, haptic feedback, audio cues, and modern glassmorphism UI. Track your collection across iOS, Android, and Web with platform-specific optimizations.
+A React Native/Expo cross-platform pop vinyl figure collection tracker with smart search, haptic feedback, audio cues, and modern glassmorphism UI. Track your collection across iOS, Android, and Web with platform-specific optimizations.
 
 ## ✨ Features
 
@@ -11,8 +11,8 @@ A React Native/Expo cross-platform Funko Pop collection tracker with smart searc
 - **Safe Area Support**: Proper handling of notches and device variations
 - **Real-time Filtering**: Instant search results with performance optimization
 - **Form Validation**: Yup schema validation for data integrity
-- **Mock Data**: Testing with sample Funko Pops (Goku, Spider-Man)
-- **Empty States**: Intuitive onboarding with "Add Your First Funko" CTA
+- **Mock Data**: Testing with sample pop vinyl figures
+- **Empty States**: Intuitive onboarding with "Add Your First Item" CTA
 
 ## 🛠️ Tech Stack
 
@@ -386,10 +386,10 @@ Interested in using this code commercially, collaboration opportunities, or cust
 
 ### 🏷️ Trademark Notice
 
-"Fun-Kollection" and associated branding materials are trademarks of Carlos Ortiz Bravo.
+"Pop Kollection" and associated branding materials are trademarks of Carlos Ortiz Bravo.
 
 ---
 
 **Built with ❤️ using React Native, Expo, and modern mobile development practices**
 
-_This project is not affiliated with or endorsed by Funko, Inc._
+_This app is not affiliated with, endorsed by, or sponsored by Funko, Inc. or any other vinyl figure manufacturer. All product names, trademarks, and registered trademarks are property of their respective owners._

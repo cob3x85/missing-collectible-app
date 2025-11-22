@@ -24,25 +24,25 @@ export default function AboutScreen() {
     >
       <View style={[globalThemeStyles.titleContainer]}>
         <ThemedText type="title" style={{ color: "black" }}>
-          Fun-Kollection!
+          Pop Kollection!
         </ThemedText>
         <HelloWave />
       </View>
       <View style={globalThemeStyles.stepContainer}>
         <ThemedText style={{ color: "black" }}>
-          This is a Funko companion app to help track your collection. You can
-          add, edit, and remove Funkos from your collection, as well as view
-          details about each Funko.
+          This is a pop vinyl figure companion app to help track your collection. You can
+          add, edit, and remove items from your collection, as well as view
+          details about each collectible.
         </ThemedText>
       </View>
-      <View style={[globalThemeStyles.stepContainer, { marginBottom :60}]}>
+      <View style={globalThemeStyles.stepContainer}>
         <ThemedText type="subtitle" style={{ color: "black" }}>
           Problem{" "}
         </ThemedText>
         <ThemedText style={{ color: "black" }}>
-          Many Funko collectors struggle to keep track of their ever-growing
+          Many pop vinyl collectors struggle to keep track of their ever-growing
           collections. With new releases and exclusive items, it can be
-          challenging to remember which Funkos you own, where they are stored,
+          challenging to remember which figures you own, where they are stored,
           and their condition.
         </ThemedText>
         <ThemedText type="subtitle" style={{ color: "black" }}>
@@ -50,10 +50,20 @@ export default function AboutScreen() {
         </ThemedText>
         <ThemedText style={{ color: "black" }}>
           This app aims to solve that problem by providing an easy-to-use
-          platform for managing your Funko collection. Whether you&apos;re at a
+          platform for managing your collection. Whether you&apos;re at a
           convention, browsing online marketplaces, or participating in
           auctions, having instant access to your collection data helps you make
           informed purchasing decisions and avoid costly duplicates.
+        </ThemedText>
+      </View>
+      <View style={[globalThemeStyles.stepContainer, { marginBottom: 60 }]}>
+        <ThemedText type="subtitle" style={{ color: "black" }}>
+          Disclaimer{" "}
+        </ThemedText>
+        <ThemedText style={{ color: "black", fontStyle: "italic" }}>
+          This app is not affiliated with, endorsed by, or sponsored by Funko, Inc. 
+          or any other vinyl figure manufacturer. All product names, trademarks, 
+          and registered trademarks are property of their respective owners.
         </ThemedText>
       </View>
     </ParallaxScrollView>

@@ -49,7 +49,7 @@ export default function HomeScreen() {
       <GlassContainer style={styles.container}>
         <GlassView style={[styles.titleContainer, { paddingTop: insets.top }]}>
           <ThemedText type="subtitle" style={styles.textTitle}>
-            Fun-Kollection
+            Pop Kollection
           </ThemedText>
           <View style={styles.headerRight}>
             <Image
@@ -75,7 +75,7 @@ export default function HomeScreen() {
               { marginBottom: 10, color: theme.colors.text },
             ]}
           >
-            No Funkos Yet
+            No Items Yet
           </ThemedText>
           <ThemedText
             style={[
@@ -83,7 +83,7 @@ export default function HomeScreen() {
               { marginBottom: 30, color: theme.colors.text },
             ]}
           >
-            Start your collection by adding your first Funko!
+            Start your collection by adding your first item!
           </ThemedText>
 
           <Pressable
@@ -104,7 +104,7 @@ export default function HomeScreen() {
             />
 
             <ThemedText style={styles.addButtonText}>
-              Add Your First Funko
+              Add Your First Item
             </ThemedText>
           </Pressable>
         </GlassView>
@@ -119,7 +119,7 @@ export default function HomeScreen() {
       <GlassView style={[styles.header, { paddingTop: insets.top }]}>
         <View style={styles.headerContent}>
           <ThemedText type="title" style={styles.headerTitle}>
-            Fun-Kollection
+            Pop Kollection
           </ThemedText>
           <Image
             source={require("@/assets/images/missingfunko.png")}
