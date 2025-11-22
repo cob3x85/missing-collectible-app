@@ -30,9 +30,9 @@ export default function AboutScreen() {
       </View>
       <View style={globalThemeStyles.stepContainer}>
         <ThemedText style={{ color: "black" }}>
-          This is a pop vinyl figure companion app to help track your collection. You can
-          add, edit, and remove items from your collection, as well as view
-          details about each collectible.
+          This is a pop vinyl figure companion app to help track your
+          collection. You can add, edit, and remove items from your collection,
+          as well as view details about each collectible.
         </ThemedText>
       </View>
       <View style={globalThemeStyles.stepContainer}>
@@ -61,9 +61,10 @@ export default function AboutScreen() {
           Disclaimer{" "}
         </ThemedText>
         <ThemedText style={{ color: "black", fontStyle: "italic" }}>
-          This app is not affiliated with, endorsed by, or sponsored by Funko, Inc. 
-          or any other vinyl figure manufacturer. All product names, trademarks, 
-          and registered trademarks are property of their respective owners.
+          This app is not affiliated with, endorsed by, or sponsored by Funko,
+          Inc. or any other vinyl figure manufacturer. All product names,
+          trademarks, and registered trademarks are property of their respective
+          owners.
         </ThemedText>
       </View>
     </ParallaxScrollView>
