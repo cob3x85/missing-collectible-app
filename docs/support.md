@@ -30,19 +30,19 @@ Pop Kollection is a simple, offline pop vinyl figure collection tracker for iOS.
 
 ### Core Features
 
-- ✅ Add, edit, and delete Funkos from your collection
+- ✅ Add, edit, and delete items from your collection
 - ✅ Track purchase price and current value
-- ✅ Add multiple photos per Funko
+- ✅ Add multiple photos per item
 - ✅ Search your collection instantly
 - ✅ Track condition, size, type, and variant
 - ✅ Add protector case status
 - ✅ View collection statistics
 
-### Funko Details You Can Track
+### Item Details You Can Track
 
 - **Name** - The character or subject name
 - **Series** - Marvel, DC, Disney, Star Wars, etc.
-- **Number** - The Funko Pop number (#001, #574, etc.)
+- **Number** - The figure number (#001, #574, etc.)
 - **Category** - Movies, TV Shows, Games, Animation, etc.
 - **Condition** - Mint, Near Mint, Good, Fair, Poor
 - **Size** - Standard (3.75"), Super-Sized (6"), Jumbo (10")
@@ -53,15 +53,15 @@ Pop Kollection is a simple, offline pop vinyl figure collection tracker for iOS.
 - **Purchase Date** - When you acquired it
 - **Protector Case** - Whether it has a protector
 - **Notes** - Any additional information
-- **Photos** - Multiple images per Funko
+- **Photos** - Multiple images per item
 
 ## Frequently Asked Questions
 
 ### How do I add multiple photos?
 
-1. When adding/editing a Funko, tap "Add Photos"
+1. When adding/editing an item, tap "Add Photos"
 2. Choose "Take Photo" or "Choose from Library"
-3. Select up to 10 photos per Funko
+3. Select up to 10 photos per item
 4. Photos are stored locally on your device
 
 ### Is my data backed up?
@@ -77,15 +77,15 @@ All your data will be deleted. Make sure to back up your device before uninstall
 
 ### Does the app require internet?
 
-No! Fun-Kollection works completely offline. No internet connection required.
+No! Pop Kollection works completely offline. No internet connection required.
 
 ### Can I sync across devices?
 
 Not yet. Currently, data stays on one device. Cloud sync is planned for a future update.
 
-### How do I delete a Funko?
+### How do I delete an item?
 
-1. Long press on the Funko card
+1. Long press on the card
 2. Tap "Delete"
 3. Confirm deletion
 
@@ -129,7 +129,7 @@ Not yet. iOS-only for now. Android support is planned for future releases.
 
 ### Can't add photos
 
-- **Check Permissions:** Settings → Fun-Kollection → Camera/Photos
+- **Check Permissions:** Settings → Pop Kollection → Camera/Photos
 - **Photo Limit:** Max 10 photos per item
 - **File Size:** Very large images may fail (try smaller photos)
 
@@ -171,7 +171,7 @@ For any other questions or concerns, feel free to reach out:
 - 📥 Import from spreadsheets (Premium)
 - ☁️ Cloud backup and sync
 - 🔍 Barcode/QR scanning
-- 🤖 AI-powered box scanning
+- 🤖 AI-powered image recognition
 - 💰 Price tracking and alerts
 - 🌐 Share collection galleries
 
@@ -182,7 +182,7 @@ For any other questions or concerns, feel free to reach out:
 - Advanced statistics
 - Price predictions
 - eBay image search
-- AI box scanning (10/month free)
+- AI image recognition (10/month free)
 
 ## Tips & Best Practices
 
@@ -233,7 +233,7 @@ If you couldn't find the answer to your question, please contact us:
 
 📧 **Email:** cob3x85.apple@outlook.com
 
-We typically respond within 24-48 hours. Thank you for using Fun-Kollection!
+We typically respond within 24-48 hours. Thank you for using Pop Kollection!
 
 ---
 
