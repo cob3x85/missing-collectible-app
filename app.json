@@ -18,7 +18,7 @@
         "ITSAppUsesNonExemptEncryption": false
       },
       "icon": {
-        "light": "./assets/icons/PopCollection-iOS-ClearLight.png",
+        "light": "./assets/icons/PopCollection-iOS-Default.png",
         "dark": "./assets/icons/PopCollection-iOS-Dark.png",
         "tinted": "./assets/icons/PopCollection-iOS-TintedLight.png"
       }
