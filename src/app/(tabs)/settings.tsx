@@ -1,5 +1,6 @@
 import { ThemedText } from "@/components/themed-text";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { ImageSpinner } from "@/components/ui/image-spinner";
 import { ImageQuality, settingsService } from "@/services/settings";
 import { useTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
@@ -21,10 +22,13 @@ export default function SettingsScreen() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const [imageQuality, setImageQuality] = useState<ImageQuality>("medium");
- const [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
   });
-  
+  if (!fontsLoaded) {
+    return <ImageSpinner />;
+  }
+
   // Load current setting
   useEffect(() => {
     const loadSettings = async () => {
@@ -76,11 +80,13 @@ export default function SettingsScreen() {
           <ThemedText type="title" style={styles.headerTitle}>
             Settings
           </ThemedText>
-          <Image
-            source={require("@/assets/images/PopCollectionImage.png")}
-            style={styles.headerImage}
-            contentFit="scale-down"
-          />
+          <View style={styles.logoChip}>
+            <Image
+              source={require("@/assets/images/PopCollectionImage.png")}
+              style={styles.logoImage}
+              contentFit="contain"
+            />
+          </View>
         </View>
       </GlassView>
 
@@ -290,12 +296,22 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: "white",
+    fontFamily: "Slackey",
     fontSize: 24,
     fontWeight: "bold",
   },
-  headerImage: {
-    width: 60,
-    height: 60,
+  logoChip: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
+  },
+  logoImage: {
+    width: 36,
+    height: 36,
   },
   scrollView: {
     flex: 1,

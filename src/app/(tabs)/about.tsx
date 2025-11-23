@@ -6,14 +6,14 @@ import { useFonts } from "expo-font";
 import { Image } from "expo-image";
 import { View } from "react-native";
 import { globalThemeStyles } from "../../config/theme/global-theme";
+import { ImageSpinner } from "@/components/ui/image-spinner";
 
 const headerImageUrl = require("@/assets/images/dbzBackground.jpg");
 
 export default function AboutScreen() {
   const theme = useTheme();
-   const [fontsLoaded] = useFonts({
-      Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
-    });
+
+      
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#f46d03", dark: "#f46d03" }}

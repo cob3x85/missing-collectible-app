@@ -2,11 +2,13 @@ import { FunkoCard } from "@/components/funkos/FunkoCard";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { ImageSpinner } from "@/components/ui/image-spinner";
 import { globalThemeStyles } from "@/config/theme/global-theme";
 import { useDebounceValue } from "@/hooks/useDebounceValue";
 import { useFunkos, useSearchFunkos } from "@/hooks/useFunkos";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
+import { useFonts } from "expo-font";
 import { GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
 import { useState } from "react";
@@ -24,6 +26,14 @@ export default function SearchScreen() {
   const theme = useTheme();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { debouncedValue } = useDebounceValue(searchQuery, 500);
+
+  const [fontsLoaded] = useFonts({
+    Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <ImageSpinner />;
+  }
 
   const { data: allFunkos = [], isLoading: isLoadingAll } = useFunkos();
 
@@ -45,11 +55,13 @@ export default function SearchScreen() {
           <ThemedText type="title" style={styles.headerTitle}>
             Search
           </ThemedText>
-          <Image
-            source={require("@/assets/images/PopCollectionImage.png")}
-            style={styles.headerImage}
-            contentFit="scale-down"
-          />
+          <View style={styles.logoChip}>
+            <Image
+              source={require("@/assets/images/PopCollectionImage.png")}
+              style={styles.logoImage}
+              contentFit="contain"
+            />
+          </View>
         </View>
       </GlassView>
 
@@ -145,12 +157,22 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: "white",
+    fontFamily: "Slackey",
     fontSize: 24,
     fontWeight: "bold",
   },
-  headerImage: {
-    width: 60,
-    height: 60,
+  logoChip: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
+  },
+  logoImage: {
+    width: 36,
+    height: 36,
   },
   searchInputContainer: {
     flexDirection: "row",

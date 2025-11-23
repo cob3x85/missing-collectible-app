@@ -52,11 +52,13 @@ export default function HomeScreen() {
             Pop Kollection
           </ThemedText>
           <View style={styles.headerRight}>
-            <Image
-              source={require("@/assets/images/PopCollectionImage.png")}
-              style={{ width: 80, height: 80 }}
-              contentFit="scale-down"
-            />
+            <View style={styles.logoChip}>
+              <Image
+                source={require("@/assets/images/PopCollectionImage.png")}
+                style={styles.logoImage}
+                contentFit="contain"
+              />
+            </View>
           </View>
         </GlassView>
 
@@ -121,11 +123,13 @@ export default function HomeScreen() {
           <ThemedText type="title" style={styles.headerTitle}>
             Pop Kollection
           </ThemedText>
-          <Image
-            source={require("@/assets/images/PopCollectionImage.png")}
-            style={styles.headerImage}
-            contentFit="scale-down"
-          />
+          <View style={styles.logoChip}>
+            <Image
+              source={require("@/assets/images/PopCollectionImage.png")}
+              style={styles.logoImage}
+              contentFit="contain"
+            />
+          </View>
         </View>
       </GlassView>
 
@@ -179,9 +183,18 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  headerImage: {
-    width: 60,
-    height: 60,
+  logoChip: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
+  },
+  logoImage: {
+    width: 36,
+    height: 36,
   },
   titleContainer: {
     alignItems: "center",
