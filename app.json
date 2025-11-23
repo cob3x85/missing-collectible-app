@@ -4,7 +4,7 @@
     "slug": "fun-kollection",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icons/FunKollection_Icon-iOS-Default.png",
+    "icon": "./assets/icons/PopCollection-iOS-Default.png",
     "scheme": "missingfunkoapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -18,9 +18,9 @@
         "ITSAppUsesNonExemptEncryption": false
       },
       "icon": {
-        "light": "./assets/icons/FunKollection_Icon-iOS-Default.png",
-        "dark": "./assets/icons/FunKollection_Icon-iOS-Dark.png",
-        "tinted": "./assets/icons/FunKollection_Icon-iOS-TintedLight.png"
+        "light": "./assets/icons/PopCollection-iOS-ClearLight.png",
+        "dark": "./assets/icons/PopCollection-iOS-Dark.png",
+        "tinted": "./assets/icons/PopCollection-iOS-TintedLight.png"
       }
     },
     "android": {
@@ -70,12 +70,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/icons/FunKollection_Icon-iOS-Default.png",
+          "image": "./assets/icons/PopCollection-iOS-Default.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
           "dark": {
-            "image": "./assets/icons/FunKollection_Icon-iOS-Dark.png",
+            "image": "./assets/icons/PopCollection-iOS-Dark.png",
             "backgroundColor": "#000000"
           }
         }
