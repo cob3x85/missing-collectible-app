@@ -46,7 +46,7 @@ export default function SearchScreen() {
             Search
           </ThemedText>
           <Image
-            source={require("@/assets/images/missingfunko.png")}
+            source={require("@/assets/images/PopCollectionImage.png")}
             style={styles.headerImage}
             contentFit="scale-down"
           />

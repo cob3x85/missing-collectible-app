@@ -2,6 +2,7 @@ import { HelloWave } from "@/components/hello-wave";
 import ParallaxScrollView from "@/components/parallax-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { useTheme } from "@react-navigation/native";
+import { useFonts } from "expo-font";
 import { Image } from "expo-image";
 import { View } from "react-native";
 import { globalThemeStyles } from "../../config/theme/global-theme";
@@ -10,6 +11,9 @@ const headerImageUrl = require("@/assets/images/dbzBackground.jpg");
 
 export default function AboutScreen() {
   const theme = useTheme();
+   const [fontsLoaded] = useFonts({
+      Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
+    });
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#f46d03", dark: "#f46d03" }}

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Pop Kollection",
+    "name": "Pop Collection",
     "slug": "fun-kollection",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +24,7 @@
       }
     },
     "android": {
-      "icon": "./assets/images/missingfunko.png",
+      "icon": "./assets/images/PopCollectionImage.png",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE"
       },

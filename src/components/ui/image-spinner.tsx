@@ -21,7 +21,7 @@ export const ImageSpinner = () => {
   return (
     <View style={styles.container}>
       <Animated.Image
-        source={require("@/assets/images/missingfunko.png")}
+        source={require("@/assets/images/PopCollectionImage.png")}
         style={[styles.image, { transform: [{ rotate }] }]}
       />
     </View>

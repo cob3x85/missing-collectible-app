@@ -53,7 +53,7 @@ export default function HomeScreen() {
           </ThemedText>
           <View style={styles.headerRight}>
             <Image
-              source={require("@/assets/images/missingfunko.png")}
+              source={require("@/assets/images/PopCollectionImage.png")}
               style={{ width: 80, height: 80 }}
               contentFit="scale-down"
             />
@@ -122,7 +122,7 @@ export default function HomeScreen() {
             Pop Kollection
           </ThemedText>
           <Image
-            source={require("@/assets/images/missingfunko.png")}
+            source={require("@/assets/images/PopCollectionImage.png")}
             style={styles.headerImage}
             contentFit="scale-down"
           />

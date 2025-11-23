@@ -2,6 +2,7 @@ import { ThemedText } from "@/components/themed-text";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageQuality, settingsService } from "@/services/settings";
 import { useTheme } from "@react-navigation/native";
+import { useFonts } from "expo-font";
 import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
 import { useEffect, useState } from "react";
@@ -20,7 +21,10 @@ export default function SettingsScreen() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const [imageQuality, setImageQuality] = useState<ImageQuality>("medium");
-
+ const [fontsLoaded] = useFonts({
+    Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
+  });
+  
   // Load current setting
   useEffect(() => {
     const loadSettings = async () => {
@@ -73,7 +77,7 @@ export default function SettingsScreen() {
             Settings
           </ThemedText>
           <Image
-            source={require("@/assets/images/missingfunko.png")}
+            source={require("@/assets/images/PopCollectionImage.png")}
             style={styles.headerImage}
             contentFit="scale-down"
           />
