@@ -114,7 +114,7 @@ Since all data is stored locally on your device:
 If you have questions about this Privacy Policy or the app, please contact us:
 
 **Email:** cob3x85.apple@outlook.com  
-**GitHub:** https://github.com/cob3x85/missing-funko-app
+**GitHub:** https://github.com/cob3x85/missing-collectible-app
 
 ## Consent
 

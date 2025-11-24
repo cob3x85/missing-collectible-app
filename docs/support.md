@@ -159,7 +159,7 @@ Have an idea for a new feature? We'd love to hear it!
 For any other questions or concerns, feel free to reach out:
 
 **Email:** cob3x85.apple@outlook.com  
-**GitHub:** https://github.com/cob3x85/missing-funko-app  
+**GitHub:** https://github.com/cob3x85/missing-collectible-app  
 **App Store:** Leave a review or rating
 
 ## Roadmap
