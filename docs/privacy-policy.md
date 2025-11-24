@@ -1,4 +1,4 @@
-# Privacy Policy for Fun-Kollection
+# Privacy Policy for Pop Kollection
 
 **Effective Date:** November 20, 2025  
 **Last Updated:** November 20, 2025
@@ -6,6 +6,8 @@
 ## Overview
 
 Pop Kollection ("we," "our," or "the app") is committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our pop vinyl figure collection tracking mobile application.
+
+**Disclaimer:** This app is not affiliated with, endorsed by, or sponsored by Funko, Inc. or any other vinyl figure manufacturer. All product names, trademarks, and registered trademarks are property of their respective owners. This is an independent collection management tool for personal use.
 
 ## Information We Collect
 
@@ -116,7 +118,7 @@ If you have questions about this Privacy Policy or the app, please contact us:
 
 ## Consent
 
-By using Fun-Kollection, you consent to this Privacy Policy and agree to its terms.
+By using Pop Kollection, you consent to this Privacy Policy and agree to its terms.
 
 ---
 

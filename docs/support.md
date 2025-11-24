@@ -111,7 +111,7 @@ Not yet. iOS-only for now. Android support is planned for future releases.
 
 ### Photos not saving
 
-- **Check Permissions:** Settings → Fun-Kollection → Photos → Allow Access
+- **Check Permissions:** Settings → Pop Kollection → Photos → Allow Access
 - **Storage Full:** Free up space on your device
 - **Restart App:** Close and reopen the app
 
