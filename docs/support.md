@@ -1,3 +1,8 @@
+---
+layout: default
+title: Support
+---
+
 # Pop Kollection Support
 
 Welcome to Pop Kollection support! This page provides help and answers to common questions about using the app.

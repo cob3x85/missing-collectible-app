@@ -1,1 +1,6 @@
-theme: null
+title: Pop Kollection
+description: Support and Privacy Policy
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge

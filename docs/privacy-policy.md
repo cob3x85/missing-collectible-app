@@ -1,3 +1,8 @@
+---
+layout: default
+title: Privacy Policy
+---
+
 # Privacy Policy for Pop Kollection
 
 **Effective Date:** November 20, 2025  
