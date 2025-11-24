@@ -382,7 +382,7 @@ See [LICENSE](./LICENSE) file for full terms and conditions.
 Interested in using this code commercially, collaboration opportunities, or custom development?
 
 **Contact:** cob3x85.apple@outlook.com  
-**Repository:** https://github.com/cob3x85/missing-funko-app
+**Repository:** https://github.com/cob3x85/missing-collectible-app
 
 ### 🏷️ Trademark Notice
 
