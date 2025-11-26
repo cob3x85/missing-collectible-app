@@ -11,9 +11,12 @@ import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
 import { FlatList, Platform, Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import "@/i18n/i18n";
+import { useTranslation } from "react-i18next";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   const theme = useTheme();
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteFunkos(20);
@@ -49,7 +52,7 @@ export default function HomeScreen() {
       <GlassContainer style={styles.container}>
         <GlassView style={[styles.titleContainer, { paddingTop: insets.top }]}>
           <ThemedText type="subtitle" style={styles.textTitle}>
-            Pop Kollection
+            {t('appName')}
           </ThemedText>
           <View style={styles.headerRight}>
             <View style={styles.logoChip}>
@@ -77,7 +80,7 @@ export default function HomeScreen() {
               { marginBottom: 10, color: theme.colors.text },
             ]}
           >
-            No Items Yet
+            {t('home.emptyState.title')}
           </ThemedText>
           <ThemedText
             style={[
@@ -85,7 +88,7 @@ export default function HomeScreen() {
               { marginBottom: 30, color: theme.colors.text },
             ]}
           >
-            Start your collection by adding your first item!
+            {t('home.emptyState.message')}
           </ThemedText>
 
           <Pressable
