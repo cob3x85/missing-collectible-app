@@ -15,6 +15,7 @@ import { useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
+  Platform,
   StyleSheet,
   TextInput,
   View,
@@ -108,12 +109,21 @@ export default function SearchScreen() {
         </View>
       ) : displayList.length === 0 && !shouldSearch ? (
         <View style={styles.emptyContainer}>
-          <IconSymbol
-            size={80}
-            name="tray.fill"
-            color="#ccc"
-            style={styles.emptyIcon}
-          />
+          {Platform.OS === "ios" ? (
+            <IconSymbol
+              size={80}
+              name="tray.fill"
+              color="#ccc"
+              style={styles.emptyIcon}
+            />
+          ) : (
+            <Ionicons
+              name="file-tray"
+              size={80}
+              color="#ccc"
+              style={styles.emptyIcon}
+            />
+          )}
           <ThemedText type="subtitle" style={styles.emptyTitle}>
             No Items Available
           </ThemedText>

@@ -1,10 +1,10 @@
-import { Tabs } from "expo-router";
-import React from "react";
-
 import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import React from "react";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -32,18 +32,11 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="search"
-        options={{
-          href: null,
-        }}
-      />
-
-      <Tabs.Screen
         name="add"
         options={{
           title: "Add",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="plus.circle.fill" color={color} />
+            <Ionicons name="add-circle" size={28} color={color} />
           ),
         }}
       />
@@ -53,7 +46,41 @@ export default function TabLayout() {
         options={{
           title: "About",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="info.circle.fill" color={color} />
+            <Ionicons name="information-circle" size={28} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: "search",
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="search"
+              size={28}
+              color={
+                focused
+                  ? Colors[colorScheme ?? "light"].tabIconSelected
+                  : Colors[colorScheme ?? "light"].tabIconDefault
+              }
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="settings"
+              size={28}
+              color={
+                focused
+                  ? Colors[colorScheme ?? "light"].tabIconSelected
+                  : Colors[colorScheme ?? "light"].tabIconDefault
+              }
+            />
           ),
         }}
       />

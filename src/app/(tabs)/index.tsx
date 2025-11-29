@@ -5,14 +5,15 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageSpinner } from "@/components/ui/image-spinner";
 import { useInfiniteFunkos } from "@/hooks/useFunkos";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
+import "@/i18n/i18n";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
+import { useTranslation } from "react-i18next";
 import { FlatList, Platform, Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import "@/i18n/i18n";
-import { useTranslation } from "react-i18next";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -52,7 +53,7 @@ export default function HomeScreen() {
       <GlassContainer style={styles.container}>
         <GlassView style={[styles.titleContainer, { paddingTop: insets.top }]}>
           <ThemedText type="subtitle" style={styles.textTitle}>
-            {t('appName')}
+            {t("appName")}
           </ThemedText>
           <View style={styles.headerRight}>
             <View style={styles.logoChip}>
@@ -66,12 +67,20 @@ export default function HomeScreen() {
         </GlassView>
 
         <GlassView style={styles.emptyContainer}>
+          {Platform.OS === "ios" ? (
           <IconSymbol
             size={80}
             name="tray.fill"
             color={theme.colors.text}
             style={styles.icon}
-          />
+          />) : (
+            <Ionicons
+              name="file-tray"
+              size={80}
+              color={theme.colors.text}
+              style={styles.icon}
+            />
+          )}
 
           <ThemedText
             type="subtitle"
@@ -80,7 +89,7 @@ export default function HomeScreen() {
               { marginBottom: 10, color: theme.colors.text },
             ]}
           >
-            {t('home.emptyState.title')}
+            {t("home.emptyState.title")}
           </ThemedText>
           <ThemedText
             style={[
@@ -88,7 +97,7 @@ export default function HomeScreen() {
               { marginBottom: 30, color: theme.colors.text },
             ]}
           >
-            {t('home.emptyState.message')}
+            {t("home.emptyState.message")}
           </ThemedText>
 
           <Pressable
@@ -101,13 +110,21 @@ export default function HomeScreen() {
               navigation.navigate("Add" as never);
             }}
           >
-            <IconSymbol
-              size={24}
-              name="plus.circle.fill"
-              color="white"
-              style={{ marginRight: 8 }}
-            />
-
+            {Platform.OS === "ios" ? (
+              <IconSymbol
+                size={24}
+                name="plus.circle.fill"
+                color="white"
+                style={{ marginRight: 8 }}
+              />
+            ) : (
+              <Ionicons
+                name="add"
+                size={24}
+                color="white"
+                style={{ marginRight: 8 }}
+              />
+            )}
             <ThemedText style={styles.addButtonText}>
               Add Your First Item
             </ThemedText>
@@ -161,7 +178,7 @@ export default function HomeScreen() {
           }
         />
       </GlassView>
-      {Platform.OS === "ios" ? null : <SearchBar />}
+      
     </GlassContainer>
   );
 }
