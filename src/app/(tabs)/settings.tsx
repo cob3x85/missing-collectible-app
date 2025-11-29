@@ -6,7 +6,9 @@ import { useTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
+import { getLocales } from "expo-localization";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Alert,
   Platform,
@@ -21,6 +23,18 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function SettingsScreen() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const locales = getLocales();
+  const deviceLanguageCode = locales[0]?.languageCode ?? "en";
+  const { i18n, t } = useTranslation();
+  // Set i18n language to device language on mount
+  useEffect(() => {
+    if (
+      ["en", "es"].includes(deviceLanguageCode) &&
+      i18n.language !== deviceLanguageCode
+    ) {
+      i18n.changeLanguage(deviceLanguageCode);
+    }
+  }, [deviceLanguageCode, i18n]);
   const [imageQuality, setImageQuality] = useState<ImageQuality>("medium");
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
@@ -93,6 +107,23 @@ export default function SettingsScreen() {
       <ScrollView style={styles.scrollView}>
         <GlassView style={styles.content}>
           {/* App Information Section */}
+          <View style={styles.section}>
+            <ThemedText style={styles.sectionTitle}>Language</ThemedText>
+            <View style={styles.card}>
+              <View style={styles.row}>
+                <ThemedText style={styles.label}>App Language</ThemedText>
+                <ThemedText style={styles.value}>
+                  {i18n.language === "es" ? "Español (MX)" : "English (US)"}
+                </ThemedText>
+              </View>
+              <View style={styles.row}>
+                <ThemedText style={styles.label}>Device Language</ThemedText>
+                <ThemedText style={styles.value}>
+                  {deviceLanguageCode}
+                </ThemedText>
+              </View>
+            </View>
+          </View>
           <View style={styles.section}>
             <ThemedText style={styles.sectionTitle}>App Information</ThemedText>
             <View style={styles.card}>

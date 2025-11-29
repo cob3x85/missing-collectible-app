@@ -4,16 +4,22 @@ import { ImageSpinner } from "@/components/ui/image-spinner";
 import { useFonts } from "expo-font";
 import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function AboutScreen() {
-  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
+  const { t, i18n } = useTranslation();
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
   });
+
+  // Debug: log current language and some translation values
+  console.log("[i18n] language:", i18n.language);
+  console.log("[i18n] t('about.title'):", t("about.title"));
+  console.log("[i18n] t('appName'):", t("appName"));
+  console.log("[i18n] t('about.description'):", t("about.description"));
 
   if (!fontsLoaded) {
     return <ImageSpinner />;
@@ -24,7 +30,7 @@ export default function AboutScreen() {
       <GlassView style={[styles.header, { paddingTop: insets.top }]}>
         <View style={styles.headerContent}>
           <ThemedText type="title" style={styles.headerTitle}>
-           {t('about.title')}
+            {t("about.title")}
           </ThemedText>
           <View style={styles.logoChip}>
             <Image
@@ -40,41 +46,37 @@ export default function AboutScreen() {
         <View style={styles.content}>
           <View style={styles.titleContainer}>
             <ThemedText type="title" style={styles.title}>
-              {t('appName')}
+              {t("appName")}
             </ThemedText>
             <HelloWave />
           </View>
 
           <View style={styles.section}>
             <ThemedText style={styles.text}>
-              {t('about.description')}
-              </ThemedText>
-          </View>
-
-          <View style={styles.section}>
-            <ThemedText type="subtitle" style={styles.subtitle}>
-              {t('titles.problem')}
-            </ThemedText>
-            <ThemedText style={styles.text}>
-              {t('about.problem')}
+              {t("about.description")}
             </ThemedText>
           </View>
 
           <View style={styles.section}>
             <ThemedText type="subtitle" style={styles.subtitle}>
-              {t('titles.solution')}
+              {t("titles.problem")}
             </ThemedText>
-            <ThemedText style={styles.text}>
-              {t('about.solution')}
+            <ThemedText style={styles.text}>{t("about.problem")}</ThemedText>
+          </View>
+
+          <View style={styles.section}>
+            <ThemedText type="subtitle" style={styles.subtitle}>
+              {t("titles.solution")}
             </ThemedText>
+            <ThemedText style={styles.text}>{t("about.solution")}</ThemedText>
           </View>
 
           <View style={[styles.section, { marginBottom: 80 }]}>
             <ThemedText type="subtitle" style={styles.subtitle}>
-              {t('titles.disclaimer')}
+              {t("titles.disclaimer")}
             </ThemedText>
             <ThemedText style={[styles.text, { fontStyle: "italic" }]}>
-              {t('about.disclaimer')}
+              {t("about.disclaimer")}
             </ThemedText>
           </View>
         </View>
