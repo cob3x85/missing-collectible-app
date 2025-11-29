@@ -17,10 +17,54 @@
   },
   "license": "Licencia",
   "privacyPolicy": "Política de Privacidad",
+  "settings": {
+    "language": "Idioma",
+    "appLanguage": "Idioma de la Aplicación",
+    "theme": "Tema",
+    "darkMode": "Modo Oscuro",
+    "notifications": "Notificaciones",
+    "about": "Acerca de",
+    "legal": "Legal",
+    "title": "Configuración",
+    "dataManagement": "Gestión de Datos",
+    "appInformation": "Información de la Aplicación",
+    "deviceLanguage": "Idioma del Dispositivo",
+    "platform": "Plataforma",
+    "developer": "Desarrollador",
+    "support": "Soporte",
+    "imageQuality": {
+      "title": "Calidad de Imagen",
+      "description": "Elige la calidad de imagen para nuevas fotos. Una calidad más baja ahorra espacio de almacenamiento.",
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Baja",
+      "recommended": "Recomendado",
+      "note": "💡 Esta configuración solo afecta a las fotos nuevas. Las imágenes existentes no cambiarán."
+    },
+    "storage": {
+      "title": "Almacenamiento",
+      "imageStorageInfo": "Información sobre el almacenamiento de imágenes",
+      "description": "Cómo se almacenan las imágenes en tu dispositivo.",
+      "alert": {
+        "title": "Almacenamiento de Imágenes",
+        "message": "Las imágenes se almacenan directamente en la base de datos de la aplicación y persistirán a través de las actualizaciones de la aplicación. \n\nDetalles del almacenamiento:\n• Las imágenes se guardan como parte de la base de datos de la aplicación\n• Persisten a través de las actualizaciones de la aplicación\n• Solo se eliminan si se desinstala la aplicación\n\nTus imágenes están seguras y no se perderán durante las actualizaciones.",
+        "confirmButton": "OK"
+      }
+    },
+    "deleteAlert": {
+      "title": "Guía de Ayuda",
+      "howTo": "Cómo Eliminar Artículos",
+      "description": "Aprende cómo eliminar artículos de tu colección.",
+      "message": "Para eliminar un artículo de tu colección:\n\n1. Mantén presionada cualquier tarjeta Funko\n2. Toca 'Eliminar' en el menú\n3. Confirma la eliminación cuando se te solicite\n\nNota: Esta acción no se puede deshacer y también eliminará todas las imágenes asociadas.",
+      "confirmButton": "Entendido"
+    }
+  },
   "titles": {
     "solution": "Solución",
     "problem": "Problema",
-    "disclaimer": "Aviso Legal"
+    "disclaimer": "Aviso Legal",
+    "language": "Idioma"
   },
-  "version": "Versión"
+  "version": "Versión",
+  "comingSoon": "Próximamente"
 }

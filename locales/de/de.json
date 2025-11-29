@@ -1,0 +1,27 @@
+{
+  "appName": "Pop Kollection",
+  "about": {
+    "description": "Dies ist eine Begleit-App für Pop-Vinyl-Figuren, die Ihnen hilft, Ihre Sammlung zu verfolgen. Sie können Artikel zu Ihrer Sammlung hinzufügen, bearbeiten und löschen sowie Details zu jedem Sammlerstück anzeigen.",
+    "developedBy": "Entwickelt von",
+    "disclaimer": "Diese App ist weder mit einem Hersteller von Vinyl-Figuren verbunden, noch wird sie von diesem unterstützt oder gesponsert. Alle Produktnamen, Handelsnamen und eingetragenen Marken sind Eigentum ihrer jeweiligen Inhaber.",
+    "problem": "Viele Pop-Vinyl-Sammler haben Schwierigkeiten, ihre ständig wachsenden Sammlungen im Auge zu behalten. Mit neuen Veröffentlichungen und exklusiven Artikeln kann es eine Herausforderung sein, sich daran zu erinnern, welche Figuren sie besitzen, wo sie aufbewahrt werden und in welchem Zustand sie sich befinden.",
+    "solution": "Pop Kollection bietet eine benutzerfreundliche Plattform zur Verwaltung Ihrer Sammlung. Benutzer können detaillierte Informationen zu jeder Figur hinzufügen, einschließlich Fotos, Kaufdaten und Notizen zum Zustand. Die App bietet auch Such- und Filterfunktionen, um bestimmte Artikel schnell zu finden. Durch die Pflege eines organisierten digitalen Inventars können Sammler fundierte Entscheidungen über zukünftige Käufe treffen und vermeiden, Duplikate zu kaufen.",
+    "title": "Über"
+  },
+  "home": {
+    "loading": "Lade deine Sammlung...",
+    "emptyState": {
+      "title": "Deine Sammlung ist leer",
+      "message": "Beginne deine Sammlung, indem du deinen ersten Artikel hinzufügst!"
+    }
+  },
+  "titles": {
+    "solution": "Lösung",
+    "problem": "Problem",
+    "disclaimer": "Haftungsausschluss",
+    "settings": "Einstellungen"
+  },
+  "license": "Lizenz",
+  "privacyPolicy": "Datenschutz-Bestimmungen",
+  "version": "Version"
+}

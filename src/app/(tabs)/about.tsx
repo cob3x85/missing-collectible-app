@@ -15,12 +15,6 @@ export default function AboutScreen() {
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
   });
 
-  // Debug: log current language and some translation values
-  console.log("[i18n] language:", i18n.language);
-  console.log("[i18n] t('about.title'):", t("about.title"));
-  console.log("[i18n] t('appName'):", t("appName"));
-  console.log("[i18n] t('about.description'):", t("about.description"));
-
   if (!fontsLoaded) {
     return <ImageSpinner />;
   }

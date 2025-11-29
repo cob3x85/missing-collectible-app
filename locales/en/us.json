@@ -15,12 +15,55 @@
       "message": "Start your collection by adding your first item!"
     }
   },
+  "license": "License",
+  "privacyPolicy": "Privacy Policy",
+  "settings": {
+    "language": "Language",
+    "appLanguage": "App Language",
+    "theme": "Theme",
+    "darkMode": "Dark Mode",
+    "notifications": "Notifications",
+    "about": "About",
+    "legal": "Legal",
+    "title": "Settings",
+    "dataManagement": "Data Management",
+    "appInformation": "App Information",
+    "deviceLanguage": "Device Language",
+    "platform": "Platform",
+    "developer": "Developer",
+    "support": "Support",
+    "imageQuality": {
+      "title": "Image Quality",
+      "description": "Choose image quality for new photos. Lower quality saves storage space.",
+      "high": "High Quality",
+      "medium": "Medium Quality",
+      "low": "Low Quality",
+      "recommended": "Recommended",
+      "note": "💡 This setting only affects new photos. Existing images won't change."
+    },
+    "storage": {
+      "title": "Storage",
+      "imageStorageInfo": "Image Storage Information",
+      "description": "How images are stored on your device.",
+      "alert": {
+        "title": "Image Storage",
+        "message": "Images are stored directly in the app's database and will persist across app updates. \n\nStorage Details:\n• Images are saved as part of the app's database\n• They persist through app updates\n• Only removed if the app is uninstalled\n\nYour images are safe and will not be lost during updates.",
+        "confirmButton": "OK"
+      }
+    },
+    "deleteAlert": {
+      "title": "Help & Guide",
+      "howTo": "How to Delete Items",
+      "description": "Learn how to remove items from your collection.",
+      "message": "To delete an item from your collection:\n\n1. Long press on any Funko card\n2. Tap 'Delete' from the menu\n3. Confirm deletion when prompted\n\nNote: This action cannot be undone and will also delete all associated images.",
+      "confirmButton": "Got it"
+    }
+  },
   "titles": {
     "solution": "Solution",
     "problem": "Problem",
     "disclaimer": "Disclaimer"
   },
-  "license": "License",
-  "privacyPolicy": "Privacy Policy",
-  "version": "Version"
+  "version": "Version",
+  "comingSoon": "Coming Soon"
 }
