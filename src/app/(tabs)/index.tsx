@@ -126,7 +126,7 @@ export default function HomeScreen() {
               />
             )}
             <ThemedText style={styles.addButtonText}>
-              Add Your First Item
+              {t("home.emptyState.addItem")}
             </ThemedText>
           </Pressable>
         </GlassView>

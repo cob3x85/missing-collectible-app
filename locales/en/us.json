@@ -12,7 +12,8 @@
     "loading": "Loading your collection...",
     "emptyState": {
       "title": "Your collection is empty",
-      "message": "Start your collection by adding your first item!"
+      "message": "Start your collection by adding your first item!",
+      "addItem": "Add Your First Item"
     }
   },
   "license": "License",
@@ -57,6 +58,18 @@
       "description": "Learn how to remove items from your collection.",
       "message": "To delete an item from your collection:\n\n1. Long press on any Funko card\n2. Tap 'Delete' from the menu\n3. Confirm deletion when prompted\n\nNote: This action cannot be undone and will also delete all associated images.",
       "confirmButton": "Got it"
+    }
+  },
+  "search": {
+    "title": "Search",
+    "noResults": "No Results Found",
+    "noMatch": "No items match your search.",
+    "emptyHint": "Try different keywords or check your spelling.",
+    "placeholder": "Search your collection...",
+    "emptyState": {
+      "title": "No Items Available",
+      "subtitle": "Your collection is empty.",
+      "message": "Add your first item from the Add tab to get started.",
     }
   },
   "titles": {

@@ -12,6 +12,7 @@ import { useFonts } from "expo-font";
 import { GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   FlatList,
@@ -24,6 +25,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function SearchScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
   const theme = useTheme();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { debouncedValue } = useDebounceValue(searchQuery, 500);
@@ -54,7 +56,7 @@ export default function SearchScreen() {
       <GlassView style={[styles.header, { paddingTop: insets.top }]}>
         <View style={styles.headerContent}>
           <ThemedText type="title" style={styles.headerTitle}>
-            Search
+            {t("search.title")}
           </ThemedText>
           <View style={styles.logoChip}>
             <Image
@@ -75,7 +77,7 @@ export default function SearchScreen() {
         />
         <TextInput
           style={styles.searchInput}
-          placeholder="Type anything..."
+          placeholder={t("search.placeholder")}
           placeholderTextColor="#666"
           value={searchQuery}
           cursorColor={"black"}
@@ -98,13 +100,13 @@ export default function SearchScreen() {
             style={styles.emptyIcon}
           />
           <ThemedText type="subtitle" style={styles.emptyTitle}>
-            No Results Found
+            {t("search.noResults")}
           </ThemedText>
           <ThemedText style={styles.emptyMessage}>
-            No items match "{searchQuery}"
+            {t("search.noMatch", { query: searchQuery })}
           </ThemedText>
           <ThemedText style={styles.emptyHint}>
-            Try different keywords or check your spelling
+            {t("search.emptyHint")}
           </ThemedText>
         </View>
       ) : displayList.length === 0 && !shouldSearch ? (
@@ -124,14 +126,14 @@ export default function SearchScreen() {
               style={styles.emptyIcon}
             />
           )}
-          <ThemedText type="subtitle" style={styles.emptyTitle}>
-            No Items Available
+          <ThemedText type="title" style={styles.emptyTitle}>
+            {t("search.emptyState.title")}
           </ThemedText>
           <ThemedText style={styles.emptyMessage}>
-            Your collection is empty
+            {t("search.emptyState.subtitle")}
           </ThemedText>
           <ThemedText style={styles.emptyHint}>
-            Add your first item from the Add tab to get started
+            {t("search.emptyState.message")}
           </ThemedText>
         </View>
       ) : (
@@ -236,6 +238,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
     marginBottom: 8,
+    textAlign: "center",
   },
   emptyMessage: {
     fontSize: 16,

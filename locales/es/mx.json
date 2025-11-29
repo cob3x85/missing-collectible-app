@@ -12,7 +12,8 @@
     "loading": "Cargando tu colección...",
     "emptyState": {
       "title": "Tu colección está vacía",
-      "message": "¡Comienza tu colección agregando tu primer artículo!"
+      "message": "¡Comienza tu colección agregando tu primer artículo!",
+      "addItem": "Agrega Tu Primer Artículo"
     }
   },
   "license": "Licencia",
@@ -57,6 +58,18 @@
       "description": "Aprende cómo eliminar artículos de tu colección.",
       "message": "Para eliminar un artículo de tu colección:\n\n1. Mantén presionada cualquier tarjeta Funko\n2. Toca 'Eliminar' en el menú\n3. Confirma la eliminación cuando se te solicite\n\nNota: Esta acción no se puede deshacer y también eliminará todas las imágenes asociadas.",
       "confirmButton": "Entendido"
+    }
+  },
+  "search": {
+    "title": "Buscar",
+    "noResults": "No se Encontraron Resultados",
+    "noMatch": "Ningún artículo coincide con tu búsqueda.",
+    "placeholder": "Escribe algo...",
+    "emptyHint": "Prueba con diferentes palabras clave o verifica tu ortografía.",
+    "emptyState": {
+      "title": "No hay artículos disponibles",
+      "subtitle": "Tu colección está vacía.",
+      "message": "Agrega tu primer artículo desde la pestaña \"Agregar\" para comenzar."
     }
   },
   "titles": {
