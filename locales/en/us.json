@@ -17,6 +17,13 @@
     }
   },
   "license": "License",
+  "menu": {
+    "home": "Home",
+    "search": "Search",
+    "add": "Add",
+    "settings": "Settings",
+    "about": "About"
+  },
   "privacyPolicy": "Privacy Policy",
   "settings": {
     "language": "Language",
@@ -69,7 +76,7 @@
     "emptyState": {
       "title": "No Items Available",
       "subtitle": "Your collection is empty.",
-      "message": "Add your first item from the Add tab to get started.",
+      "message": "Add your first item from the Add tab to get started."
     }
   },
   "titles": {

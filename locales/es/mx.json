@@ -17,6 +17,13 @@
     }
   },
   "license": "Licencia",
+  "menu": {
+    "home": "Inicio",
+    "search": "Buscar",
+    "add": "Agregar",
+    "settings": "Configuración",
+    "about": "Acerca de"
+  },
   "privacyPolicy": "Política de Privacidad",
   "settings": {
     "language": "Idioma",
