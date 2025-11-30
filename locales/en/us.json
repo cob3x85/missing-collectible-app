@@ -165,6 +165,18 @@
     "problem": "Problem",
     "disclaimer": "Disclaimer"
   },
+  "validations": {
+    "required": "This {{field}} is required.",
+    "invalidNumber": "Please enter a valid number.",
+    "invalidPrice": "Please enter a valid price (e.g., 12.99).",
+    "invalidDate": "Please select a valid date.",
+    "maxLength": "This field cannot exceed {{max}} characters.",
+    "minLength": "This field must be at least {{min}} characters.",
+    "invalidCondition": "Invalid {{field}} selected.",
+    "positiveNumber": "Please enter a positive number for {{field}}.",
+    "dateFormat": "Please use the YYYY-MM-DD format.",
+    "notesLength": "Notes cannot exceed {{max}} characters."
+  },
   "version": "Version",
   "comingSoon": "Coming Soon"
 }
