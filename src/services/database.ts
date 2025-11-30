@@ -30,7 +30,7 @@ class DatabaseService {
         category TEXT NOT NULL,
         condition TEXT CHECK(condition IN ('mint', 'near_mint', 'good', 'fair', 'poor')) NOT NULL,
         size TEXT CHECK(size IN ('standard', 'super_sized', 'jumbo')) DEFAULT 'standard',
-        type TEXT CHECK(type IN ('standard_pop', 'pop_ride', 'pop_town', 'pop_moment', 'pop_album', 'pop_comic_cover', 'pop_deluxe', 'pop_2pack', 'pop_3pack', 'pop_keychain', 'pop_tee', 'soda', 'vinyl_gold', 'other')) DEFAULT 'standard_pop',
+        type TEXT CHECK(type IN ('standard_pop', 'pop_ride', 'pop_town', 'pop_moment', 'pop_album', 'pop_comic_cover', 'pop_deluxe', 'pop_2pack', 'pop_3pack', 'pop_keychain', 'pop_tee', 'soda', 'vinyl_gold', 'limited_edition', 'other')) DEFAULT 'standard_pop',
         variant TEXT CHECK(variant IN ('normal', 'chase', 'chrome', 'flocked', 'glow_in_the_dark', 'metallic', 'translucent', 'glitter', 'blacklight', 'diamond', 'scented', 'exclusive', 'limited_edition', 'other')) DEFAULT 'normal',
         purchase_price REAL,
         current_value REAL,
@@ -70,7 +70,7 @@ class DatabaseService {
     // Migration: Add type column if it doesn't exist
     try {
       await this.db.execAsync(`
-        ALTER TABLE funkos ADD COLUMN type TEXT CHECK(type IN ('standard_pop', 'pop_ride', 'pop_town', 'pop_moment', 'pop_album', 'pop_comic_cover', 'pop_deluxe', 'pop_2pack', 'pop_3pack', 'pop_keychain', 'pop_tee', 'soda', 'vinyl_gold', 'other')) DEFAULT 'standard_pop';
+        ALTER TABLE funkos ADD COLUMN type TEXT CHECK(type IN ('standard_pop', 'pop_ride', 'pop_town', 'pop_moment', 'pop_album', 'pop_comic_cover', 'pop_deluxe', 'pop_2pack', 'pop_3pack', 'pop_keychain', 'pop_tee', 'soda', 'vinyl_gold', 'limited_edition', 'other')) DEFAULT 'standard_pop';
       `);
     } catch (error) {
       // Column already exists, ignore error

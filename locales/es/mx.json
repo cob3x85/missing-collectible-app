@@ -8,6 +8,87 @@
     "solution": "Pop Kollection ofrece una plataforma fácil de usar para gestionar tu colección. Los usuarios pueden agregar información detallada sobre cada figura, incluyendo fotos, fechas de compra y notas sobre su condición. La aplicación también ofrece funcionalidades de búsqueda y filtrado para localizar rápidamente artículos específicos. Al mantener un inventario digital organizado, los coleccionistas pueden tomar decisiones informadas sobre futuras compras y evitar comprar duplicados.",
     "title": "Acerca de"
   },
+  "add": {
+    "title": "Agregar Artículo",
+    "selectImage": "Seleccionar Imagen",
+    "takePhoto": "Tomar Foto",
+    "name": "Nombre",
+    "series": "Serie",
+    "number": "Número",
+    "category": "Categoría",
+    "condition": "Condición",
+    "notes": "Notas",
+    "purchaseDate": "Fecha de Compra",
+    "size": "Tamaño",
+    "type": "Tipo",
+    "variant": "Variante",
+    "hasProtectorCase": "Tiene Estuche Protector",
+    "save": "Guardar Artículo",
+    "cancel": "Cancelar",
+    "purchasePrice": "Precio de Compra",
+    "currentValue": "Valor Actual",
+    "images": "Imágenes",
+    "image": "Imagen",
+    "gallery": "Galería",
+    "camera": "Cámara",
+    "placeholders": {
+      "name": "Ingresa el nombre del artículo",
+      "series": "Nombre de la Serie (ej. Marvel)",
+      "number": "Número del artículo (ej., 001)",
+      "category": "Categoría (ej., Pop! Vinyl)",
+      "condition": "Condición (ej., Nuevo, Usado)",
+      "notes": "Agrega notas adicionales sobre el artículo",
+      "size": "Tamaño (ej., 3.75 pulgadas)",
+      "type": "Tipo (ej., Estándar, Exclusivo)",
+      "variant": "Variante (ej., Chase, Metálico)",
+      "purchasePrice": "Precio de Compra (ej., $12.99)",
+      "currentValue": "Valor Actual (ej., $15.00)",
+      "purchaseDate": "Selecciona la fecha de compra",
+      "selectDate": "Seleccionar Fecha",
+      "dateSelected": "Hecho",
+      "updating": "Actualizando...",
+      "adding": "Agregando...",
+      "updateItem": "Actualizar Artículo",
+      "addItem": "Agregar Artículo"
+    },
+    "options": {
+      "condition": {
+        "mint": "Perfecto",
+        "near_mint": "Casi Perfecto",
+        "good": "Bueno",
+        "fair": "Regular",
+        "poor": "Malo"
+      },
+      "size": {
+        "standard": "Estándar (3.75 pulgadas)",
+        "super_sized": "Súper (4-6 pulgadas)",
+        "jumbo": "Grande (más de 6 pulgadas)"
+      },
+      "type": {
+        "standard": "Estándar",
+        "exclusive": "Exclusivo",
+        "soda": "Soda",
+        "twoPack": "Paquete Doble",
+        "deluxe": "De Lujo",
+        "limited_edition": "Edición Limitada",
+        "other": "Otro"
+      },
+      "variant": {
+        "normal": "Normal",
+        "chase": "Chase",
+        "chrome": "Cromo",
+        "flocked": "Aterciopelado",
+        "glow_in_the_dark": "Brilla en la Oscuridad",
+        "metallic": "Metálico",
+        "translucent": "Translúcido",
+        "glitter": "Brillante",
+        "blacklight": "Luz Negra",
+        "diamond": "Diamante",
+        "exclusive": "Exclusivo",
+        "other": "Otro"
+      }
+    }
+  },
   "home": {
     "loading": "Cargando tu colección...",
     "emptyState": {

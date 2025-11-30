@@ -8,6 +8,87 @@
     "solution": "Pop Kollection provides an easy-to-use platform for managing your collection. Users can add detailed information about each figure, including photos, purchase dates, and condition notes. The app also offers search and filter functionalities to quickly locate specific items. By keeping an organized digital inventory, collectors can make informed decisions about future purchases and avoid buying duplicates.",
     "title": "About"
   },
+  "add": {
+    "title": "Add Item",
+    "selectImage": "Select Image",
+    "takePhoto": "Take Photo",
+    "name": "Name",
+    "series": "Series",
+    "number": "Number",
+    "category": "Category",
+    "condition": "Condition",
+    "notes": "Notes",
+    "purchaseDate": "Purchase Date",
+    "size": "Size",
+    "type": "Type",
+    "variant": "Variant",
+    "hasProtectorCase": "Has Protector Case",
+    "save": "Save Item",
+    "cancel": "Cancel",
+    "purchasePrice": "Purchase Price",
+    "currentValue": "Current Value",
+    "images": "Images",
+    "image": "Image",
+    "gallery": "Gallery",
+    "camera": "Camera",
+    "placeholders": {
+      "name": "Enter the name of the item",
+      "series": "Series Name (e.g. Dragon Ball Z)",
+      "number": "Enter the item number (e.g., 001)",
+      "category": "Enter the category (e.g., Pop! Vinyl)",
+      "condition": "Enter the condition (e.g., New, Used)",
+      "notes": "Add any additional notes about the item",
+      "size": "Enter the size (e.g., 3.75 inches)",
+      "type": "Enter the type (e.g., Standard, Exclusive)",
+      "variant": "Enter the variant (e.g., Chase, Metallic)",
+      "purchasePrice": "Enter the purchase price (e.g., $12.99)",
+      "currentValue": "Enter the current value (e.g., $15.00)",
+      "purchaseDate": "Select the purchase date",
+      "selectDate": "Select Date",
+      "dateSelected": "Done",
+      "updating": "Updating...",
+      "adding": "Adding...",
+      "updateItem": "Update Item",
+      "addItem": "Add Item"
+    },
+    "options": {
+      "condition": {
+        "mint": "Mint",
+        "near_mint": "Near Mint",
+        "good": "Good",
+        "fair": "Fair",
+        "poor": "Poor"
+      },
+      "size": {
+        "standard": "Standard (3.75 inches)",
+        "super_sized": "Super (4-6 inches)",
+        "jumbo": "Large (over 6 inches)"
+      },
+      "type": {
+        "standard_pop": "Standard",
+        "exclusive": "Exclusive",
+        "limited_edition": "Limited Edition",
+        "soda": "Soda",
+        "pop_2pack": "2-Pack",
+        "pop_deluxe": "Deluxe",
+        "other": "Other"
+      },
+      "variant": {
+        "normal": "Normal",
+        "chase": "Chase",
+        "chrome": "Chrome",
+        "flocked": "Flocked",
+        "glow_in_the_dark": "Glow in the Dark",
+        "metallic": "Metallic",
+        "translucent": "Translucent",
+        "glitter": "Glitter",
+        "blacklight": "Blacklight",
+        "diamond": "Diamond",
+        "exclusive": "Exclusive",
+        "other": "Other"
+      }
+    }
+  },
   "home": {
     "loading": "Loading your collection...",
     "emptyState": {
