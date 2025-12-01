@@ -2,7 +2,7 @@ import { ThemedText } from "@/components/themed-text";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
-import { FunkoFormData, FunkoFormProps } from "@/types/FunkoForms";
+import type { FunkoFormData, FunkoFormProps } from "@/types/FunkoForms";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import * as Haptics from "expo-haptics";
