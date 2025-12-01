@@ -1,0 +1,210 @@
+{
+  "about": {
+    "description": "This is a pop vinyl figure companion app to help track your collection. You can add, edit, and remove items from your collection, as well as view details about each collectible.",
+    "developedBy": "Developed by",
+    "disclaimer": "This app is not affiliated with, endorsed by, or sponsored by any vinyl figure manufacturer. All product names, trademarks, and registered trademarks are property of their respective owners.",
+    "problem": "Many pop vinyl collectors struggle to keep track of their ever-growing collections. With new releases and exclusive items, it can be challenging to remember which figures you own, where they are stored, and their condition.",
+    "solution": "Pop Kollection provides an easy-to-use platform for managing your collection. Users can add detailed information about each figure, including photos, purchase dates, and condition notes. The app also offers search and filter functionalities to quickly locate specific items. By keeping an organized digital inventory, collectors can make informed decisions about future purchases and avoid buying duplicates.",
+    "title": "About"
+  },
+  "add": {
+    "title": "Add Item",
+    "selectImage": "Select Image",
+    "takePhoto": "Take Photo",
+    "name": "Name",
+    "series": "Series",
+    "number": "Number",
+    "category": "Category",
+    "condition": "Condition",
+    "notes": "Notes",
+    "purchaseDate": "Purchase Date",
+    "size": "Size",
+    "type": "Type",
+    "variant": "Variant",
+    "hasProtectorCase": "Has Protector Case",
+    "save": "Save Item",
+    "cancel": "Cancel",
+    "purchasePrice": "Purchase Price",
+    "currentValue": "Current Value",
+    "images": "Images",
+    "image": "Image",
+    "gallery": "Gallery",
+    "camera": "Camera",
+    "placeholders": {
+      "name": "Enter the name of the item",
+      "series": "Series Name (e.g. Dragon Ball Z)",
+      "number": "Enter the item number (e.g., 001)",
+      "category": "Enter the category (e.g., Pop! Vinyl)",
+      "condition": "Enter the condition (e.g., New, Used)",
+      "notes": "Add any additional notes about the item",
+      "size": "Enter the size (e.g., 3.75 inches)",
+      "type": "Enter the type (e.g., Standard, Exclusive)",
+      "variant": "Enter the variant (e.g., Chase, Metallic)",
+      "purchasePrice": "Enter the purchase price (e.g., $12.99)",
+      "currentValue": "Enter the current value (e.g., $15.00)",
+      "purchaseDate": "Select the purchase date",
+      "selectDate": "Select Date",
+      "dateSelected": "Done",
+      "updating": "Updating...",
+      "adding": "Adding...",
+      "updateItem": "Update Item",
+      "addItem": "Add Item"
+    },
+    "options": {
+      "condition": {
+        "mint": "Mint",
+        "near_mint": "Near Mint",
+        "good": "Good",
+        "fair": "Fair",
+        "poor": "Poor"
+      },
+      "size": {
+        "standard": "Standard (3.75 inches)",
+        "super_sized": "Super (4-6 inches)",
+        "jumbo": "Large (over 6 inches)"
+      },
+      "type": {
+        "standard_pop": "Standard",
+        "exclusive": "Exclusive",
+        "limited_edition": "Limited Edition",
+        "soda": "Soda",
+        "pop_2pack": "2-Pack",
+        "pop_deluxe": "Deluxe",
+        "other": "Other"
+      },
+      "variant": {
+        "normal": "Normal",
+        "chase": "Chase",
+        "chrome": "Chrome",
+        "flocked": "Flocked",
+        "glow_in_the_dark": "Glow in the Dark",
+        "metallic": "Metallic",
+        "translucent": "Translucent",
+        "glitter": "Glitter",
+        "blacklight": "Blacklight",
+        "diamond": "Diamond",
+        "exclusive": "Exclusive",
+        "other": "Other"
+      }
+    }
+  },
+  "appName": "Pop Kollection",
+  "comingSoon": "Coming Soon",
+  "delete": {
+    "cancel": "Cancel",
+    "confirm": "Delete",
+    "deleting": "Deleting...",
+    "error": "Error",
+    "failure": "Failed to delete the item.",
+    "message": "Are you sure you want to delete {{field}}? This action cannot be undone.",
+    "noImage": "No Image",
+    "success": "Item deleted successfully.",
+    "title": "Delete Item"
+  },
+  "edit": {
+    "title": "Edit Item"
+  },
+  "errors": {
+    "title": "Error",
+    "itemAddFailed": "Failed to add item.",
+    "imageCaptureFailed": "Failed to take photo.",
+    "imagePickFailed": "Failed to pick image.",
+    "itemUpdateFailed": "Failed to update item."
+  },
+  "home": {
+    "loading": "Loading your collection...",
+    "emptyState": {
+      "title": "Your collection is empty",
+      "message": "Start your collection by adding your first item!",
+      "addItem": "Add Your First Item"
+    }
+  },
+  "license": "License",
+  "menu": {
+    "home": "Home",
+    "search": "Search",
+    "add": "Add",
+    "settings": "Settings",
+    "about": "About"
+  },
+  "privacyPolicy": "Privacy Policy",
+  "search": {
+    "title": "Search",
+    "noResults": "No Results Found",
+    "noMatch": "No items match your search.",
+    "emptyHint": "Try different keywords or check your spelling.",
+    "placeholder": "Search your collection...",
+    "emptyState": {
+      "title": "No Items Available",
+      "subtitle": "Your collection is empty.",
+      "message": "Add your first item from the Add tab to get started."
+    }
+  },
+  "settings": {
+    "language": "Language",
+    "appLanguage": "App Language",
+    "theme": "Theme",
+    "darkMode": "Dark Mode",
+    "notifications": "Notifications",
+    "about": "About",
+    "legal": "Legal",
+    "title": "Settings",
+    "dataManagement": "Data Management",
+    "appInformation": "App Information",
+    "deviceLanguage": "Device Language",
+    "platform": "Platform",
+    "developer": "Developer",
+    "support": "Support",
+    "imageQuality": {
+      "title": "Image Quality",
+      "description": "Choose image quality for new photos. Lower quality saves storage space.",
+      "high": "High Quality",
+      "medium": "Medium Quality",
+      "low": "Low Quality",
+      "recommended": "Recommended",
+      "note": "💡 This setting only affects new photos. Existing images won't change."
+    },
+    "storage": {
+      "title": "Storage",
+      "imageStorageInfo": "Image Storage Information",
+      "description": "How images are stored on your device.",
+      "alert": {
+        "title": "Image Storage",
+        "message": "Images are stored directly in the app's database and will persist across app updates. \n\nStorage Details:\n• Images are saved as part of the app's database\n• They persist through app updates\n• Only removed if the app is uninstalled\n\nYour images are safe and will not be lost during updates.",
+        "confirmButton": "OK"
+      }
+    },
+    "deleteAlert": {
+      "confirmButton": "OK",
+      "description": "Learn how to remove items from your collection.",
+      "howTo": "How to Delete Items",
+      "message": "To delete an item from your collection:\n\n1. Long press on any Funko card\n2. Tap 'Delete' from the menu\n3. Confirm deletion when prompted\n\nNote: This action cannot be undone and will also delete all associated images.",
+      "title": "Help & Guide"
+    }
+  },
+  "success": {
+    "title": "Success",
+    "itemAddedSuccessfully": "Item added successfully!",
+    "itemUpdatedSuccessfully": "Item updated successfully!"
+  },
+  "titles": {
+    "solution": "Solution",
+    "problem": "Problem",
+    "disclaimer": "Disclaimer"
+  },
+  "validations": {
+    "title": "Validation Errors",
+    "required": "{{field}} is required.",
+    "invalidNumber": "Please enter a valid number.",
+    "invalidPrice": "Please enter a valid price (e.g., 12.99).",
+    "invalidDate": "Please select a valid date.",
+    "maxLength": "{{field}} cannot exceed {{max}} characters.",
+    "minLength": "{{field}} must be at least {{min}} characters.",
+    "invalidCondition": "Invalid {{field}} selected.",
+    "positiveNumber": "Please enter a positive number for {{field}}.",
+    "dateFormat": "Date must be in the YYYY-MM-DD format.",
+    "notesLength": "Notes must be under {{max}} characters.",
+    "onlyDigits": "{{field}} must contain only digits."
+  },
+  "version": "Version"
+}

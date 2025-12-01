@@ -1,0 +1,211 @@
+{
+  "about": {
+    "description": "Esta es una aplicación complementaria para figuras pop vinyl que te ayuda a rastrear tu colección. Puedes agregar, editar y eliminar artículos de tu colección, así como ver detalles sobre cada coleccionable.",
+    "developedBy": "Desarrollado por",
+    "disclaimer": "Esta aplicación no está afiliada, respaldada ni patrocinada por ningún fabricante de figuras vinyl. Todos los nombres de productos, marcas comerciales y marcas registradas son propiedad de sus respectivos dueños.",
+    "problem": "Muchos coleccionistas de pop vinyl tienen dificultades para llevar un registro de sus colecciones en constante crecimiento. Con nuevos lanzamientos y artículos exclusivos, puede ser un desafío recordar qué figuras poseen, dónde están almacenadas y su condición.",
+    "solution": "Pop Kollection ofrece una plataforma fácil de usar para gestionar tu colección. Los usuarios pueden agregar información detallada sobre cada figura, incluyendo fotos, fechas de compra y notas sobre su condición. La aplicación también ofrece funcionalidades de búsqueda y filtrado para localizar rápidamente artículos específicos. Al mantener un inventario digital organizado, los coleccionistas pueden tomar decisiones informadas sobre futuras compras y evitar comprar duplicados.",
+    "title": "Acerca de"
+  },
+  "add": {
+    "title": "Agregar Artículo",
+    "selectImage": "Seleccionar Imagen",
+    "takePhoto": "Tomar Foto",
+    "name": "Nombre",
+    "series": "Serie",
+    "number": "Número",
+    "category": "Categoría",
+    "condition": "Condición",
+    "notes": "Notas",
+    "purchaseDate": "Fecha de Compra",
+    "size": "Tamaño",
+    "type": "Tipo",
+    "variant": "Variante",
+    "hasProtectorCase": "Tiene Estuche Protector",
+    "save": "Guardar Artículo",
+    "cancel": "Cancelar",
+    "purchasePrice": "Precio de Compra",
+    "currentValue": "Valor Actual",
+    "images": "Imágenes",
+    "image": "Imagen",
+    "gallery": "Galería",
+    "camera": "Cámara",
+    "placeholders": {
+      "name": "Ingresa el nombre del artículo",
+      "series": "Nombre de la Serie (ej. Marvel)",
+      "number": "Número del artículo (ej., 001)",
+      "category": "Categoría (ej., Pop! Vinyl)",
+      "condition": "Condición (ej., Nuevo, Usado)",
+      "notes": "Agrega notas adicionales sobre el artículo",
+      "size": "Tamaño (ej., 3.75 pulgadas)",
+      "type": "Tipo (ej., Estándar, Exclusivo)",
+      "variant": "Variante (ej., Chase, Metálico)",
+      "purchasePrice": "Precio de Compra (ej., $12.99)",
+      "currentValue": "Valor Actual (ej., $15.00)",
+      "purchaseDate": "Selecciona la fecha de compra",
+      "selectDate": "Seleccionar Fecha",
+      "dateSelected": "Hecho",
+      "updating": "Actualizando...",
+      "adding": "Agregando...",
+      "updateItem": "Actualizar Artículo",
+      "addItem": "Agregar Artículo"
+    },
+    "options": {
+      "condition": {
+        "mint": "Perfecto",
+        "near_mint": "Casi Perfecto",
+        "good": "Bueno",
+        "fair": "Regular",
+        "poor": "Malo"
+      },
+      "size": {
+        "standard": "Estándar (3.75 pulgadas)",
+        "super_sized": "Súper (4-6 pulgadas)",
+        "jumbo": "Grande (más de 6 pulgadas)"
+      },
+      "type": {
+        "standard": "Estándar",
+        "exclusive": "Exclusivo",
+        "soda": "Soda",
+        "twoPack": "Paquete Doble",
+        "deluxe": "De Lujo",
+        "limited_edition": "Edición Limitada",
+        "other": "Otro"
+      },
+      "variant": {
+        "normal": "Normal",
+        "chase": "Chase",
+        "chrome": "Cromo",
+        "flocked": "Aterciopelado",
+        "glow_in_the_dark": "Brilla en la Oscuridad",
+        "metallic": "Metálico",
+        "translucent": "Translúcido",
+        "glitter": "Brillante",
+        "blacklight": "Luz Negra",
+        "diamond": "Diamante",
+        "exclusive": "Exclusivo",
+        "other": "Otro"
+      }
+    }
+  },
+  "appName": "Pop Kollection",
+  "comingSoon": "Próximamente",
+  "delete": {
+    "cancel": "Cancelar",
+    "confirm": "Eliminar",
+    "deleting": "Eliminando...",
+    "error": "Error",
+    "failure": "No se pudo eliminar el artículo.",
+    "message": "¿Estás seguro de que deseas eliminar {{field}}? Esta acción no se puede deshacer.",
+    "noImage": "Sin Imagen",
+    "success": "Artículo eliminado con éxito.",
+    "title": "Eliminar Artículo"
+  },
+  "edit": {
+    "title": "Editar Artículo"
+  },
+  "errors": {
+    "title": "Error",
+    "itemAddFailed": "No se pudo agregar el artículo.",
+    "imageCaptureFailed": "No se pudo capturar la imagen.",
+    "imagePickFailed": "No se pudo seleccionar la imagen.",
+    "itemUpdateFailed": "No se pudo actualizar el artículo."
+  },
+  "home": {
+    "loading": "Cargando tu colección...",
+    "emptyState": {
+      "title": "Tu colección está vacía",
+      "message": "¡Comienza tu colección agregando tu primer artículo!",
+      "addItem": "Agrega Tu Primer Artículo"
+    }
+  },
+  "license": "Licencia",
+  "menu": {
+    "home": "Inicio",
+    "search": "Buscar",
+    "add": "Agregar",
+    "settings": "Configuración",
+    "about": "Acerca de"
+  },
+  "privacyPolicy": "Política de Privacidad",
+
+  "search": {
+    "title": "Buscar",
+    "noResults": "No se Encontraron Resultados",
+    "noMatch": "Ningún artículo coincide con tu búsqueda.",
+    "placeholder": "Escribe algo...",
+    "emptyHint": "Prueba con diferentes palabras clave o verifica tu ortografía.",
+    "emptyState": {
+      "title": "No hay artículos disponibles",
+      "subtitle": "Tu colección está vacía.",
+      "message": "Agrega tu primer artículo desde la pestaña \"Agregar\" para comenzar."
+    }
+  },
+  "settings": {
+    "language": "Idioma",
+    "appLanguage": "Idioma de la Aplicación",
+    "theme": "Tema",
+    "darkMode": "Modo Oscuro",
+    "notifications": "Notificaciones",
+    "about": "Acerca de",
+    "legal": "Legal",
+    "title": "Configuración",
+    "dataManagement": "Gestión de Datos",
+    "appInformation": "Información de la Aplicación",
+    "deviceLanguage": "Idioma del Dispositivo",
+    "platform": "Plataforma",
+    "developer": "Desarrollador",
+    "support": "Soporte",
+    "imageQuality": {
+      "title": "Calidad de Imagen",
+      "description": "Elige la calidad de imagen para nuevas fotos. Una calidad más baja ahorra espacio de almacenamiento.",
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Baja",
+      "recommended": "Recomendado",
+      "note": "💡 Esta configuración solo afecta a las fotos nuevas. Las imágenes existentes no cambiarán."
+    },
+    "storage": {
+      "title": "Almacenamiento",
+      "imageStorageInfo": "Información sobre el almacenamiento de imágenes",
+      "description": "Cómo se almacenan las imágenes en tu dispositivo.",
+      "alert": {
+        "title": "Almacenamiento de Imágenes",
+        "message": "Las imágenes se almacenan directamente en la base de datos de la aplicación y persistirán a través de las actualizaciones de la aplicación. \n\nDetalles del almacenamiento:\n• Las imágenes se guardan como parte de la base de datos de la aplicación\n• Persisten a través de las actualizaciones de la aplicación\n• Solo se eliminan si se desinstala la aplicación\n\nTus imágenes están seguras y no se perderán durante las actualizaciones.",
+        "confirmButton": "OK"
+      }
+    },
+    "deleteAlert": {
+      "title": "Guía de Ayuda",
+      "howTo": "Cómo Eliminar Artículos",
+      "description": "Aprende cómo eliminar artículos de tu colección.",
+      "message": "Para eliminar un artículo de tu colección:\n\n1. Mantén presionada cualquier tarjeta Funko\n2. Toca 'Eliminar' en el menú\n3. Confirma la eliminación cuando se te solicite\n\nNota: Esta acción no se puede deshacer y también eliminará todas las imágenes asociadas.",
+      "confirmButton": "Entendido"
+    }
+  },
+  "success": {
+    "title": "Éxito",
+    "itemAddedSuccessfully": "¡Artículo agregado con éxito!",
+    "itemUpdatedSuccessfully": "¡Artículo actualizado con éxito!"
+  },
+  "titles": {
+    "solution": "Solución",
+    "problem": "Problema",
+    "disclaimer": "Aviso Legal"
+  },
+  "validations": {
+    "title": "Validación de Errores",
+    "required": "Este campo es obligatorio.",
+    "invalidNumber": "Por favor, ingresa un número válido.",
+    "invalidPrice": "Por favor, ingresa un precio válido (ej., 12.99).",
+    "invalidDate": "Por favor, selecciona una fecha válida.",
+    "maxLength": "La longitud máxima es de {{max}} caracteres.",
+    "minLength": "La longitud mínima es de {{min}} caracteres.",
+    "invalidCondition": "Condición seleccionada no válida.",
+    "positiveNumber": "Por favor, ingresa un número positivo.",
+    "dateFormat": "La fecha debe tener el formato YYYY-MM-DD.",
+    "notesLength": "Las notas no pueden exceder los {{max}} caracteres.",
+    "onlyDigits": "{{field}} debe contener solo dígitos."
+  },
+  "version": "Versión"
+}

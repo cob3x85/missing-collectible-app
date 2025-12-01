@@ -5,11 +5,13 @@ import { useFonts } from "expo-font";
 import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function AddFunkoScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
   });
@@ -23,7 +25,7 @@ export default function AddFunkoScreen() {
       <GlassView style={[styles.header, { paddingTop: insets.top }]}>
         <View style={styles.headerContent}>
           <ThemedText type="title" style={styles.headerTitle}>
-            Add Item
+            {t("add.title")}
           </ThemedText>
           <View style={styles.logoChip}>
             <Image

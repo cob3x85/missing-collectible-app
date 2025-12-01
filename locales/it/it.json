@@ -1,0 +1,211 @@
+{
+  "about": {
+    "description": "Questa è un'app companion per le figure pop vinyl che ti aiuta a tenere traccia della tua collezione. Puoi aggiungere, modificare ed eliminare articoli dalla tua collezione, oltre a visualizzare i dettagli di ogni oggetto da collezione.",
+    "developedBy": "Sviluppato da",
+    "disclaimer": "Questa app non è affiliata, approvata o sponsorizzata da nessun produttore di figure vinyl. Tutti i nomi di prodotti, marchi commerciali e marchi registrati sono di proprietà dei rispettivi titolari.",
+    "problem": "Molti collezionisti di pop vinyl hanno difficoltà a tenere traccia delle loro collezioni in continua espansione. Con nuove uscite e articoli esclusivi, può essere difficile ricordare quali figure possiedono, dove sono conservate e in quale stato si trovano.",
+    "solution": "Pop Kollection offre una piattaforma facile da usare per gestire la tua collezione. Gli utenti possono aggiungere informazioni dettagliate su ogni figura, comprese foto, date di acquisto e note sullo stato. L'app offre anche funzionalità di ricerca e filtro per individuare rapidamente articoli specifici. Mantenendo un inventario digitale organizzato, i collezionisti possono prendere decisioni informate sui futuri acquisti ed evitare di acquistare duplicati.",
+    "title": "Informazioni"
+  },
+  "add": {
+    "title": "Aggiungi articolo",
+    "selectImage": "Seleziona immagine",
+    "takePhoto": "Scatta foto",
+    "name": "Nome",
+    "series": "Serie",
+    "number": "Numero",
+    "category": "Categoria",
+    "condition": "Condizione",
+    "notes": "Note",
+    "purchaseDate": "Data di acquisto",
+    "size": "Dimensione",
+    "type": "Tipo",
+    "variant": "Variante",
+    "hasProtectorCase": "Ha custodia protettiva",
+    "save": "Salva articolo",
+    "cancel": "Annulla",
+    "purchasePrice": "Prezzo di acquisto",
+    "currentValue": "Valore attuale",
+    "images": "Immagini",
+    "image": "Immagine",
+    "gallery": "Galleria",
+    "camera": "Fotocamera",
+    "placeholders": {
+      "name": "Inserisci il nome dell'articolo",
+      "series": "Nome della serie (es. Dragon Ball Z)",
+      "number": "Inserisci il numero dell'articolo (es., 001)",
+      "category": "Inserisci la categoria (es., Pop! Vinyl)",
+      "condition": "Inserisci la condizione (es., Nuovo, Usato)",
+      "notes": "Aggiungi eventuali note aggiuntive sull'articolo",
+      "size": "Inserisci la dimensione (es., 3,75 pollici)",
+      "type": "Inserisci il tipo (es., Standard, Esclusivo)",
+      "variant": "Inserisci la variante (es., Chase, Metallico)",
+      "purchasePrice": "Inserisci il prezzo di acquisto (es., $12.99)",
+      "currentValue": "Inserisci il valore attuale (es., $15.00)",
+      "purchaseDate": "Seleziona la data di acquisto",
+      "selectDate": "Seleziona data",
+      "dateSelected": "Fatto",
+      "updating": "Aggiornamento in corso...",
+      "adding": "Aggiunta in corso...",
+      "updateItem": "Aggiorna articolo",
+      "addItem": "Aggiungi articolo"
+    },
+    "options": {
+      "condition": {
+        "mint": "Perfetto",
+        "near_mint": "Quasi perfetto",
+        "good": "Buono",
+        "fair": "Discreto",
+        "poor": "Scarso"
+      },
+      "size": {
+        "standard": "Standard (3,75 pollici)",
+        "super_sized": "Super (4-6 pollici)",
+        "jumbo": "Grande (oltre 6 pollici)"
+      },
+      "type": {
+        "standard_pop": "Standard",
+        "exclusive": "Esclusivo",
+        "chase": "Chase",
+        "limited_edition": "Edizione limitata",
+        "soda": "Soda",
+        "pop_2pack": "2-Pack",
+        "pop_deluxe": "Deluxe",
+        "other": "Altro"
+      },
+      "variant": {
+        "normal": "Normale",
+        "chase": "Chase",
+        "chrome": "Cromo",
+        "flocked": "Peloso",
+        "glow_in_the_dark": "Luminoso al buio",
+        "metallic": "Metallico",
+        "translucent": "Traslucido",
+        "glitter": "Glitter",
+        "blacklight": "Luce nera",
+        "diamond": "Diamante",
+        "exclusive": "Esclusivo",
+        "other": "Altro"
+      }
+    }
+  },
+  "appName": "Pop Kollection",
+  "comingSoon": "In arrivo",
+  "delete": {
+    "cancel": "Annulla",
+    "confirm": "Elimina",
+    "deleting": "Eliminazione...",
+    "error": "Errore",
+    "failure": "Impossibile eliminare l'articolo.",
+    "message": "Sei sicuro di voler eliminare questo articolo dalla tua collezione? Questa azione non può essere annullata.",
+    "noImage": "Nessuna immagine",
+    "success": "Articolo eliminato con successo.",
+    "title": "Elimina articolo"
+  },
+  "edit": {
+    "title": "Modifica articolo"
+  },
+  "errors": {
+    "title": "Errore",
+    "itemAddFailed": "Impossibile aggiungere l'articolo.",
+    "imageCaptureFailed": "Impossibile scattare la foto.",
+    "imagePickFailed": "Impossibile selezionare l'immagine.",
+    "itemUpdateFailed": "Impossibile aggiornare l'articolo."
+  },
+  "home": {
+    "loading": "Caricamento della tua collezione...",
+    "emptyState": {
+      "title": "La tua collezione è vuota",
+      "message": "Inizia la tua collezione aggiungendo il tuo primo articolo!",
+      "addItem": "Aggiungi il tuo primo articolo"
+    }
+  },
+  "license": "Licenza",
+  "menu": {
+    "home": "Home",
+    "search": "Cerca",
+    "add": "Aggiungi",
+    "settings": "Impostazioni",
+    "about": "Informazioni"
+  },
+  "privacyPolicy": "Informativa sulla privacy",
+  "search": {
+    "title": "Cerca nella collezione",
+    "noResults": "Nessun risultato trovato",
+    "noMatch": "Nessun articolo corrisponde alla tua ricerca.",
+    "emptyHint": "Prova parole chiave diverse o controlla l'ortografia.",
+    "placeholder": "Cerca per nome, serie o numero",
+    "emptyState": {
+      "title": "Nessun articolo disponibile",
+      "subtitle": "La tua collezione è vuota.",
+      "message": "Aggiungi il tuo primo articolo dalla scheda Aggiungi per iniziare."
+    }
+  },
+  "settings": {
+    "language": "Lingua",
+    "appLanguage": "Lingua dell'app",
+    "theme": "Tema",
+    "darkMode": "Modalità scura",
+    "notifications": "Notifiche",
+    "about": "Informazioni",
+    "legal": "Legale",
+    "title": "Impostazioni",
+    "dataManagement": "Gestione dati",
+    "appInformation": "Informazioni sull'app",
+    "deviceLanguage": "Lingua del dispositivo",
+    "platform": "Piattaforma",
+    "developer": "Sviluppatore",
+    "support": "Supporto",
+    "imageQuality": {
+      "title": "Qualità immagine",
+      "description": "Scegli la qualità dell'immagine per le nuove foto. Una qualità inferiore salva spazio di archiviazione.",
+      "high": "Alta qualità",
+      "medium": "Qualità media",
+      "low": "Bassa qualità",
+      "recommended": "Consigliato",
+      "note": "Nota: questa impostazione non influirà sulle immagini già salvate nella tua collezione."
+    },
+    "storage": {
+      "title": "Archiviazione",
+      "imageStorageInfo": "Le immagini vengono archiviate localmente sul dispositivo. Puoi liberare spazio eliminando le immagini non necessarie.",
+      "description": "Gestisci lo spazio di archiviazione delle immagini della tua collezione.",
+      "alert": {
+        "title": "Gestione archiviazione",
+        "message": "Vuoi eliminare le immagini non utilizzate per liberare spazio di archiviazione?",
+        "confirmButton": "OK"
+      }
+    },
+    "deleteAlert": {
+      "confirmButton": "OK",
+      "description": "Per reimpostare tutti i dati dell'app, tocca il pulsante qui sotto. Questo eliminerà tutti gli articoli e le immagini salvate nella tua collezione.",
+      "howTo": "Come reimpostare i dati dell'app",
+      "message": "Sei sicuro di voler eliminare tutti i dati dell'app? Questa azione non può essere annullata.",
+      "title": "Reimpostazione dati"
+    }
+  },
+  "success": {
+    "title": "Successo",
+    "itemAddedSuccessfully": "Articolo aggiunto con successo alla tua collezione.",
+    "itemUpdatedSuccessfully": "Articolo aggiornato con successo."
+  },
+  "titles": {
+    "solution": "Soluzione",
+    "problem": "Problema",
+    "disclaimer": "Esclusione di responsabilità"
+  },
+  "validations": {
+    "title": "Validazioni",
+   "required": "{{field}} è obbligatorio.",
+    "invalidNumber": "Per favore, inserisci un numero valido.",
+    "invalidPrice": "Per favore, inserisci un prezzo valido (es. 12.99).",
+    "invalidDate": "Per favore, seleziona una data valida.",
+    "maxLength": "{{field}} non può superare {{max}} caratteri.",
+    "minLength": "{{field}} deve contenere almeno {{min}} caratteri.",
+    "invalidCondition": "Condizione {{field}} non valida selezionata.",
+    "positiveNumber": "Per favore, inserisci un numero positivo per {{field}}.",
+    "dateFormat": "La data deve essere nel formato YYYY-MM-DD.",
+    "notesLength": "Le note devono essere inferiori a {{max}} caratteri.",
+    "onlyDigits": "{{field}} deve contenere solo cifre."
+  },
+  "version": "Versione"
+}

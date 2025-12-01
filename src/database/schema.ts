@@ -19,6 +19,7 @@ export type FunkoType =
   | "pop_tee"
   | "soda"
   | "vinyl_gold"
+  | "limited_edition"
   | "other";
 
 // Special Funko variant finishes and editions

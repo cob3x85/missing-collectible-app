@@ -1,0 +1,210 @@
+{
+  "about": {
+    "description": "Ceci est une application compagnon pour les figurines pop vinyl afin de vous aider à suivre votre collection. Vous pouvez ajouter, modifier et supprimer des articles de votre collection, ainsi que consulter les détails de chaque objet de collection.",
+    "developedBy": "Développé par",
+    "disclaimer": "Cette application n'est affiliée, approuvée ou sponsorisée par aucun fabricant de figurines vinyl. Tous les noms de produits, marques commerciales et marques déposées sont la propriété de leurs propriétaires respectifs.",
+    "problem": "De nombreux collectionneurs de pop vinyl ont du mal à suivre leurs collections en constante expansion. Avec les nouvelles sorties et les articles exclusifs, il peut être difficile de se souvenir des figurines que vous possédez, de leur emplacement et de leur état.",
+    "solution": "Pop Kollection offre une plateforme facile à utiliser pour gérer votre collection. Les utilisateurs peuvent ajouter des informations détaillées sur chaque figurine, y compris des photos, des dates d'achat et des notes sur l'état. L'application propose également des fonctionnalités de recherche et de filtrage pour localiser rapidement des articles spécifiques. En maintenant un inventaire numérique organisé, les collectionneurs peuvent prendre des décisions éclairées sur leurs futurs achats et éviter d'acheter des doublons.",
+    "title": "À propos"
+  },
+  "add": {
+    "title": "Ajouter un article",
+    "selectImage": "Sélectionner une image",
+    "takePhoto": "Prendre une photo",
+    "name": "Nom",
+    "series": "Série",
+    "number": "Numéro",
+    "category": "Catégorie",
+    "condition": "État",
+    "notes": "Notes",
+    "purchaseDate": "Date d'achat",
+    "size": "Taille",
+    "type": "Type",
+    "variant": "Variante",
+    "hasProtectorCase": "Avec boîte de protection",
+    "save": "Enregistrer l'article",
+    "cancel": "Annuler",
+    "purchasePrice": "Prix d'achat",
+    "currentValue": "Valeur actuelle",
+    "images": "Images",
+    "image": "Image",
+    "gallery": "Galerie",
+    "camera": "Caméra",
+    "placeholders": {
+      "name": "Entrez le nom de l'article",
+      "series": "Nom de la série (par ex. Dragon Ball Z)",
+      "number": "Entrez le numéro de l'article (par ex., 001)",
+      "category": "Entrez la catégorie (par ex., Pop! Vinyl)",
+      "condition": "Entrez l'état (par ex., Neuf, Utilisé)",
+      "notes": "Ajoutez des notes supplémentaires sur l'article",
+      "size": "Entrez la taille (par ex., 3,75 pouces)",
+      "type": "Entrez le type (par ex., Standard, Exclusif)",
+      "variant": "Entrez la variante (par ex., Chase, métallique)",
+      "purchasePrice": "Entrez le prix d'achat (par ex., 12,99 $)",
+      "currentValue": "Entrez la valeur actuelle (par ex., 15,00 $)",
+      "purchaseDate": "Sélectionnez la date d'achat",
+      "selectDate": "Sélectionner la date",
+      "dateSelected": "Terminé",
+      "updating": "Mise à jour...",
+      "adding": "Ajout...",
+      "updateItem": "Mettre à jour l'article",
+      "addItem": "Ajouter un article"
+    },
+    "options": {
+      "condition": {
+        "mint": "Neuf",
+        "near_mint": "Comme neuf",
+        "good": "Bon",
+        "fair": "Correct",
+        "poor": "Mauvais"
+      },
+      "size": {
+        "standard": "Standard (3,75 pouces)",
+        "super_sized": "Super (10-15 cm)",
+        "jumbo": "Large (plus de 15 cm)"
+      },
+      "type": {
+        "standard_pop": "Standard",
+        "exclusive": "Exclusif",
+        "limited_edition": "Édition limitée",
+        "soda": "Soda",
+        "pop_2pack": "2-Pack",
+        "pop_deluxe": "Deluxe",
+        "other": "Autre"
+      },
+      "variant": {
+        "normal": "Normal",
+        "chase": "Chase",
+        "chrome": "Chrome",
+        "flocked": "Velours",
+        "glow_in_the_dark": "Phosphorescent",
+        "metallic": "Métallique",
+        "translucent": "Translucide",
+        "glitter": "Paillettes",
+        "blacklight": "Lumière noire",
+        "diamond": "Diamant",
+        "exclusive": "Exclusif",
+        "other": "Autre"
+      }
+    }
+  },
+  "appName": "Pop Kollection",
+  "comingSoon": "Bientôt disponible",
+  "delete": {
+    "cancel": "Annuler",
+    "confirm": "Supprimer",
+    "deleting": "Suppression...",
+    "error": "Erreur",
+    "failure": "Échec de la suppression de l'article.",
+    "message": "Êtes-vous sûr de vouloir supprimer {{field}} ? Cette action est irréversible.",
+    "noImage": "Pas d'image",
+    "success": "Article supprimé avec succès.",
+    "title": "Supprimer l'article"
+  },
+  "edit": {
+    "title": "Modifier l'article"
+  },
+  "errors": {
+    "title": "Erreur",
+    "itemAddFailed": "Échec de l'ajout de l'article.",
+    "imageCaptureFailed": "Échec de la prise de photo.",
+    "imagePickFailed": "Échec de la sélection de l'image.",
+    "itemUpdateFailed": "Échec de la mise à jour de l'article."
+  },
+  "home": {
+    "loading": "Chargement de votre collection...",
+    "emptyState": {
+      "title": "Votre collection est vide",
+      "message": "Commencez votre collection en ajoutant votre premier article !",
+      "addItem": "Ajoutez votre premier article"
+    }
+  },
+  "license": "Licence",
+  "menu": {
+    "home": "Accueil",
+    "search": "Recherche",
+    "add": "Ajouter",
+    "settings": "Paramètres",
+    "about": "À propos"
+  },
+  "privacyPolicy": "Politique de confidentialité",
+  "search": {
+    "title": "Recherche",
+    "noResults": "Aucun résultat trouvé",
+    "noMatch": "Aucun article ne correspond à votre recherche.",
+    "emptyHint": "Essayez des mots-clés différents ou vérifiez votre orthographe.",
+    "placeholder": "Recherchez dans votre collection...",
+    "emptyState": {
+      "title": "Aucun article disponible",
+      "subtitle": "Votre collection est vide.",
+      "message": "Ajoutez votre premier article depuis l'onglet Ajouter pour commencer."
+    }
+  },
+  "settings": {
+    "language": "Langue",
+    "appLanguage": "Langue de l'application",
+    "theme": "Thème",
+    "darkMode": "Mode sombre",
+    "notifications": "Notifications",
+    "about": "À propos",
+    "legal": "Mentions légales",
+    "title": "Paramètres",
+    "dataManagement": "Gestion des données",
+    "appInformation": "Informations sur l'application",
+    "deviceLanguage": "Langue de l'appareil",
+    "platform": "Plateforme",
+    "developer": "Développeur",
+    "support": "Support",
+    "imageQuality": {
+      "title": "Qualité de l'image",
+      "description": "Choisissez la qualité de l'image pour les nouvelles photos. Une qualité inférieure permet d'économiser de l'espace de stockage.",
+      "high": "Haute qualité",
+      "medium": "Qualité moyenne",
+      "low": "Basse qualité",
+      "recommended": "Recommandé",
+      "note": "💡 Ce paramètre n'affecte que les nouvelles photos. Les images existantes ne seront pas modifiées."
+    },
+    "storage": {
+      "title": "Stockage",
+      "imageStorageInfo": "Informations sur le stockage des images",
+      "description": "Comment les images sont stockées sur votre appareil.",
+      "alert": {
+        "title": "Stockage des images",
+        "message": "Les images sont stockées directement dans la base de données de l'application et persistent lors des mises à jour de l'application. \n\nDétails du stockage :\n• Les images sont enregistrées dans la base de données de l'application\n• Elles persistent lors des mises à jour de l'application\n• Elles ne sont supprimées que si l'application est désinstallée\n\nVos images sont en sécurité et ne seront pas perdues lors des mises à jour.",
+        "confirmButton": "OK"
+      }
+    },
+    "deleteAlert": {
+      "confirmButton": "OK",
+      "description": "Apprenez comment supprimer des articles de votre collection.",
+      "howTo": "Comment supprimer des articles",
+      "message": "Pour supprimer un article de votre collection :\n\n1. Appuyez longuement sur n'importe quelle carte Funko\n2. Appuyez sur 'Supprimer' dans le menu\n3. Confirmez la suppression lorsque vous y êtes invité\n\nRemarque : Cette action est irréversible et supprimera également toutes les images associées.",
+      "title": "Aide & Guide"
+    }
+  },
+  "success": {
+    "title": "Succès",
+    "itemAddedSuccessfully": "Article ajouté avec succès !",
+    "itemUpdatedSuccessfully": "Article mis à jour avec succès !"
+  },
+  "titles": {
+    "solution": "Solution",
+    "problem": "Problème",
+    "disclaimer": "Avertissement"
+  },
+  "validations": {
+    "title": "Erreurs de validation",
+    "required": "{{field}} est requis.",
+    "invalidNumber": "Veuillez entrer un nombre valide.",
+    "invalidPrice": "Veuillez entrer un prix valide (par ex., 12,99).",
+    "invalidDate": "Veuillez sélectionner une date valide.",
+    "maxLength": "{{field}} ne peut pas dépasser {{max}} caractères.",
+    "minLength": "{{field}} doit comporter au moins {{min}} caractères.",
+    "invalidCondition": "{{field}} sélectionné invalide.",
+    "positiveNumber": "Veuillez entrer un nombre positif pour {{field}}.",
+    "dateFormat": "La date doit être au format AAAA-MM-JJ.",
+    "notesLength": "Les notes doivent contenir moins de {{max}} caractères.",
+    "onlyDigits": "{{field}} doit contenir uniquement des chiffres."
+  },
+  "version": "Version"
+}

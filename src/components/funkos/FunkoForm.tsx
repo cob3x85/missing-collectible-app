@@ -1,12 +1,13 @@
 import { ThemedText } from "@/components/themed-text";
-import { Funko, FunkoSize, FunkoType, FunkoVariant } from "@/database/schema";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
+import type { FunkoFormData, FunkoFormProps } from "@/types/FunkoForms";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import * as Haptics from "expo-haptics";
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Alert,
   Platform,
@@ -18,127 +19,9 @@ import {
   View,
 } from "react-native";
 import * as yup from "yup";
+import { getFunkoFormValidationSchema } from "./FunkoForm.validation";
 
-// Yup validation schema
-const funkoValidationSchema = yup.object().shape({
-  name: yup
-    .string()
-    .required("Funko name is required")
-    .min(2, "Name must be at least 2 characters")
-    .max(100, "Name must be less than 100 characters"),
-  series: yup
-    .string()
-    .min(2, "Series must be at least 2 characters")
-    .max(100, "Series must be less than 100 characters"),
-  number: yup
-    .string()
-    .required("Funko number is required")
-    .matches(/^[0-9]+$/, "Number must contain only digits"),
-  category: yup.string().max(50, "Category must be less than 50 characters"),
-  condition: yup
-    .string()
-    .required("Condition is required")
-    .oneOf(
-      ["mint", "near_mint", "good", "fair", "poor"],
-      "Invalid condition selected"
-    ),
-  size: yup
-    .string()
-    .oneOf(["standard", "super_sized", "jumbo"], "Invalid size selected")
-    .optional(),
-  type: yup
-    .string()
-    .oneOf(
-      [
-        "standard_pop",
-        "pop_ride",
-        "pop_town",
-        "pop_moment",
-        "pop_album",
-        "pop_comic_cover",
-        "pop_deluxe",
-        "pop_2pack",
-        "pop_3pack",
-        "pop_keychain",
-        "pop_tee",
-        "soda",
-        "vinyl_gold",
-        "other",
-      ],
-      "Invalid type selected"
-    )
-    .optional(),
-  variant: yup
-    .string()
-    .oneOf(
-      [
-        "normal",
-        "chase",
-        "chrome",
-        "flocked",
-        "glow_in_the_dark",
-        "metallic",
-        "translucent",
-        "glitter",
-        "blacklight",
-        "diamond",
-        "scented",
-        "exclusive",
-        "limited_edition",
-        "other",
-      ],
-      "Invalid variant selected"
-    )
-    .optional(),
-  purchase_price: yup
-    .number()
-    .transform((value, originalValue) =>
-      originalValue === "" || originalValue === null ? null : value
-    )
-    .positive("Price must be a positive number")
-    .max(999999, "Price is too high")
-    .nullable()
-    .optional(),
-  current_value: yup
-    .number()
-    .transform((value, originalValue) =>
-      originalValue === "" || originalValue === null ? null : value
-    )
-    .positive("Value must be a positive number")
-    .max(999999, "Value is too high")
-    .nullable()
-    .optional(),
-  purchase_date: yup
-    .string()
-    .transform((value) => (value === "" ? null : value))
-    .matches(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format")
-    .nullable()
-    .optional(),
-  notes: yup.string().max(500, "Notes must be less than 500 characters"),
-  hasProtectorCase: yup.boolean().optional(),
-});
-
-type FunkoFormData = {
-  name: string;
-  series: string;
-  number: string;
-  category: string;
-  condition: "mint" | "near_mint" | "good" | "fair" | "poor";
-  size: FunkoSize;
-  type: FunkoType;
-  variant: FunkoVariant;
-  purchase_price: string;
-  current_value: string;
-  purchase_date: string;
-  notes: string;
-  hasProtectorCase: boolean;
-};
-
-interface FunkoFormProps {
-  mode?: "create" | "edit";
-  initialData?: Funko;
-  onSuccess?: () => void;
-}
+const HOME_ROUTE = Platform.OS === "ios" ? "Home" : "index";
 
 export default function FunkoForm({
   mode = "create",
@@ -148,6 +31,8 @@ export default function FunkoForm({
   const selectionColor = useThemeColor({}, "selectionColor");
   const scrollViewRef = useRef<ScrollView>(null);
   const navigation = useNavigation();
+  const { t } = useTranslation();
+  const funkoValidationSchema = getFunkoFormValidationSchema(t);
 
   const [formData, setFormData] = useState<FunkoFormData>({
     name: initialData?.name || "",
@@ -252,26 +137,29 @@ export default function FunkoForm({
       setImagePaths([]);
       setErrors({});
       // Navigate to Home screen
-      navigation.navigate("Home" as never);
-      Alert.alert("Success", "Funko added successfully!");
+      navigation.navigate(HOME_ROUTE as never);
+      Alert.alert(t("success.title"), t("success.itemAddedSuccessfully"));
       onSuccess?.();
     },
     onError: (error: unknown) => {
-      Alert.alert("Error", (error as Error).message || "Failed to add Funko");
+      Alert.alert(
+        t("errors.title"),
+        (error as Error).message || t("errors.itemAddFailed")
+      );
     },
   });
 
   const updateFunko = useUpdateFunko({
     onSuccess: () => {
       // Navigate to Home screen
-      navigation.navigate("Home" as never);
-      Alert.alert("Success", "Funko updated successfully!");
+      navigation.navigate(HOME_ROUTE as never);
+      Alert.alert(t("success.title"), t("success.itemUpdatedSuccessfully"));
       onSuccess?.();
     },
     onError: (error: unknown) => {
       Alert.alert(
-        "Error",
-        (error as Error).message || "Failed to update Funko"
+        t("errors.title"),
+        (error as Error).message || t("errors.itemUpdateFailed")
       );
     },
   });
@@ -283,7 +171,10 @@ export default function FunkoForm({
         setImagePaths((prev) => [...prev, path]);
       }
     } catch (error) {
-      Alert.alert("Error", (error as Error).message || "Failed to pick image");
+      Alert.alert(
+        t("errors.title"),
+        (error as Error).message || t("errors.imagePickFailed")
+      );
     }
   };
 
@@ -294,7 +185,10 @@ export default function FunkoForm({
         setImagePaths((prev) => [...prev, path]);
       }
     } catch (error) {
-      Alert.alert("Error", (error as Error).message || "Failed to take photo");
+      Alert.alert(
+        t("errors.title"),
+        (error as Error).message || t("errors.imageCaptureFailed")
+      );
     }
   };
 
@@ -381,7 +275,7 @@ export default function FunkoForm({
         setErrors(validationErrors);
 
         // Show first error in alert
-        Alert.alert("Validation Error", err.errors[0]);
+        Alert.alert(t("validations.title"), err.errors[0]);
       }
     }
   };
@@ -424,10 +318,10 @@ export default function FunkoForm({
 
   const getDateValue = (): Date => {
     if (formData.purchase_date) {
-      const date = new Date(formData.purchase_date);
-      return isNaN(date.getTime()) ? new Date() : date;
-    }
-    return new Date();
+    const [year, month, day] = formData.purchase_date.split("-");
+    return new Date(Number(year), Number(month) - 1, Number(day));
+  }
+  return new Date();
   };
 
   return (
@@ -436,11 +330,11 @@ export default function FunkoForm({
         {/* Name Field */}
         <View style={styles.fieldContainer}>
           <ThemedText style={styles.label}>
-            Name <ThemedText style={styles.required}>*</ThemedText>
+            {t("add.name")} <ThemedText style={styles.required}>*</ThemedText>
           </ThemedText>
           <TextInput
             style={[styles.input, errors.name && styles.inputError]}
-            placeholder="Enter Funko name"
+            placeholder={t("add.placeholders.name")}
             placeholderTextColor="#666666"
             value={formData.name}
             onChangeText={(value) => updateField("name", value)}
@@ -455,10 +349,13 @@ export default function FunkoForm({
 
         {/* Series Field */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Series</ThemedText>
+          <ThemedText style={styles.label}>
+            {t("add.series")}
+            <ThemedText style={styles.required}> *</ThemedText>
+          </ThemedText>
           <TextInput
             style={[styles.input, errors.series && styles.inputError]}
-            placeholder="Enter series name"
+            placeholder={t("add.placeholders.series")}
             placeholderTextColor="#666666"
             value={formData.series}
             onChangeText={(value) => updateField("series", value)}
@@ -474,11 +371,11 @@ export default function FunkoForm({
         {/* Number Field */}
         <View style={styles.fieldContainer}>
           <ThemedText style={styles.label}>
-            Number <ThemedText style={styles.required}>*</ThemedText>
+            {t("add.number")} <ThemedText style={styles.required}>*</ThemedText>
           </ThemedText>
           <TextInput
             style={[styles.input, errors.number && styles.inputError]}
-            placeholder="Enter Funko number (e.g., 001)"
+            placeholder={t("add.placeholders.number")}
             placeholderTextColor="#666666"
             value={formData.number}
             onChangeText={(value) => updateField("number", value)}
@@ -492,10 +389,10 @@ export default function FunkoForm({
 
         {/* Category Field */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Category</ThemedText>
+          <ThemedText style={styles.label}>{t("add.category")}</ThemedText>
           <TextInput
             style={[styles.input, errors.category && styles.inputError]}
-            placeholder="Enter category (e.g., Pop!, Soda)"
+            placeholder={t("add.placeholders.category")}
             placeholderTextColor="#666666"
             value={formData.category}
             onChangeText={(value) => updateField("category", value)}
@@ -510,7 +407,8 @@ export default function FunkoForm({
         {/* Condition Field */}
         <View style={styles.fieldContainer}>
           <ThemedText style={styles.label}>
-            Condition <ThemedText style={styles.required}>*</ThemedText>
+            {t("add.condition")}{" "}
+            <ThemedText style={styles.required}>*</ThemedText>
           </ThemedText>
           <View style={styles.conditionButtons}>
             {(["mint", "near_mint", "good", "fair", "poor"] as const).map(
@@ -531,7 +429,7 @@ export default function FunkoForm({
                         styles.conditionButtonTextActive,
                     ]}
                   >
-                    {condition.replace("_", " ")}
+                    {t(`add.options.condition.${condition}`)}
                   </ThemedText>
                 </TouchableOpacity>
               )
@@ -544,7 +442,7 @@ export default function FunkoForm({
 
         {/* Size Field */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Size</ThemedText>
+          <ThemedText style={styles.label}>{t("add.size")}</ThemedText>
           <View style={styles.conditionButtons}>
             {(["standard", "super_sized", "jumbo"] as const).map((size) => (
               <TouchableOpacity
@@ -561,11 +459,7 @@ export default function FunkoForm({
                     formData.size === size && styles.conditionButtonTextActive,
                   ]}
                 >
-                  {size === "standard"
-                    ? 'Standard (3.75")'
-                    : size === "super_sized"
-                    ? 'Super (6")'
-                    : 'Jumbo (10")'}
+                  {t(`add.options.size.${size}`)}
                 </ThemedText>
               </TouchableOpacity>
             ))}
@@ -577,17 +471,15 @@ export default function FunkoForm({
 
         {/* Type Field */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Type</ThemedText>
+          <ThemedText style={styles.label}>{t("add.type")}</ThemedText>
           <View style={styles.conditionButtons}>
             {(
               [
                 "standard_pop",
-                "pop_ride",
-                "pop_town",
-                "pop_moment",
                 "pop_deluxe",
                 "pop_2pack",
                 "soda",
+                "limited_edition",
                 "other",
               ] as const
             ).map((type) => (
@@ -605,9 +497,7 @@ export default function FunkoForm({
                     formData.type === type && styles.conditionButtonTextActive,
                   ]}
                 >
-                  {type
-                    .replace(/_/g, " ")
-                    .replace(/\b\w/g, (l) => l.toUpperCase())}
+                  {t(`add.options.type.${type}`)}
                 </ThemedText>
               </TouchableOpacity>
             ))}
@@ -619,7 +509,7 @@ export default function FunkoForm({
 
         {/* Variant Field */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Variant</ThemedText>
+          <ThemedText style={styles.label}>{t("add.variant")}</ThemedText>
           <View style={styles.conditionButtons}>
             {(
               [
@@ -652,11 +542,7 @@ export default function FunkoForm({
                       styles.conditionButtonTextActive,
                   ]}
                 >
-                  {variant === "glow_in_the_dark"
-                    ? "GITD"
-                    : variant
-                        .replace(/_/g, " ")
-                        .replace(/\b\w/g, (l) => l.toUpperCase())}
+                  {t(`add.options.variant.${variant}`)}
                 </ThemedText>
               </TouchableOpacity>
             ))}
@@ -669,7 +555,9 @@ export default function FunkoForm({
         {/* Has Protector Case Toggle */}
         <View style={styles.fieldContainer}>
           <View style={styles.toggleRow}>
-            <ThemedText style={styles.label}>Has Protector Case</ThemedText>
+            <ThemedText style={styles.label}>
+              {t("add.hasProtectorCase")}
+            </ThemedText>
             <Switch
               key={`protector-${initialData?.id}-${formData.hasProtectorCase}`}
               value={Boolean(formData.hasProtectorCase)}
@@ -689,10 +577,10 @@ export default function FunkoForm({
 
         {/* Purchase Price Field */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Purchase Price</ThemedText>
+          <ThemedText style={styles.label}>{t("add.purchasePrice")}</ThemedText>
           <TextInput
             style={[styles.input, errors.purchase_price && styles.inputError]}
-            placeholder="Enter purchase price"
+            placeholder={t("add.placeholders.purchasePrice")}
             placeholderTextColor="#666666"
             value={formData.purchase_price}
             onChangeText={(value) => updateField("purchase_price", value)}
@@ -708,10 +596,10 @@ export default function FunkoForm({
 
         {/* Current Value Field */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Current Value</ThemedText>
+          <ThemedText style={styles.label}>{t("add.currentValue")}</ThemedText>
           <TextInput
             style={[styles.input, errors.current_value && styles.inputError]}
-            placeholder="Enter current value"
+            placeholder={t("add.placeholders.currentValue")}
             placeholderTextColor="#666666"
             value={formData.current_value}
             onChangeText={(value) => updateField("current_value", value)}
@@ -727,7 +615,7 @@ export default function FunkoForm({
 
         {/* Purchase Date Field */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Purchase Date</ThemedText>
+          <ThemedText style={styles.label}>{t("add.purchaseDate")}</ThemedText>
           <TouchableOpacity
             style={[styles.input, errors.purchase_date && styles.inputError]}
             onPress={openDatePicker}
@@ -738,7 +626,7 @@ export default function FunkoForm({
                 !formData.purchase_date && styles.datePlaceholder,
               ]}
             >
-              {formData.purchase_date || "Select date"}
+              {formData.purchase_date || t("add.placeholders.selectDate")}
             </ThemedText>
           </TouchableOpacity>
           {errors.purchase_date && (
@@ -765,7 +653,7 @@ export default function FunkoForm({
                     onPress={closeDatePicker}
                   >
                     <ThemedText style={styles.datePickerButtonText}>
-                      Done
+                      {t("add.placeholders.dateSelected")}
                     </ThemedText>
                   </TouchableOpacity>
                 </View>
@@ -776,14 +664,14 @@ export default function FunkoForm({
 
         {/* Notes Field */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Notes</ThemedText>
+          <ThemedText style={styles.label}>{t("add.notes")}</ThemedText>
           <TextInput
             style={[
               styles.input,
               styles.textArea,
               errors.notes && styles.inputError,
             ]}
-            placeholder="Add any additional notes"
+            placeholder={t("add.placeholders.notes")}
             placeholderTextColor="#666666"
             value={formData.notes}
             onChangeText={(value) => updateField("notes", value)}
@@ -799,7 +687,7 @@ export default function FunkoForm({
 
         {/* Image Picker */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>Images</ThemedText>
+          <ThemedText style={styles.label}>{t("add.images")}</ThemedText>
           <View style={styles.imageButtonsRow}>
             <TouchableOpacity
               style={[styles.addImageButton, styles.imageButtonHalf]}
@@ -808,7 +696,9 @@ export default function FunkoForm({
               <View style={styles.addImageIcon}>
                 <ThemedText style={styles.addImageIconText}>📷</ThemedText>
               </View>
-              <ThemedText style={styles.addImageText}>Gallery</ThemedText>
+              <ThemedText style={styles.addImageText}>
+                {t("add.gallery")}
+              </ThemedText>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.addImageButton, styles.imageButtonHalf]}
@@ -817,7 +707,9 @@ export default function FunkoForm({
               <View style={styles.addImageIcon}>
                 <ThemedText style={styles.addImageIconText}>📸</ThemedText>
               </View>
-              <ThemedText style={styles.addImageText}>Camera</ThemedText>
+              <ThemedText style={styles.addImageText}>
+                {t("add.camera")}
+              </ThemedText>
             </TouchableOpacity>
           </View>
           {imagePaths.length > 0 && (
@@ -825,7 +717,7 @@ export default function FunkoForm({
               {imagePaths.map((path, index) => (
                 <View key={index} style={styles.imageItem}>
                   <ThemedText style={styles.imagePathText}>
-                    Image {index + 1} ✓
+                    {t("add.image")} {index + 1} ✓
                   </ThemedText>
                   <TouchableOpacity
                     onPress={() => handleRemoveImage(index)}
@@ -848,11 +740,11 @@ export default function FunkoForm({
           <ThemedText style={styles.submitButtonText}>
             {createFunko.isPending || updateFunko.isPending
               ? mode === "edit"
-                ? "Updating..."
-                : "Adding..."
+                ? t("add.placeholders.updating")
+                : t("add.placeholders.adding")
               : mode === "edit"
-              ? "Update Funko"
-              : "Add Funko"}
+              ? t("add.placeholders.updateItem")
+              : t("add.placeholders.addItem")}
           </ThemedText>
         </TouchableOpacity>
       </View>

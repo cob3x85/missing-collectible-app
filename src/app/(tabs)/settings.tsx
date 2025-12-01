@@ -2,11 +2,14 @@ import { ThemedText } from "@/components/themed-text";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageSpinner } from "@/components/ui/image-spinner";
 import { ImageQuality, settingsService } from "@/services/settings";
+import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
+import { getLocales } from "expo-localization";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Alert,
   Platform,
@@ -21,6 +24,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function SettingsScreen() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const locales = getLocales();
+  const deviceLanguageCode = locales[0]?.languageCode ?? "en";
+  const { t } = useTranslation();
   const [imageQuality, setImageQuality] = useState<ImageQuality>("medium");
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
@@ -54,22 +60,17 @@ export default function SettingsScreen() {
 
   const handleImageStorageInfo = () => {
     Alert.alert(
-      "Image Storage",
-      "Images are stored directly in the app's database and will persist across app updates.\n\n" +
-        "Storage Details:\n" +
-        "• Images are saved as part of the app's database\n" +
-        "• They persist through app updates\n" +
-        "• Only removed if the app is uninstalled\n\n" +
-        "Your images are safe and will not be lost during updates.",
-      [{ text: "OK" }]
+      t("settings.storage.alert.title"),
+      t("settings.storage.alert.message"),
+      [{ text: t("settings.storage.alert.confirmButton") }]
     );
   };
 
   const handleDeleteInfo = () => {
     Alert.alert(
-      "How to Delete Funko Items",
-      "To delete a Funko from your collection:\n\n1. Long press on any Funko card\n2. Tap 'Delete' from the menu\n3. Confirm deletion when prompted\n\nNote: This action cannot be undone and will also delete all associated images.",
-      [{ text: "Got it" }]
+      t("settings.deleteAlert.title"),
+      t("settings.deleteAlert.message"),
+      [{ text: t("settings.deleteAlert.confirmButton") }]
     );
   };
 
@@ -78,7 +79,7 @@ export default function SettingsScreen() {
       <GlassView style={[styles.header, { paddingTop: insets.top }]}>
         <View style={styles.headerContent}>
           <ThemedText type="title" style={styles.headerTitle}>
-            Settings
+            {t("settings.title")}
           </ThemedText>
           <View style={styles.logoChip}>
             <Image
@@ -92,24 +93,54 @@ export default function SettingsScreen() {
 
       <ScrollView style={styles.scrollView}>
         <GlassView style={styles.content}>
-          {/* App Information Section */}
           <View style={styles.section}>
-            <ThemedText style={styles.sectionTitle}>App Information</ThemedText>
+            <ThemedText style={styles.sectionTitle}>
+              {t("settings.language")}
+            </ThemedText>
+            <View style={styles.card}>
+              {/* <View style={styles.row}>
+                <ThemedText style={styles.label}>
+                  {t("settings.appLanguage")}
+                </ThemedText>
+                <ThemedText style={styles.value}>
+                  {i18n.language === "es" ? "Español (MX)" : "English (US)"}
+                </ThemedText>
+              </View> */}
+              <View style={styles.row}>
+                <ThemedText style={styles.label}>
+                  {t("settings.deviceLanguage")}
+                </ThemedText>
+                <ThemedText style={styles.value}>
+                  {deviceLanguageCode}
+                </ThemedText>
+              </View>
+            </View>
+          </View>
+          <View style={styles.section}>
+            <ThemedText style={styles.sectionTitle}>
+              {t("settings.appInformation")}
+            </ThemedText>
             <View style={styles.card}>
               <View style={styles.row}>
-                <ThemedText style={styles.label}>Version</ThemedText>
+                <ThemedText style={styles.label}>{t("version")}</ThemedText>
                 <ThemedText style={styles.value}>1.0.0</ThemedText>
               </View>
               <View style={styles.row}>
-                <ThemedText style={styles.label}>Platform</ThemedText>
+                <ThemedText style={styles.label}>
+                  {t("settings.platform")}
+                </ThemedText>
                 <ThemedText style={styles.value}>{Platform.OS}</ThemedText>
               </View>
               <View style={styles.row}>
-                <ThemedText style={styles.label}>Developer</ThemedText>
+                <ThemedText style={styles.label}>
+                  {t("settings.developer")}
+                </ThemedText>
                 <ThemedText style={styles.value}>Carlos Ortiz</ThemedText>
               </View>
               <View style={styles.row}>
-                <ThemedText style={styles.label}>Support</ThemedText>
+                <ThemedText style={styles.label}>
+                  {t("settings.support")}
+                </ThemedText>
                 <ThemedText style={styles.value}>
                   cob3x85.apple@outlook.com
                 </ThemedText>
@@ -119,27 +150,32 @@ export default function SettingsScreen() {
 
           {/* Image Quality Section */}
           <View style={styles.section}>
-            <ThemedText style={styles.sectionTitle}>Image Quality</ThemedText>
+            <ThemedText style={styles.sectionTitle}>
+              {t("settings.imageQuality.title")}
+            </ThemedText>
             <ThemedText
               style={[styles.sectionDescription, { color: theme.colors.text }]}
             >
-              Choose image quality for new photos. Lower quality saves storage
-              space.
+              {t("settings.imageQuality.description")}
             </ThemedText>
             <View style={styles.card}>
               {(
                 [
                   {
                     value: "high",
-                    label: "High Quality",
+                    label: t("settings.imageQuality.high"),
                     size: "~500KB/image",
                   },
                   {
                     value: "medium",
-                    label: "Medium Quality",
+                    label: t("settings.imageQuality.medium"),
                     size: "~250KB/image",
                   },
-                  { value: "low", label: "Low Quality", size: "~150KB/image" },
+                  {
+                    value: "low",
+                    label: t("settings.imageQuality.low"),
+                    size: "~150KB/image",
+                  },
                 ] as const
               ).map((option) => (
                 <TouchableOpacity
@@ -182,7 +218,7 @@ export default function SettingsScreen() {
                   {option.value === "medium" && (
                     <View style={styles.recommendedBadge}>
                       <ThemedText style={styles.recommendedText}>
-                        Recommended
+                        {t("settings.imageQuality.recommended")}
                       </ThemedText>
                     </View>
                   )}
@@ -192,14 +228,15 @@ export default function SettingsScreen() {
             <ThemedText
               style={[styles.qualityNote, { color: theme.colors.text }]}
             >
-              💡 This setting only affects new photos. Existing images won't
-              change.
+              {t("settings.imageQuality.note")}
             </ThemedText>
           </View>
 
           {/* User Guide Section */}
           <View style={styles.section}>
-            <ThemedText style={styles.sectionTitle}>Help & Guide</ThemedText>
+            <ThemedText style={styles.sectionTitle}>
+              {t("settings.deleteAlert.title")}
+            </ThemedText>
             <View style={styles.card}>
               <Pressable
                 style={({ pressed }) => [
@@ -210,18 +247,27 @@ export default function SettingsScreen() {
                 onPress={handleDeleteInfo}
               >
                 <View style={styles.rowLeft}>
-                  <IconSymbol
-                    size={20}
-                    name="trash.fill"
-                    color={theme.colors.primary}
-                    style={styles.rowIcon}
-                  />
+                  {Platform.OS === "ios" ? (
+                    <IconSymbol
+                      size={20}
+                      name="trash.fill"
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  ) : (
+                    <Ionicons
+                      size={20}
+                      name="trash"
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  )}
                   <View>
                     <ThemedText style={styles.label}>
-                      How to Delete Items
+                      {t("settings.deleteAlert.howTo")}
                     </ThemedText>
                     <ThemedText style={styles.sublabel}>
-                      Learn how to remove Funkos
+                      {t("settings.deleteAlert.description")}
                     </ThemedText>
                   </View>
                 </View>
@@ -232,7 +278,9 @@ export default function SettingsScreen() {
 
           {/* Storage Section */}
           <View style={styles.section}>
-            <ThemedText style={styles.sectionTitle}>Storage</ThemedText>
+            <ThemedText style={styles.sectionTitle}>
+              {t("settings.storage.title")}
+            </ThemedText>
             <View style={styles.card}>
               <Pressable
                 style={({ pressed }) => [
@@ -243,18 +291,26 @@ export default function SettingsScreen() {
                 onPress={handleImageStorageInfo}
               >
                 <View style={styles.rowLeft}>
+                  {Platform.OS === "ios" ? (
                   <IconSymbol
                     size={20}
                     name="info.circle.fill"
                     color={theme.colors.primary}
                     style={styles.rowIcon}
-                  />
+                  /> ) : (
+                    <Ionicons
+                      size={20}
+                      name="information-circle"
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  )}
                   <View>
                     <ThemedText style={styles.label}>
-                      Image Storage Info
+                      {t("settings.storage.imageStorageInfo")}
                     </ThemedText>
                     <ThemedText style={styles.sublabel}>
-                      How images are stored on your device
+                      {t("settings.storage.description")}
                     </ThemedText>
                   </View>
                 </View>
@@ -265,11 +321,13 @@ export default function SettingsScreen() {
 
           {/* Future Settings Placeholder */}
           <View style={[styles.section, { marginBottom: 100 }]}>
-            <ThemedText style={styles.sectionTitle}>Coming Soon</ThemedText>
+            <ThemedText style={styles.sectionTitle}>
+              {t("comingSoon")}
+            </ThemedText>
             <View style={styles.card}>
               <View style={[styles.row, styles.disabled]}>
                 <ThemedText style={[styles.label, styles.disabledText]}>
-                  Localization: Spanish, Portuguese, French, German, and more.
+                  - Localization: Portuguese.
                 </ThemedText>
               </View>
             </View>

@@ -3,6 +3,7 @@ import { Funko } from "@/database/schema";
 import { useDeleteFunko } from "@/hooks/useFunkos";
 import * as Haptics from "expo-haptics";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Alert,
   Image,
@@ -40,16 +41,17 @@ export const FunkoCard = (funko: FunkoCardProps) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const { t } = useTranslation();
 
   const deleteFunko = useDeleteFunko({
     onSuccess: () => {
       setShowDeleteModal(false);
-      Alert.alert("Success", "Funko deleted successfully!");
+      Alert.alert(t("delete.success"), t("delete.success"));
     },
     onError: (error) => {
       Alert.alert(
-        "Error",
-        (error as Error).message || "Failed to delete Funko"
+        t("delete.error"),
+        (error as Error).message || t("delete.failure")
       );
     },
   });
@@ -95,7 +97,7 @@ export const FunkoCard = (funko: FunkoCardProps) => {
           />
         ) : (
           <View style={[styles.image, styles.imagePlaceholder]}>
-            <ThemedText style={styles.placeholderText}>No Image</ThemedText>
+            <ThemedText style={styles.placeholderText}>{t("delete.noImage")}</ThemedText>
           </View>
         )}
 
@@ -114,10 +116,9 @@ export const FunkoCard = (funko: FunkoCardProps) => {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <ThemedText style={styles.modalTitle}>Delete Funko?</ThemedText>
+            <ThemedText style={styles.modalTitle}>{t("delete.title")}?</ThemedText>
             <ThemedText style={styles.modalMessage}>
-              Are you sure you want to delete "{name}"? This action cannot be
-              undone.
+              {t("delete.message", { field: name })}
             </ThemedText>
 
             <View style={styles.modalButtons}>
@@ -128,7 +129,7 @@ export const FunkoCard = (funko: FunkoCardProps) => {
                   setShowDeleteModal(false);
                 }}
               >
-                <ThemedText style={styles.cancelButtonText}>Cancel</ThemedText>
+                <ThemedText style={styles.cancelButtonText}>{t("delete.cancel")}</ThemedText>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -137,7 +138,7 @@ export const FunkoCard = (funko: FunkoCardProps) => {
                 disabled={deleteFunko.isPending}
               >
                 <ThemedText style={styles.deleteButtonText}>
-                  {deleteFunko.isPending ? "Deleting..." : "Delete"}
+                  {deleteFunko.isPending ? t("delete.deleting") : t("delete.confirm")}
                 </ThemedText>
               </TouchableOpacity>
             </View>
@@ -165,7 +166,7 @@ export const FunkoCard = (funko: FunkoCardProps) => {
       >
         <View style={styles.editModalContainer}>
           <View style={styles.editModalHeader}>
-            <ThemedText style={styles.editModalTitle}>Edit Funko</ThemedText>
+            <ThemedText style={styles.editModalTitle}>{t("edit.title")}</ThemedText>
             <TouchableOpacity
               style={styles.editModalCloseButton}
               onPress={() => {
