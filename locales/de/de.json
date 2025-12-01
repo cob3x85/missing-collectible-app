@@ -1,5 +1,188 @@
 {
   "appName": "Pop Kollection",
+  "add": {
+    "title": "Artikel hinzufügen",
+    "selectImage": "Bild auswählen",
+    "takePhoto": "Foto aufnehmen",
+    "name": "Name",
+    "series": "Serie",
+    "number": "Nummer",
+    "category": "Kategorie",
+    "condition": "Zustand",
+    "notes": "Notizen",
+    "purchaseDate": "Kaufdatum",
+    "size": "Größe",
+    "type": "Typ",
+    "variant": "Variante",
+    "hasProtectorCase": "Mit Schutzhülle",
+    "save": "Artikel speichern",
+    "cancel": "Abbrechen",
+    "purchasePrice": "Kaufpreis",
+    "currentValue": "Aktueller Wert",
+    "images": "Bilder",
+    "image": "Bild",
+    "gallery": "Galerie",
+    "camera": "Kamera",
+    "placeholders": {
+      "name": "Name des Artikels eingeben",
+      "series": "Serienname (z.B. Dragon Ball Z)",
+      "number": "Artikelnummer eingeben (z.B. 001)",
+      "category": "Kategorie eingeben (z.B. Pop! Vinyl)",
+      "condition": "Zustand eingeben (z.B. Neu, Gebraucht)",
+      "notes": "Weitere Notizen zum Artikel hinzufügen",
+      "size": "Größe eingeben (z.B. 3,75 Zoll)",
+      "type": "Typ eingeben (z.B. Standard, Exklusiv)",
+      "variant": "Variante eingeben (z.B. Chase, Metallic)",
+      "purchasePrice": "Kaufpreis eingeben (z.B. 12,99 €)",
+      "currentValue": "Aktuellen Wert eingeben (z.B. 15,00 €)",
+      "purchaseDate": "Kaufdatum auswählen",
+      "selectDate": "Datum auswählen",
+      "dateSelected": "Fertig",
+      "updating": "Aktualisiere...",
+      "adding": "Füge hinzu...",
+      "updateItem": "Artikel aktualisieren",
+      "addItem": "Artikel hinzufügen"
+    },
+    "options": {
+      "condition": {
+        "mint": "Wie neu",
+        "near_mint": "Nahezu neu",
+        "good": "Gut",
+        "fair": "Befriedigend",
+        "poor": "Schlecht"
+      },
+      "size": {
+        "standard": "Standard (3,75 Zoll)",
+        "super_sized": "Groß (4-6 Zoll)",
+        "jumbo": "Sehr groß (über 6 Zoll)"
+      },
+      "type": {
+        "standard_pop": "Standard",
+        "exclusive": "Exklusiv",
+        "limited_edition": "Limitierte Edition",
+        "soda": "Soda",
+        "pop_2pack": "2er-Pack",
+        "pop_deluxe": "Deluxe",
+        "other": "Andere"
+      },
+      "variant": {
+        "normal": "Normal",
+        "chase": "Chase",
+        "chrome": "Chrom",
+        "flocked": "Beflockt",
+        "glow_in_the_dark": "Leuchtet im Dunkeln",
+        "metallic": "Metallisch",
+        "translucent": "Transparent",
+        "glitter": "Glitzer",
+        "blacklight": "Schwarzlicht",
+        "diamond": "Diamant",
+        "exclusive": "Exklusiv",
+        "other": "Andere"
+      }
+    }
+  },
+  "comingSoon": "Demnächst verfügbar",
+  "delete": {
+    "cancel": "Abbrechen",
+    "confirm": "Löschen",
+    "deleting": "Lösche...",
+    "error": "Fehler",
+    "failure": "Artikel konnte nicht gelöscht werden.",
+    "message": "Möchten Sie {{field}} wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "noImage": "Kein Bild",
+    "success": "Artikel erfolgreich gelöscht.",
+    "title": "Artikel löschen"
+  },
+  "edit": {
+    "title": "Artikel bearbeiten"
+  },
+  "errors": {
+    "title": "Fehler",
+    "itemAddFailed": "Artikel konnte nicht hinzugefügt werden.",
+    "imageCaptureFailed": "Foto konnte nicht aufgenommen werden.",
+    "imagePickFailed": "Bild konnte nicht ausgewählt werden.",
+    "itemUpdateFailed": "Artikel konnte nicht aktualisiert werden."
+  },
+  "menu": {
+    "home": "Startseite",
+    "search": "Suchen",
+    "add": "Hinzufügen",
+    "settings": "Einstellungen",
+    "about": "Über"
+  },
+  "search": {
+    "title": "Suchen",
+    "noResults": "Keine Ergebnisse gefunden",
+    "noMatch": "Keine Artikel entsprechen Ihrer Suche.",
+    "emptyHint": "Versuchen Sie andere Suchbegriffe oder überprüfen Sie die Rechtschreibung.",
+    "placeholder": "Durchsuche deine Sammlung...",
+    "emptyState": {
+      "title": "Keine Artikel verfügbar",
+      "subtitle": "Ihre Sammlung ist leer.",
+      "message": "Fügen Sie Ihren ersten Artikel über den Tab 'Hinzufügen' hinzu."
+    }
+  },
+  "settings": {
+    "language": "Sprache",
+    "appLanguage": "App-Sprache",
+    "theme": "Design",
+    "darkMode": "Dunkelmodus",
+    "notifications": "Benachrichtigungen",
+    "about": "Über",
+    "legal": "Rechtliches",
+    "title": "Einstellungen",
+    "dataManagement": "Datenverwaltung",
+    "appInformation": "App-Informationen",
+    "deviceLanguage": "Gerätesprache",
+    "platform": "Plattform",
+    "developer": "Entwickler",
+    "support": "Support",
+    "imageQuality": {
+      "title": "Bildqualität",
+      "description": "Wählen Sie die Bildqualität für neue Fotos. Niedrigere Qualität spart Speicherplatz.",
+      "high": "Hohe Qualität",
+      "medium": "Mittlere Qualität",
+      "low": "Niedrige Qualität",
+      "recommended": "Empfohlen",
+      "note": "💡 Diese Einstellung betrifft nur neue Fotos. Bestehende Bilder bleiben unverändert."
+    },
+    "storage": {
+      "title": "Speicher",
+      "imageStorageInfo": "Bildspeicher-Informationen",
+      "description": "Wie Bilder auf Ihrem Gerät gespeichert werden.",
+      "alert": {
+        "title": "Bildspeicherung",
+        "message": "Bilder werden direkt in der App-Datenbank gespeichert und bleiben auch nach App-Updates erhalten. \n\nSpeicher-Details:\n• Bilder sind Teil der App-Datenbank\n• Sie bleiben nach Updates erhalten\n• Sie werden nur entfernt, wenn die App deinstalliert wird\n\nIhre Bilder sind sicher und gehen bei Updates nicht verloren.",
+        "confirmButton": "OK"
+      }
+    },
+    "deleteAlert": {
+      "confirmButton": "OK",
+      "description": "Erfahren Sie, wie Sie Artikel aus Ihrer Sammlung entfernen.",
+      "howTo": "So löschen Sie Artikel",
+      "message": "So löschen Sie einen Artikel aus Ihrer Sammlung:\n\n1. Halten Sie eine Funko-Karte lange gedrückt\n2. Tippen Sie im Menü auf 'Löschen'\n3. Bestätigen Sie die Löschung, wenn Sie dazu aufgefordert werden\n\nHinweis: Diese Aktion kann nicht rückgängig gemacht werden und löscht auch alle zugehörigen Bilder.",
+      "title": "Hilfe & Anleitung"
+    }
+  },
+  "success": {
+    "title": "Erfolg",
+    "itemAddedSuccessfully": "Artikel erfolgreich hinzugefügt!",
+    "itemUpdatedSuccessfully": "Artikel erfolgreich aktualisiert!"
+  },
+  "validations": {
+    "title": "Validierungsfehler",
+    "required": "{{field}} ist erforderlich.",
+    "invalidNumber": "Bitte geben Sie eine gültige Zahl ein.",
+    "invalidPrice": "Bitte geben Sie einen gültigen Preis ein (z.B. 12,99).",
+    "invalidDate": "Bitte wählen Sie ein gültiges Datum.",
+    "maxLength": "{{field}} darf {{max}} Zeichen nicht überschreiten.",
+    "minLength": "{{field}} muss mindestens {{min}} Zeichen lang sein.",
+    "invalidCondition": "Ungültiger {{field}} ausgewählt.",
+    "positiveNumber": "Bitte geben Sie eine positive Zahl für {{field}} ein.",
+    "dateFormat": "Das Datum muss im Format JJJJ-MM-TT sein.",
+    "notesLength": "Notizen dürfen maximal {{max}} Zeichen enthalten.",
+    "onlyDigits": "{{field}} darf nur Ziffern enthalten."
+  },
   "about": {
     "description": "Dies ist eine Begleit-App für Pop-Vinyl-Figuren, die Ihnen hilft, Ihre Sammlung zu verfolgen. Sie können Artikel zu Ihrer Sammlung hinzufügen, bearbeiten und löschen sowie Details zu jedem Sammlerstück anzeigen.",
     "developedBy": "Entwickelt von",
