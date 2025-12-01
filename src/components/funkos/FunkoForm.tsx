@@ -21,7 +21,6 @@ import {
 import * as yup from "yup";
 import { getFunkoFormValidationSchema } from "./FunkoForm.validation";
 
-
 const HOME_ROUTE = Platform.OS === "ios" ? "Home" : "index";
 
 export default function FunkoForm({
@@ -34,7 +33,6 @@ export default function FunkoForm({
   const navigation = useNavigation();
   const { t } = useTranslation();
   const funkoValidationSchema = getFunkoFormValidationSchema(t);
-
 
   const [formData, setFormData] = useState<FunkoFormData>({
     name: initialData?.name || "",
@@ -144,7 +142,10 @@ export default function FunkoForm({
       onSuccess?.();
     },
     onError: (error: unknown) => {
-      Alert.alert(t("errors.title"), (error as Error).message || t("errors.itemAddFailed"));
+      Alert.alert(
+        t("errors.title"),
+        (error as Error).message || t("errors.itemAddFailed")
+      );
     },
   });
 
@@ -170,7 +171,10 @@ export default function FunkoForm({
         setImagePaths((prev) => [...prev, path]);
       }
     } catch (error) {
-      Alert.alert(t("errors.title"), (error as Error).message || t("errors.imagePickFailed"));
+      Alert.alert(
+        t("errors.title"),
+        (error as Error).message || t("errors.imagePickFailed")
+      );
     }
   };
 
@@ -181,7 +185,10 @@ export default function FunkoForm({
         setImagePaths((prev) => [...prev, path]);
       }
     } catch (error) {
-      Alert.alert(t("errors.title"), (error as Error).message || t("errors.imageCaptureFailed"));
+      Alert.alert(
+        t("errors.title"),
+        (error as Error).message || t("errors.imageCaptureFailed")
+      );
     }
   };
 
@@ -311,10 +318,10 @@ export default function FunkoForm({
 
   const getDateValue = (): Date => {
     if (formData.purchase_date) {
-      const date = new Date(formData.purchase_date);
-      return isNaN(date.getTime()) ? new Date() : date;
-    }
-    return new Date();
+    const [year, month, day] = formData.purchase_date.split("-");
+    return new Date(Number(year), Number(month) - 1, Number(day));
+  }
+  return new Date();
   };
 
   return (
@@ -342,7 +349,8 @@ export default function FunkoForm({
 
         {/* Series Field */}
         <View style={styles.fieldContainer}>
-          <ThemedText style={styles.label}>{t("add.series")}
+          <ThemedText style={styles.label}>
+            {t("add.series")}
             <ThemedText style={styles.required}> *</ThemedText>
           </ThemedText>
           <TextInput
@@ -534,7 +542,7 @@ export default function FunkoForm({
                       styles.conditionButtonTextActive,
                   ]}
                 >
-                   {t(`add.options.variant.${variant}`)}
+                  {t(`add.options.variant.${variant}`)}
                 </ThemedText>
               </TouchableOpacity>
             ))}
