@@ -90,6 +90,20 @@
   },
   "appName": "Pop Kollection",
   "comingSoon": "Próximamente",
+  "delete": {
+    "cancel": "Cancelar",
+    "confirm": "Eliminar",
+    "deleting": "Eliminando...",
+    "error": "Error",
+    "failure": "No se pudo eliminar el artículo.",
+    "message": "¿Estás seguro de que deseas eliminar {{field}}? Esta acción no se puede deshacer.",
+    "noImage": "Sin Imagen",
+    "success": "Artículo eliminado con éxito.",
+    "title": "Eliminar Artículo"
+  },
+  "edit": {
+    "title": "Editar Artículo"
+  },
   "errors": {
     "title": "Error",
     "itemAddFailed": "No se pudo agregar el artículo.",

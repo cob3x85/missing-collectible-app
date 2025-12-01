@@ -13,7 +13,8 @@
       "@/i18n/*": ["./i18n/*"],
       "@/services/*": ["./src/services/*"],
       "@/screens/*": ["./src/screens/*"],
-      "@/utils/*": ["./src/utils/*"]
+      "@/utils/*": ["./src/utils/*"],
+      "@/types/*": ["./src/types/*"]
     },
     "types": ["jest", "react-native"]
   },

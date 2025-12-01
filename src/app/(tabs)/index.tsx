@@ -15,6 +15,8 @@ import { useTranslation } from "react-i18next";
 import { FlatList, Platform, Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+const ADD_ROUTE = Platform.OS === "ios" ? "Add" : "add";
+
 export default function HomeScreen() {
   const navigation = useNavigation();
   const { t } = useTranslation();
@@ -107,7 +109,7 @@ export default function HomeScreen() {
             ]}
             onPress={() => {
               playFeedback("medium");
-              navigation.navigate("Add" as never);
+              navigation.navigate(ADD_ROUTE as never);
             }}
           >
             {Platform.OS === "ios" ? (

@@ -1,11 +1,13 @@
 import { Funko } from "@/database/schema";
 import { useFunko } from "@/hooks/useFunkos";
 import * as Haptics from "expo-haptics";
+import { useTranslation } from "react-i18next";
 import {
   Dimensions,
   FlatList,
   Image,
   Modal,
+  Platform,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -13,6 +15,7 @@ import {
 } from "react-native";
 import { ThemedText } from "../themed-text";
 import { IconSymbol } from "../ui/icon-symbol";
+import { Ionicons } from "@expo/vector-icons";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -51,6 +54,7 @@ export const FunkoDetail = ({
 
   // Use fresh data if available, otherwise fall back to prop
   const currentFunko = freshFunko || funko;
+  const { t } = useTranslation(); 
 
   const imageUris = getImageUris(currentFunko);
 
@@ -97,11 +101,15 @@ export const FunkoDetail = ({
                   }}
                 >
                   <ThemedText style={styles.editButtonText}>
+                    {Platform.OS === "ios" ? (
                     <IconSymbol
-                      name="pencil.and.list.clipboard"
+                      name="pencil"
                       size={18}
                       color="white"
                     />
+                  ) : (
+                    <Ionicons name="pencil" size={18} color="white" />
+                  )}
                   </ThemedText>
                 </TouchableOpacity>
               )}
@@ -134,6 +142,7 @@ export const FunkoDetail = ({
                   decelerationRate="fast"
                   keyExtractor={(item, index) => index.toString()}
                   scrollEnabled={imageUris.length > 1}
+                  scrollToOverflowEnabled={true}
                   renderItem={({ item }) => (
                     <View style={styles.imageSlide}>
                       <Image
@@ -150,25 +159,25 @@ export const FunkoDetail = ({
             <View style={styles.detailInfo}>
               {number && (
                 <View style={styles.detailRow}>
-                  <ThemedText style={styles.detailLabel}>Number:</ThemedText>
+                  <ThemedText style={styles.detailLabel}>{t("add.number")}:</ThemedText>
                   <ThemedText style={styles.detailValue}>{number}</ThemedText>
                 </View>
               )}
               {series && (
                 <View style={styles.detailRow}>
-                  <ThemedText style={styles.detailLabel}>Series:</ThemedText>
+                  <ThemedText style={styles.detailLabel}>{t("add.series")}:</ThemedText>
                   <ThemedText style={styles.detailValue}>{series}</ThemedText>
                 </View>
               )}
               {category && (
                 <View style={styles.detailRow}>
-                  <ThemedText style={styles.detailLabel}>Category:</ThemedText>
+                  <ThemedText style={styles.detailLabel}>{t("add.category")}:</ThemedText>
                   <ThemedText style={styles.detailValue}>{category}</ThemedText>
                 </View>
               )}
               {condition && (
                 <View style={styles.detailRow}>
-                  <ThemedText style={styles.detailLabel}>Condition:</ThemedText>
+                  <ThemedText style={styles.detailLabel}>{t("add.condition")}:</ThemedText>
                   <ThemedText style={styles.detailValue}>
                     {condition
                       .replace(/_/g, " ")
@@ -178,7 +187,7 @@ export const FunkoDetail = ({
               )}
               {size && (
                 <View style={styles.detailRow}>
-                  <ThemedText style={styles.detailLabel}>Size:</ThemedText>
+                  <ThemedText style={styles.detailLabel}>{t("add.size")}:</ThemedText>
                   <ThemedText style={styles.detailValue}>
                     {size === "standard"
                       ? 'Standard (3.75")'
@@ -190,7 +199,7 @@ export const FunkoDetail = ({
               )}
               {type && (
                 <View style={styles.detailRow}>
-                  <ThemedText style={styles.detailLabel}>Type:</ThemedText>
+                  <ThemedText style={styles.detailLabel}>{t("add.type")}:</ThemedText>
                   <ThemedText style={styles.detailValue}>
                     {type
                       .replace(/_/g, " ")
@@ -200,7 +209,7 @@ export const FunkoDetail = ({
               )}
               {variant && variant !== "normal" && (
                 <View style={styles.detailRow}>
-                  <ThemedText style={styles.detailLabel}>Variant:</ThemedText>
+                  <ThemedText style={styles.detailLabel}>{t("add.variant")}:</ThemedText>
                   <ThemedText style={styles.detailValue}>
                     {variant === "glow_in_the_dark"
                       ? "Glow In The Dark"
@@ -213,7 +222,7 @@ export const FunkoDetail = ({
               {has_protector_case !== undefined && (
                 <View style={styles.detailRow}>
                   <ThemedText style={styles.detailLabel}>
-                    Protector Case:
+                    {t("add.hasProtectorCase")}:
                   </ThemedText>
                   <ThemedText style={styles.detailValue}>
                     {has_protector_case ? "✓ Yes" : "No"}
@@ -223,7 +232,7 @@ export const FunkoDetail = ({
               {purchase_price && (
                 <View style={styles.detailRow}>
                   <ThemedText style={styles.detailLabel}>
-                    Purchase Price:
+                    {t("add.purchasePrice")}:
                   </ThemedText>
                   <ThemedText style={styles.detailValue}>
                     ${purchase_price.toFixed(2)}
@@ -233,7 +242,7 @@ export const FunkoDetail = ({
               {current_value && (
                 <View style={styles.detailRow}>
                   <ThemedText style={styles.detailLabel}>
-                    Current Value:
+                    {t("add.currentValue")}:
                   </ThemedText>
                   <ThemedText style={styles.detailValue}>
                     ${current_value.toFixed(2)}
@@ -243,7 +252,7 @@ export const FunkoDetail = ({
               {purchase_date && (
                 <View style={styles.detailRow}>
                   <ThemedText style={styles.detailLabel}>
-                    Purchase Date:
+                    {t("add.purchaseDate")}:
                   </ThemedText>
                   <ThemedText style={styles.detailValue}>
                     {purchase_date}
@@ -252,7 +261,7 @@ export const FunkoDetail = ({
               )}
               {notes && (
                 <View style={styles.detailRowColumn}>
-                  <ThemedText style={styles.detailLabel}>Notes:</ThemedText>
+                  <ThemedText style={styles.detailLabel}>{t("add.notes")}:</ThemedText>
                   <ThemedText style={styles.detailValueMultiline}>
                     {notes}
                   </ThemedText>

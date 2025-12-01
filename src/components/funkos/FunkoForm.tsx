@@ -1,8 +1,8 @@
 import { ThemedText } from "@/components/themed-text";
-import { Funko, FunkoSize, FunkoType, FunkoVariant } from "@/database/schema";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { useCreateFunko, useUpdateFunko } from "@/hooks/useFunkos";
 import { images } from "@/services/images";
+import { FunkoFormData, FunkoFormProps } from "@/types/FunkoForms";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import * as Haptics from "expo-haptics";
@@ -21,27 +21,8 @@ import {
 import * as yup from "yup";
 import { getFunkoFormValidationSchema } from "./FunkoForm.validation";
 
-type FunkoFormData = {
-  name: string;
-  series: string;
-  number: string;
-  category: string;
-  condition: "mint" | "near_mint" | "good" | "fair" | "poor";
-  size: FunkoSize;
-  type: FunkoType;
-  variant: FunkoVariant;
-  purchase_price: string;
-  current_value: string;
-  purchase_date: string;
-  notes: string;
-  hasProtectorCase: boolean;
-};
 
-interface FunkoFormProps {
-  mode?: "create" | "edit";
-  initialData?: Funko;
-  onSuccess?: () => void;
-}
+const HOME_ROUTE = Platform.OS === "ios" ? "Home" : "index";
 
 export default function FunkoForm({
   mode = "create",
@@ -158,7 +139,7 @@ export default function FunkoForm({
       setImagePaths([]);
       setErrors({});
       // Navigate to Home screen
-      navigation.navigate("Home" as never);
+      navigation.navigate(HOME_ROUTE as never);
       Alert.alert(t("success.title"), t("success.itemAddedSuccessfully"));
       onSuccess?.();
     },
@@ -170,7 +151,7 @@ export default function FunkoForm({
   const updateFunko = useUpdateFunko({
     onSuccess: () => {
       // Navigate to Home screen
-      navigation.navigate("Home" as never);
+      navigation.navigate(HOME_ROUTE as never);
       Alert.alert(t("success.title"), t("success.itemUpdatedSuccessfully"));
       onSuccess?.();
     },

@@ -91,6 +91,20 @@
   },
   "appName": "Pop Kollection",
   "comingSoon": "Coming Soon",
+  "delete": {
+    "cancel": "Cancel",
+    "confirm": "Delete",
+    "deleting": "Deleting...",
+    "error": "Error",
+    "failure": "Failed to delete the item.",
+    "message": "Are you sure you want to delete {{field}}? This action cannot be undone.",
+    "noImage": "No Image",
+    "success": "Item deleted successfully.",
+    "title": "Delete Item"
+  },
+  "edit": {
+    "title": "Edit Item"
+  },
   "errors": {
     "title": "Error",
     "itemAddFailed": "Failed to add item.",
