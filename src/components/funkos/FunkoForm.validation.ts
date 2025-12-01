@@ -10,6 +10,7 @@ export const getFunkoFormValidationSchema = (t: TFunction) =>
       .max(100, t("validations.maxLength", { field: "Name", max: 100 })),
     series: yup
       .string()
+      .required(t("validations.required", { field: "Series" }))
       .min(2, t("validations.minLength", { field: "Series", min: 2 }))
       .max(100, t("validations.maxLength", { field: "Series", max: 100 })),
     number: yup
