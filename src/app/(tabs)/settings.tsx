@@ -26,7 +26,7 @@ export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const locales = getLocales();
   const deviceLanguageCode = locales[0]?.languageCode ?? "en";
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const [imageQuality, setImageQuality] = useState<ImageQuality>("medium");
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
