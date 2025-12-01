@@ -10,7 +10,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function AboutScreen() {
   const insets = useSafeAreaInsets();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
   });
