@@ -2,6 +2,7 @@ import { ThemedText } from "@/components/themed-text";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageSpinner } from "@/components/ui/image-spinner";
 import { ImageQuality, settingsService } from "@/services/settings";
+import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { GlassContainer, GlassView } from "expo-glass-effect";
@@ -63,7 +64,6 @@ export default function SettingsScreen() {
       t("settings.storage.alert.message"),
       [{ text: t("settings.storage.alert.confirmButton") }]
     );
-    
   };
 
   const handleDeleteInfo = () => {
@@ -234,7 +234,9 @@ export default function SettingsScreen() {
 
           {/* User Guide Section */}
           <View style={styles.section}>
-            <ThemedText style={styles.sectionTitle}>{t("settings.deleteAlert.title")}</ThemedText>
+            <ThemedText style={styles.sectionTitle}>
+              {t("settings.deleteAlert.title")}
+            </ThemedText>
             <View style={styles.card}>
               <Pressable
                 style={({ pressed }) => [
@@ -245,12 +247,21 @@ export default function SettingsScreen() {
                 onPress={handleDeleteInfo}
               >
                 <View style={styles.rowLeft}>
-                  <IconSymbol
-                    size={20}
-                    name="trash.fill"
-                    color={theme.colors.primary}
-                    style={styles.rowIcon}
-                  />
+                  {Platform.OS === "ios" ? (
+                    <IconSymbol
+                      size={20}
+                      name="trash.fill"
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  ) : (
+                    <Ionicons
+                      size={20}
+                      name="trash"
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  )}
                   <View>
                     <ThemedText style={styles.label}>
                       {t("settings.deleteAlert.howTo")}
@@ -280,12 +291,20 @@ export default function SettingsScreen() {
                 onPress={handleImageStorageInfo}
               >
                 <View style={styles.rowLeft}>
+                  {Platform.OS === "ios" ? (
                   <IconSymbol
                     size={20}
                     name="info.circle.fill"
                     color={theme.colors.primary}
                     style={styles.rowIcon}
-                  />
+                  /> ) : (
+                    <Ionicons
+                      size={20}
+                      name="information-circle"
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  )}
                   <View>
                     <ThemedText style={styles.label}>
                       {t("settings.storage.imageStorageInfo")}
@@ -302,7 +321,9 @@ export default function SettingsScreen() {
 
           {/* Future Settings Placeholder */}
           <View style={[styles.section, { marginBottom: 100 }]}>
-            <ThemedText style={styles.sectionTitle}>{t("comingSoon")}</ThemedText>
+            <ThemedText style={styles.sectionTitle}>
+              {t("comingSoon")}
+            </ThemedText>
             <View style={styles.card}>
               <View style={[styles.row, styles.disabled]}>
                 <ThemedText style={[styles.label, styles.disabledText]}>

@@ -292,9 +292,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+    textAlign: "center",
   },
   emptyLabel: {
     fontSize: 18,
+    textAlign: "center",
   },
   icon: {
     opacity: 0.5,
