@@ -26,15 +26,6 @@ export default function SettingsScreen() {
   const locales = getLocales();
   const deviceLanguageCode = locales[0]?.languageCode ?? "en";
   const { i18n, t } = useTranslation();
-  // Set i18n language to device language on mount
-  useEffect(() => {
-    if (
-      ["en", "es"].includes(deviceLanguageCode) &&
-      i18n.language !== deviceLanguageCode
-    ) {
-      i18n.changeLanguage(deviceLanguageCode);
-    }
-  }, [deviceLanguageCode, i18n]);
   const [imageQuality, setImageQuality] = useState<ImageQuality>("medium");
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
@@ -107,14 +98,14 @@ export default function SettingsScreen() {
               {t("settings.language")}
             </ThemedText>
             <View style={styles.card}>
-              <View style={styles.row}>
+              {/* <View style={styles.row}>
                 <ThemedText style={styles.label}>
                   {t("settings.appLanguage")}
                 </ThemedText>
                 <ThemedText style={styles.value}>
                   {i18n.language === "es" ? "Español (MX)" : "English (US)"}
                 </ThemedText>
-              </View>
+              </View> */}
               <View style={styles.row}>
                 <ThemedText style={styles.label}>
                   {t("settings.deviceLanguage")}

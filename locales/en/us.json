@@ -7,7 +7,6 @@
     "solution": "Pop Kollection provides an easy-to-use platform for managing your collection. Users can add detailed information about each figure, including photos, purchase dates, and condition notes. The app also offers search and filter functionalities to quickly locate specific items. By keeping an organized digital inventory, collectors can make informed decisions about future purchases and avoid buying duplicates.",
     "title": "About"
   },
-
   "add": {
     "title": "Add Item",
     "selectImage": "Select Image",
@@ -176,11 +175,11 @@
       }
     },
     "deleteAlert": {
-      "title": "Help & Guide",
-      "howTo": "How to Delete Items",
+      "confirmButton": "OK",
       "description": "Learn how to remove items from your collection.",
+      "howTo": "How to Delete Items",
       "message": "To delete an item from your collection:\n\n1. Long press on any Funko card\n2. Tap 'Delete' from the menu\n3. Confirm deletion when prompted\n\nNote: This action cannot be undone and will also delete all associated images.",
-      "confirmButton": "Got it"
+      "title": "Help & Guide"
     }
   },
   "success": {
