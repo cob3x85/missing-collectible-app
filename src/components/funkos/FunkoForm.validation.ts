@@ -5,24 +5,24 @@ export const getFunkoFormValidationSchema = (t: TFunction) =>
   yup.object().shape({
     name: yup
       .string()
-      .required(t("validations.required", { field: "name" }))
-      .min(2, "Name must be at least 2 characters")
-      .max(100, "Name must be less than 100 characters"),
+      .required(t("validations.required", { field: "Name" }))
+      .min(2, t("validations.minLength", { field: "Name", min: 2 }))
+      .max(100, t("validations.maxLength", { field: "Name", max: 100 })),
     series: yup
       .string()
-      .min(2, "Series must be at least 2 characters")
-      .max(100, "Series must be less than 100 characters"),
+      .min(2, t("validations.minLength", { field: "Series", min: 2 }))
+      .max(100, t("validations.maxLength", { field: "Series", max: 100 })),
     number: yup
       .string()
-      .required("Item number is required")
-      .matches(/^[0-9]+$/, "Number must contain only digits"),
-    category: yup.string().max(50, "Category must be less than 50 characters"),
+      .required(t("validations.required", { field: "Number" }))
+      .matches(/^[0-9]+$/, t("validations.onlyDigits", { field: "Number" })),
+    category: yup.string().max(50, t("validations.maxLength", { field: "Category", max: 50 })),
     condition: yup
       .string()
-      .required("Condition is required")
+      .required(t("validations.required", { field: "Condition" }))
       .oneOf(
         ["mint", "near_mint", "good", "fair", "poor"],
-        t("validations.invalidCondition", { field: "condition" })
+        t("validations.invalidCondition", { field: "Condition" })
       ),
     size: yup
       .string()
@@ -82,7 +82,7 @@ export const getFunkoFormValidationSchema = (t: TFunction) =>
         originalValue === "" || originalValue === null ? null : value
       )
       .positive(t("validations.positiveNumber", { field: "purchase price" }))
-      .max(999999, "Price is too high")
+      //   .max(999999, "Price is too high")
       .nullable()
       .optional(),
     current_value: yup
@@ -90,16 +90,16 @@ export const getFunkoFormValidationSchema = (t: TFunction) =>
       .transform((value, originalValue) =>
         originalValue === "" || originalValue === null ? null : value
       )
-      .positive("Value must be a positive number")
-      .max(999999, "Value is too high")
+      .positive(t("validations.positiveNumber", { field: "current value" }))
+      //   .max(999999, "Value is too high")
       .nullable()
       .optional(),
     purchase_date: yup
       .string()
       .transform((value) => (value === "" ? null : value))
-      .matches(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format")
+      .matches(/^\d{4}-\d{2}-\d{2}$/, t("validations.dateFormat"))
       .nullable()
       .optional(),
-    notes: yup.string().max(500, "Notes must be less than 500 characters"),
+    notes: yup.string().max(500, t("validations.notesLength", { max: 500 })),
     hasProtectorCase: yup.boolean().optional(),
   });

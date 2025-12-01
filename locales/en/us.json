@@ -1,5 +1,4 @@
 {
-  "appName": "Pop Kollection",
   "about": {
     "description": "This is a pop vinyl figure companion app to help track your collection. You can add, edit, and remove items from your collection, as well as view details about each collectible.",
     "developedBy": "Developed by",
@@ -8,6 +7,7 @@
     "solution": "Pop Kollection provides an easy-to-use platform for managing your collection. Users can add detailed information about each figure, including photos, purchase dates, and condition notes. The app also offers search and filter functionalities to quickly locate specific items. By keeping an organized digital inventory, collectors can make informed decisions about future purchases and avoid buying duplicates.",
     "title": "About"
   },
+
   "add": {
     "title": "Add Item",
     "selectImage": "Select Image",
@@ -89,6 +89,15 @@
       }
     }
   },
+  "appName": "Pop Kollection",
+  "comingSoon": "Coming Soon",
+  "errors": {
+    "title": "Error",
+    "itemAddFailed": "Failed to add item.",
+    "imageCaptureFailed": "Failed to take photo.",
+    "imagePickFailed": "Failed to pick image.",
+    "itemUpdateFailed": "Failed to update item."
+  },
   "home": {
     "loading": "Loading your collection...",
     "emptyState": {
@@ -106,6 +115,18 @@
     "about": "About"
   },
   "privacyPolicy": "Privacy Policy",
+  "search": {
+    "title": "Search",
+    "noResults": "No Results Found",
+    "noMatch": "No items match your search.",
+    "emptyHint": "Try different keywords or check your spelling.",
+    "placeholder": "Search your collection...",
+    "emptyState": {
+      "title": "No Items Available",
+      "subtitle": "Your collection is empty.",
+      "message": "Add your first item from the Add tab to get started."
+    }
+  },
   "settings": {
     "language": "Language",
     "appLanguage": "App Language",
@@ -148,17 +169,10 @@
       "confirmButton": "Got it"
     }
   },
-  "search": {
-    "title": "Search",
-    "noResults": "No Results Found",
-    "noMatch": "No items match your search.",
-    "emptyHint": "Try different keywords or check your spelling.",
-    "placeholder": "Search your collection...",
-    "emptyState": {
-      "title": "No Items Available",
-      "subtitle": "Your collection is empty.",
-      "message": "Add your first item from the Add tab to get started."
-    }
+  "success": {
+    "title": "Success",
+    "itemAddedSuccessfully": "Item added successfully!",
+    "itemUpdatedSuccessfully": "Item updated successfully!"
   },
   "titles": {
     "solution": "Solution",
@@ -166,17 +180,18 @@
     "disclaimer": "Disclaimer"
   },
   "validations": {
-    "required": "This {{field}} is required.",
+    "title": "Validation Errors",
+    "required": "{{field}} is required.",
     "invalidNumber": "Please enter a valid number.",
     "invalidPrice": "Please enter a valid price (e.g., 12.99).",
     "invalidDate": "Please select a valid date.",
-    "maxLength": "This field cannot exceed {{max}} characters.",
-    "minLength": "This field must be at least {{min}} characters.",
+    "maxLength": "{{field}} cannot exceed {{max}} characters.",
+    "minLength": "{{field}} must be at least {{min}} characters.",
     "invalidCondition": "Invalid {{field}} selected.",
     "positiveNumber": "Please enter a positive number for {{field}}.",
-    "dateFormat": "Please use the YYYY-MM-DD format.",
-    "notesLength": "Notes cannot exceed {{max}} characters."
+    "dateFormat": "Date must be in the YYYY-MM-DD format.",
+    "notesLength": "Notes must be under {{max}} characters.",
+    "onlyDigits": "{{field}} must contain only digits."
   },
-  "version": "Version",
-  "comingSoon": "Coming Soon"
+  "version": "Version"
 }

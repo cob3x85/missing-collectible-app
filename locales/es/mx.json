@@ -1,5 +1,4 @@
 {
-  "appName": "Pop Kollection",
   "about": {
     "description": "Esta es una aplicación complementaria para figuras pop vinyl que te ayuda a rastrear tu colección. Puedes agregar, editar y eliminar artículos de tu colección, así como ver detalles sobre cada coleccionable.",
     "developedBy": "Desarrollado por",
@@ -89,6 +88,15 @@
       }
     }
   },
+  "appName": "Pop Kollection",
+  "comingSoon": "Próximamente",
+  "errors": {
+    "title": "Error",
+    "itemAddFailed": "No se pudo agregar el artículo.",
+    "imageCaptureFailed": "No se pudo capturar la imagen.",
+    "imagePickFailed": "No se pudo seleccionar la imagen.",
+    "itemUpdateFailed": "No se pudo actualizar el artículo."
+  },
   "home": {
     "loading": "Cargando tu colección...",
     "emptyState": {
@@ -106,6 +114,19 @@
     "about": "Acerca de"
   },
   "privacyPolicy": "Política de Privacidad",
+
+  "search": {
+    "title": "Buscar",
+    "noResults": "No se Encontraron Resultados",
+    "noMatch": "Ningún artículo coincide con tu búsqueda.",
+    "placeholder": "Escribe algo...",
+    "emptyHint": "Prueba con diferentes palabras clave o verifica tu ortografía.",
+    "emptyState": {
+      "title": "No hay artículos disponibles",
+      "subtitle": "Tu colección está vacía.",
+      "message": "Agrega tu primer artículo desde la pestaña \"Agregar\" para comenzar."
+    }
+  },
   "settings": {
     "language": "Idioma",
     "appLanguage": "Idioma de la Aplicación",
@@ -148,24 +169,29 @@
       "confirmButton": "Entendido"
     }
   },
-  "search": {
-    "title": "Buscar",
-    "noResults": "No se Encontraron Resultados",
-    "noMatch": "Ningún artículo coincide con tu búsqueda.",
-    "placeholder": "Escribe algo...",
-    "emptyHint": "Prueba con diferentes palabras clave o verifica tu ortografía.",
-    "emptyState": {
-      "title": "No hay artículos disponibles",
-      "subtitle": "Tu colección está vacía.",
-      "message": "Agrega tu primer artículo desde la pestaña \"Agregar\" para comenzar."
-    }
+  "success": {
+    "title": "Éxito",
+    "itemAddedSuccessfully": "¡Artículo agregado con éxito!",
+    "itemUpdatedSuccessfully": "¡Artículo actualizado con éxito!"
   },
   "titles": {
     "solution": "Solución",
     "problem": "Problema",
-    "disclaimer": "Aviso Legal",
-    "language": "Idioma"
+    "disclaimer": "Aviso Legal"
   },
-  "version": "Versión",
-  "comingSoon": "Próximamente"
+  "validations": {
+    "title": "Validación de Errores",
+    "required": "Este campo es obligatorio.",
+    "invalidNumber": "Por favor, ingresa un número válido.",
+    "invalidPrice": "Por favor, ingresa un precio válido (ej., 12.99).",
+    "invalidDate": "Por favor, selecciona una fecha válida.",
+    "maxLength": "La longitud máxima es de {{max}} caracteres.",
+    "minLength": "La longitud mínima es de {{min}} caracteres.",
+    "invalidCondition": "Condición seleccionada no válida.",
+    "positiveNumber": "Por favor, ingresa un número positivo.",
+    "dateFormat": "La fecha debe tener el formato YYYY-MM-DD.",
+    "notesLength": "Las notas no pueden exceder los {{max}} caracteres.",
+    "onlyDigits": "{{field}} debe contener solo dígitos."
+  },
+  "version": "Versión"
 }

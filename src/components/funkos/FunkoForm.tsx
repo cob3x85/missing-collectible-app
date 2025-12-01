@@ -159,11 +159,11 @@ export default function FunkoForm({
       setErrors({});
       // Navigate to Home screen
       navigation.navigate("Home" as never);
-      Alert.alert("Success", "Item added successfully!");
+      Alert.alert(t("success.title"), t("success.itemAddedSuccessfully"));
       onSuccess?.();
     },
     onError: (error: unknown) => {
-      Alert.alert("Error", (error as Error).message || "Failed to add item.");
+      Alert.alert(t("errors.title"), (error as Error).message || t("errors.itemAddFailed"));
     },
   });
 
@@ -171,13 +171,13 @@ export default function FunkoForm({
     onSuccess: () => {
       // Navigate to Home screen
       navigation.navigate("Home" as never);
-      Alert.alert("Success", "Item updated successfully!");
+      Alert.alert(t("success.title"), t("success.itemUpdatedSuccessfully"));
       onSuccess?.();
     },
     onError: (error: unknown) => {
       Alert.alert(
-        "Error",
-        (error as Error).message || "Failed to update item."
+        t("errors.title"),
+        (error as Error).message || t("errors.itemUpdateFailed")
       );
     },
   });
@@ -189,7 +189,7 @@ export default function FunkoForm({
         setImagePaths((prev) => [...prev, path]);
       }
     } catch (error) {
-      Alert.alert("Error", (error as Error).message || "Failed to pick image");
+      Alert.alert(t("errors.title"), (error as Error).message || t("errors.imagePickFailed"));
     }
   };
 
@@ -200,7 +200,7 @@ export default function FunkoForm({
         setImagePaths((prev) => [...prev, path]);
       }
     } catch (error) {
-      Alert.alert("Error", (error as Error).message || "Failed to take photo");
+      Alert.alert(t("errors.title"), (error as Error).message || t("errors.imageCaptureFailed"));
     }
   };
 
@@ -287,7 +287,7 @@ export default function FunkoForm({
         setErrors(validationErrors);
 
         // Show first error in alert
-        Alert.alert("Validation Error", err.errors[0]);
+        Alert.alert(t("validations.title"), err.errors[0]);
       }
     }
   };
@@ -470,11 +470,7 @@ export default function FunkoForm({
                     formData.size === size && styles.conditionButtonTextActive,
                   ]}
                 >
-                  {size === "standard"
-                    ? 'Standard (3.75")'
-                    : size === "super_sized"
-                    ? 'Super (6")'
-                    : 'Jumbo (10")'}
+                  {t(`add.options.size.${size}`)}
                 </ThemedText>
               </TouchableOpacity>
             ))}
