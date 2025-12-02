@@ -21,6 +21,8 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 *.ipa
+*.aab
+*.apk
 
 # Metro
 .metro-health-check*

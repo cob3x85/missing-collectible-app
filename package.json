@@ -16,6 +16,7 @@
     "build:ios:local": "eas build --platform ios --local",
     "build:ios:cloud": "eas build --platform ios --profile production",
     "submit:ios": "eas submit --platform ios --path $(ls -t build-*.ipa | head -1)",
+    "submit:android": "eas submit --platform android --path $(ls -t build-*.aab | head -1)",
     "submit:ios:cloud": "eas submit --platform ios --latest",
     "build:submit:ios": "npm run build:ios:local && npm run submit:ios"
   },
