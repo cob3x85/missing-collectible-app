@@ -10,20 +10,26 @@ export const resources = {
   de: { translation: require("../locales/de/de.json") },
 } as const;
 
-// Set language to device language if supported, else fallback to 'en'
+// Get device locale and extract base language (e.g., 'es' from 'es-MX')
 const locales = getLocales();
 const deviceLanguageCode = locales[0]?.languageCode ?? "en";
-const initialLanguage = ["en", "es", "it", "fr", "de"].includes(deviceLanguageCode)
-  ? deviceLanguageCode
+const baseDeviceLanguage = deviceLanguageCode.split("-")[0];
+
+const supportedLanguages = ["en", "es", "it", "fr", "de"];
+const initialLanguage = supportedLanguages.includes(baseDeviceLanguage)
+  ? baseDeviceLanguage
   : "en";
 
 i18n.use(initReactI18next).init({
-  debug: true,
-  fallbackLng: "en",
-  supportedLngs: ["en", "es", "it", "fr", "de"],
-  lng: initialLanguage,
   resources,
+  lng: initialLanguage,
+  fallbackLng: "en",
+  supportedLngs: supportedLanguages,
   defaultNS: "translation",
+  debug: true,
+  interpolation: {
+    escapeValue: false,
+  },
 });
 
 export default i18n;
