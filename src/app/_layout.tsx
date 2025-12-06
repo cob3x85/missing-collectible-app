@@ -1,6 +1,7 @@
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { db } from "@/services/db";
 import { settingsService } from "@/services/settings";
+import { updateService } from "@/services/update";
 import {
   DarkTheme,
   DefaultTheme,
@@ -29,6 +30,9 @@ export default function RootLayout() {
       .then(async () => {
         // Initialize settings service
         await settingsService.init();
+        
+        // Check for OTA updates on app launch (silent, only prompts if update available)
+        await updateService.checkOnLaunch();
       })
       .catch((error: unknown) => {
         console.error(error);

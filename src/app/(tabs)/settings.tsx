@@ -2,8 +2,10 @@ import { ThemedText } from "@/components/themed-text";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { ImageSpinner } from "@/components/ui/image-spinner";
 import { ImageQuality, settingsService } from "@/services/settings";
+import { updateService } from "@/services/update";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
+import Constants from "expo-constants";
 import { useFonts } from "expo-font";
 import { GlassContainer, GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
@@ -11,6 +13,7 @@ import { getLocales } from "expo-localization";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  ActivityIndicator,
   Alert,
   Platform,
   Pressable,
@@ -28,6 +31,11 @@ export default function SettingsScreen() {
   const deviceLanguageCode = locales[0]?.languageCode ?? "en";
   const { t } = useTranslation();
   const [imageQuality, setImageQuality] = useState<ImageQuality>("medium");
+  const [checkingUpdate, setCheckingUpdate] = useState(false);
+  const [updateInfo, setUpdateInfo] = useState<{
+    updateId?: string;
+    channel?: string;
+  }>({});
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
   });
@@ -35,11 +43,20 @@ export default function SettingsScreen() {
     return <ImageSpinner />;
   }
 
-  // Load current setting
+  // Load current setting and update info
   useEffect(() => {
     const loadSettings = async () => {
       const quality = await settingsService.getImageQuality();
       setImageQuality(quality);
+
+      // Load update info if available
+      if (updateService.isUpdateEnabled()) {
+        const info = await updateService.getCurrentUpdateInfo();
+        setUpdateInfo({
+          updateId: info.updateId,
+          channel: info.channel,
+        });
+      }
     };
     loadSettings();
   }, []);
@@ -74,6 +91,32 @@ export default function SettingsScreen() {
     );
   };
 
+  const handleCheckForUpdates = async () => {
+    setCheckingUpdate(true);
+    try {
+      await updateService.manualCheckForUpdates();
+    } finally {
+      setCheckingUpdate(false);
+    }
+  };
+
+  // Get app version from Constants
+  // Expo SDK 49+: use Constants.expoConfig?.version; fallback for older SDKs
+  let appVersion = "1.0.0";
+  if (
+    Constants.expoConfig &&
+    typeof Constants.expoConfig === "object" &&
+    "version" in Constants.expoConfig
+  ) {
+    appVersion = (Constants.expoConfig as any).version || appVersion;
+  } else if (
+    Constants.manifest &&
+    typeof Constants.manifest === "object" &&
+    "version" in Constants.manifest
+  ) {
+    appVersion = (Constants.manifest as any).version || appVersion;
+  }
+
   return (
     <GlassContainer style={styles.container}>
       <GlassView style={[styles.header, { paddingTop: insets.top }]}>
@@ -98,14 +141,14 @@ export default function SettingsScreen() {
               {t("settings.language")}
             </ThemedText>
             <View style={styles.card}>
-              {/* <View style={styles.row}>
+              <View style={styles.row}>
                 <ThemedText style={styles.label}>
                   {t("settings.appLanguage")}
                 </ThemedText>
                 <ThemedText style={styles.value}>
-                  {i18n.language === "es" ? "Español (MX)" : "English (US)"}
+                  {locales[0]?.languageTag}
                 </ThemedText>
-              </View> */}
+              </View>
               <View style={styles.row}>
                 <ThemedText style={styles.label}>
                   {t("settings.deviceLanguage")}
@@ -123,8 +166,27 @@ export default function SettingsScreen() {
             <View style={styles.card}>
               <View style={styles.row}>
                 <ThemedText style={styles.label}>{t("version")}</ThemedText>
-                <ThemedText style={styles.value}>1.0.0</ThemedText>
+                <ThemedText style={styles.value}>{appVersion}</ThemedText>
               </View>
+              {updateInfo.updateId && (
+                <View style={styles.row}>
+                  <ThemedText style={styles.label}>Update ID</ThemedText>
+                  <ThemedText
+                    style={[styles.value, styles.smallText]}
+                    numberOfLines={1}
+                  >
+                    {updateInfo.updateId.substring(0, 8)}...
+                  </ThemedText>
+                </View>
+              )}
+              {updateInfo.channel && (
+                <View style={styles.row}>
+                  <ThemedText style={styles.label}>Channel</ThemedText>
+                  <ThemedText style={styles.value}>
+                    {updateInfo.channel}
+                  </ThemedText>
+                </View>
+              )}
               <View style={styles.row}>
                 <ThemedText style={styles.label}>
                   {t("settings.platform")}
@@ -276,6 +338,64 @@ export default function SettingsScreen() {
             </View>
           </View>
 
+          {/* Updates Section */}
+          <View style={styles.section}>
+            <ThemedText style={styles.sectionTitle}>App Updates</ThemedText>
+            <View style={styles.card}>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.row,
+                  styles.pressable,
+                  pressed && styles.pressed,
+                ]}
+                onPress={handleCheckForUpdates}
+                disabled={checkingUpdate}
+              >
+                <View style={styles.rowLeft}>
+                  {Platform.OS === "ios" ? (
+                    <IconSymbol
+                      size={20}
+                      name="arrow.down.circle.fill"
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  ) : (
+                    <Ionicons
+                      size={20}
+                      name="cloud-download"
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  )}
+                  <View>
+                    <ThemedText style={styles.label}>
+                      Check for Updates
+                    </ThemedText>
+                    <ThemedText style={styles.sublabel}>
+                      {updateService.isUpdateEnabled()
+                        ? "Manually check for new app updates"
+                        : "Only available in production builds"}
+                    </ThemedText>
+                  </View>
+                </View>
+                {checkingUpdate ? (
+                  <ActivityIndicator
+                    size="small"
+                    color={theme.colors.primary}
+                  />
+                ) : (
+                  <IconSymbol size={16} name="chevron.right" color="#999" />
+                )}
+              </Pressable>
+            </View>
+            <ThemedText
+              style={[styles.sectionDescription, { color: theme.colors.text }]}
+            >
+              Updates are delivered over-the-air and applied when you restart
+              the app.
+            </ThemedText>
+          </View>
+
           {/* Storage Section */}
           <View style={styles.section}>
             <ThemedText style={styles.sectionTitle}>
@@ -292,12 +412,13 @@ export default function SettingsScreen() {
               >
                 <View style={styles.rowLeft}>
                   {Platform.OS === "ios" ? (
-                  <IconSymbol
-                    size={20}
-                    name="info.circle.fill"
-                    color={theme.colors.primary}
-                    style={styles.rowIcon}
-                  /> ) : (
+                    <IconSymbol
+                      size={20}
+                      name="info.circle.fill"
+                      color={theme.colors.primary}
+                      style={styles.rowIcon}
+                    />
+                  ) : (
                     <Ionicons
                       size={20}
                       name="information-circle"
@@ -435,6 +556,9 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 16,
     color: "#666",
+  },
+  smallText: {
+    fontSize: 12,
   },
   disabled: {
     opacity: 0.5,

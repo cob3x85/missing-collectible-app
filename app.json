@@ -2,7 +2,7 @@
   "expo": {
     "name": "Pop Kollection",
     "slug": "fun-kollection",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/icons/PopCollection-iOS-Default.png",
     "scheme": "missingfunkoapp",
@@ -109,7 +109,9 @@
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/42470033-5d7b-4857-9b15-5d25cdce410b"
+      "url": "https://u.expo.dev/42470033-5d7b-4857-9b15-5d25cdce410b",
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
     }
   }
 }
