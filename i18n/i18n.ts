@@ -12,8 +12,8 @@ export const resources = {
 
 // Get device locale and extract base language (e.g., 'es' from 'es-MX')
 const locales = getLocales();
-const deviceLanguageCode = locales[0]?.languageCode ?? "en";
-const baseDeviceLanguage = deviceLanguageCode.split("-")[0];
+const deviceLanguageTag = locales[0]?.languageTag ?? "en";
+const baseDeviceLanguage = deviceLanguageTag.split("-")[0];
 
 const supportedLanguages = ["en", "es", "it", "fr", "de"];
 const initialLanguage = supportedLanguages.includes(baseDeviceLanguage)
