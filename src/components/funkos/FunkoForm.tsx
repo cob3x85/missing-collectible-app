@@ -10,6 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Alert,
+  Dimensions,
   Platform,
   ScrollView,
   StyleSheet,
@@ -318,10 +319,10 @@ export default function FunkoForm({
 
   const getDateValue = (): Date => {
     if (formData.purchase_date) {
-    const [year, month, day] = formData.purchase_date.split("-");
-    return new Date(Number(year), Number(month) - 1, Number(day));
-  }
-  return new Date();
+      const [year, month, day] = formData.purchase_date.split("-");
+      return new Date(Number(year), Number(month) - 1, Number(day));
+    }
+    return new Date();
   };
 
   return (
@@ -864,7 +865,7 @@ const styles = StyleSheet.create({
     lineHeight: 28,
   },
   addImageText: {
-    fontSize: 16,
+    fontSize: Dimensions.get("window").width < 375 ? 14 : 16,
     color: "#007AFF",
     fontWeight: "600",
   },
