@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   Alert,
+  Dimensions,
   Platform,
   Pressable,
   ScrollView,
@@ -23,6 +24,37 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+// Responsive Row Component for better small screen handling
+const ResponsiveRow = ({
+  label,
+  value,
+  isEmail = false,
+}: {
+  label: string;
+  value: string;
+  isEmail?: boolean;
+}) => {
+  const { width } = Dimensions.get("window");
+  const isSmallScreen = width < 375;
+
+  return (
+    <View style={[styles.row, isSmallScreen && styles.rowColumn]}>
+      <ThemedText style={styles.label}>{label}</ThemedText>
+      <ThemedText
+        style={[
+          styles.value,
+          isSmallScreen && styles.valueFullWidth,
+          isEmail && styles.emailValue,
+        ]}
+        numberOfLines={isSmallScreen ? 2 : 1}
+        ellipsizeMode={isEmail ? "middle" : "tail"}
+      >
+        {value}
+      </ThemedText>
+    </View>
+  );
+};
 
 export default function SettingsScreen() {
   const theme = useTheme();
@@ -162,30 +194,20 @@ export default function SettingsScreen() {
               {t("settings.appInformation")}
             </ThemedText>
             <View style={styles.card}>
-              <View style={styles.row}>
-                <ThemedText style={styles.label}>{t("version")}</ThemedText>
-                <ThemedText style={styles.value}>{appVersion}</ThemedText>
-              </View>
-              <View style={styles.row}>
-                <ThemedText style={styles.label}>
-                  {t("settings.platform")}
-                </ThemedText>
-                <ThemedText style={styles.value}>{Platform.OS}</ThemedText>
-              </View>
-              <View style={styles.row}>
-                <ThemedText style={styles.label}>
-                  {t("settings.developer")}
-                </ThemedText>
-                <ThemedText style={styles.value}>Carlos Ortiz</ThemedText>
-              </View>
-              <View style={styles.row}>
-                <ThemedText style={styles.label}>
-                  {t("settings.support")}
-                </ThemedText>
-                <ThemedText style={styles.value}>
-                  cob3x85.apple@outlook.com
-                </ThemedText>
-              </View>
+              <ResponsiveRow label={t("version")} value={appVersion} />
+              <ResponsiveRow
+                label={t("settings.platform")}
+                value={Platform.OS}
+              />
+              <ResponsiveRow
+                label={t("settings.developer")}
+                value="Carlos Ortiz"
+              />
+              <ResponsiveRow
+                label={t("settings.support")}
+                value="cob3x85.apple@outlook.com"
+                isEmail
+              />
             </View>
           </View>
 
@@ -537,6 +559,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#666",
   },
+  rowColumn: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 4,
+  },
+  valueFullWidth: {
+    width: "100%",
+    textAlign: "left",
+  },
+  emailValue: {
+    fontSize: 14,
+  },
   smallText: {
     fontSize: 12,
   },
@@ -592,6 +626,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#666",
     marginBottom: 12,
+    marginTop: 20,
     lineHeight: 20,
   },
   qualityOption: {
