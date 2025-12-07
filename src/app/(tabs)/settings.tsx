@@ -34,7 +34,6 @@ export default function SettingsScreen() {
   const [checkingUpdate, setCheckingUpdate] = useState(false);
   const [updateInfo, setUpdateInfo] = useState<{
     updateId?: string;
-    channel?: string;
   }>({});
   const [fontsLoaded] = useFonts({
     Slackey: require("@/assets/fonts/Slackey/Slackey-Regular.ttf"),
@@ -54,7 +53,6 @@ export default function SettingsScreen() {
         const info = await updateService.getCurrentUpdateInfo();
         setUpdateInfo({
           updateId: info.updateId,
-          channel: info.channel,
         });
       }
     };
@@ -168,29 +166,6 @@ export default function SettingsScreen() {
                 <ThemedText style={styles.label}>{t("version")}</ThemedText>
                 <ThemedText style={styles.value}>{appVersion}</ThemedText>
               </View>
-              {updateInfo.updateId && (
-                <View style={styles.row}>
-                  <ThemedText style={styles.label}>
-                    {t("settings.updates.updateId")}
-                  </ThemedText>
-                  <ThemedText
-                    style={[styles.value, styles.smallText]}
-                    numberOfLines={1}
-                  >
-                    {updateInfo.updateId.substring(0, 8)}...
-                  </ThemedText>
-                </View>
-              )}
-              {updateInfo.channel && (
-                <View style={styles.row}>
-                  <ThemedText style={styles.label}>
-                    {t("settings.updates.channel")}
-                  </ThemedText>
-                  <ThemedText style={styles.value}>
-                    {updateInfo.channel}
-                  </ThemedText>
-                </View>
-              )}
               <View style={styles.row}>
                 <ThemedText style={styles.label}>
                   {t("settings.platform")}
