@@ -180,6 +180,40 @@
       "howTo": "How to Delete Items",
       "message": "To delete an item from your collection:\n\n1. Long press on any Funko card\n2. Tap 'Delete' from the menu\n3. Confirm deletion when prompted\n\nNote: This action cannot be undone and will also delete all associated images.",
       "title": "Help & Guide"
+    },
+    "updates": {
+      "title": "App Updates",
+      "checkForUpdates": "Check for Updates",
+      "manualCheckDescription": "Manually check for new app updates",
+      "productionOnlyDescription": "Only available in production builds",
+      "otaDescription": "Updates are delivered over-the-air and applied when you restart the app.",
+      "updateId": "Update ID",
+      "channel": "Channel",
+      "alerts": {
+        "updateAvailable": {
+          "title": "Update Available",
+          "message": "A new version of the app is available. Would you like to update now?",
+          "later": "Later",
+          "updateNow": "Update Now"
+        },
+        "updateFailed": {
+          "title": "Update Failed",
+          "message": "Could not apply the update. Please try again later."
+        },
+        "updatesUnavailable": {
+          "title": "Updates Unavailable",
+          "message": "OTA updates are only available in production builds."
+        },
+        "noUpdates": {
+          "title": "No Updates Available",
+          "message": "You are running the latest version of the app."
+        },
+        "checkFailed": {
+          "title": "Update Check Failed",
+          "message": "Could not check for updates. Please check your internet connection and try again."
+        },
+        "ok": "OK"
+      }
     }
   },
   "success": {

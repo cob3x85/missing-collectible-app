@@ -162,6 +162,40 @@
       "howTo": "So löschen Sie Artikel",
       "message": "So löschen Sie einen Artikel aus Ihrer Sammlung:\n\n1. Halten Sie eine Funko-Karte lange gedrückt\n2. Tippen Sie im Menü auf 'Löschen'\n3. Bestätigen Sie die Löschung, wenn Sie dazu aufgefordert werden\n\nHinweis: Diese Aktion kann nicht rückgängig gemacht werden und löscht auch alle zugehörigen Bilder.",
       "title": "Hilfe & Anleitung"
+    },
+    "updates": {
+      "title": "App-Updates",
+      "checkForUpdates": "Nach Updates suchen",
+      "manualCheckDescription": "Manuell nach neuen App-Updates suchen",
+      "productionOnlyDescription": "Nur in Produktions-Builds verfügbar",
+      "otaDescription": "Updates werden drahtlos bereitgestellt und beim Neustart der App angewendet.",
+      "updateId": "Update-ID",
+      "channel": "Kanal",
+      "alerts": {
+        "updateAvailable": {
+          "title": "Update verfügbar",
+          "message": "Eine neue Version der App ist verfügbar. Möchten Sie jetzt aktualisieren?",
+          "later": "Später",
+          "updateNow": "Jetzt aktualisieren"
+        },
+        "updateFailed": {
+          "title": "Update fehlgeschlagen",
+          "message": "Das Update konnte nicht angewendet werden. Bitte versuchen Sie es später erneut."
+        },
+        "updatesUnavailable": {
+          "title": "Updates nicht verfügbar",
+          "message": "OTA-Updates sind nur in Produktions-Builds verfügbar."
+        },
+        "noUpdates": {
+          "title": "Keine Updates verfügbar",
+          "message": "Sie verwenden die neueste Version der App."
+        },
+        "checkFailed": {
+          "title": "Überprüfung fehlgeschlagen",
+          "message": "Updates konnten nicht überprüft werden. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut."
+        },
+        "ok": "OK"
+      }
     }
   },
   "success": {

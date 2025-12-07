@@ -1,5 +1,6 @@
 import * as Updates from "expo-updates";
 import { Alert } from "react-native";
+import i18n from "../../i18n/i18n";
 
 export interface UpdateInfo {
   isAvailable: boolean;
@@ -89,16 +90,16 @@ export const updateService = {
       // Prompt user to apply update
       return new Promise((resolve) => {
         Alert.alert(
-          "Update Available",
-          "A new version of the app is available. Would you like to update now?",
+          i18n.t("settings.updates.alerts.updateAvailable.title"),
+          i18n.t("settings.updates.alerts.updateAvailable.message"),
           [
             {
-              text: "Later",
+              text: i18n.t("settings.updates.alerts.updateAvailable.later"),
               style: "cancel",
               onPress: () => resolve(false),
             },
             {
-              text: "Update Now",
+              text: i18n.t("settings.updates.alerts.updateAvailable.updateNow"),
               onPress: async () => {
                 try {
                   await Updates.reloadAsync();
@@ -106,8 +107,8 @@ export const updateService = {
                 } catch (error) {
                   console.error("Error reloading app:", error);
                   Alert.alert(
-                    "Update Failed",
-                    "Could not apply the update. Please try again later."
+                    i18n.t("settings.updates.alerts.updateFailed.title"),
+                    i18n.t("settings.updates.alerts.updateFailed.message")
                   );
                   resolve(false);
                 }
@@ -130,9 +131,9 @@ export const updateService = {
   async manualCheckForUpdates(): Promise<void> {
     if (!this.isUpdateEnabled()) {
       Alert.alert(
-        "Updates Unavailable",
-        "OTA updates are only available in production builds.",
-        [{ text: "OK" }]
+        i18n.t("settings.updates.alerts.updatesUnavailable.title"),
+        i18n.t("settings.updates.alerts.updatesUnavailable.message"),
+        [{ text: i18n.t("settings.updates.alerts.ok") }]
       );
       return;
     }
@@ -142,9 +143,9 @@ export const updateService = {
 
       if (!isAvailable) {
         Alert.alert(
-          "No Updates Available",
-          "You are running the latest version of the app.",
-          [{ text: "OK" }]
+          i18n.t("settings.updates.alerts.noUpdates.title"),
+          i18n.t("settings.updates.alerts.noUpdates.message"),
+          [{ text: i18n.t("settings.updates.alerts.ok") }]
         );
         return;
       }
@@ -154,9 +155,9 @@ export const updateService = {
     } catch (error) {
       console.error("Error checking for updates:", error);
       Alert.alert(
-        "Update Check Failed",
-        "Could not check for updates. Please check your internet connection and try again.",
-        [{ text: "OK" }]
+        i18n.t("settings.updates.alerts.checkFailed.title"),
+        i18n.t("settings.updates.alerts.checkFailed.message"),
+        [{ text: i18n.t("settings.updates.alerts.ok") }]
       );
     }
   },

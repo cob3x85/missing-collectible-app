@@ -181,6 +181,40 @@
       "howTo": "Come reimpostare i dati dell'app",
       "message": "Sei sicuro di voler eliminare tutti i dati dell'app? Questa azione non può essere annullata.",
       "title": "Reimpostazione dati"
+    },
+    "updates": {
+      "title": "Aggiornamenti app",
+      "checkForUpdates": "Verifica aggiornamenti",
+      "manualCheckDescription": "Verifica manualmente nuovi aggiornamenti dell'app",
+      "productionOnlyDescription": "Disponibile solo nelle build di produzione",
+      "otaDescription": "Gli aggiornamenti vengono forniti via etere e applicati quando riavvii l'app.",
+      "updateId": "ID aggiornamento",
+      "channel": "Canale",
+      "alerts": {
+        "updateAvailable": {
+          "title": "Aggiornamento disponibile",
+          "message": "È disponibile una nuova versione dell'app. Vuoi aggiornare ora?",
+          "later": "Più tardi",
+          "updateNow": "Aggiorna ora"
+        },
+        "updateFailed": {
+          "title": "Aggiornamento fallito",
+          "message": "Impossibile applicare l'aggiornamento. Riprova più tardi."
+        },
+        "updatesUnavailable": {
+          "title": "Aggiornamenti non disponibili",
+          "message": "Gli aggiornamenti OTA sono disponibili solo nelle build di produzione."
+        },
+        "noUpdates": {
+          "title": "Nessun aggiornamento disponibile",
+          "message": "Stai utilizzando l'ultima versione dell'app."
+        },
+        "checkFailed": {
+          "title": "Controllo fallito",
+          "message": "Impossibile verificare gli aggiornamenti. Controlla la tua connessione Internet e riprova."
+        },
+        "ok": "OK"
+      }
     }
   },
   "success": {
@@ -195,7 +229,7 @@
   },
   "validations": {
     "title": "Validazioni",
-   "required": "{{field}} è obbligatorio.",
+    "required": "{{field}} è obbligatorio.",
     "invalidNumber": "Per favore, inserisci un numero valido.",
     "invalidPrice": "Per favore, inserisci un prezzo valido (es. 12.99).",
     "invalidDate": "Per favore, seleziona una data valida.",

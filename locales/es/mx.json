@@ -181,6 +181,40 @@
       "description": "Aprende cómo eliminar artículos de tu colección.",
       "message": "Para eliminar un artículo de tu colección:\n\n1. Mantén presionada cualquier tarjeta Funko\n2. Toca 'Eliminar' en el menú\n3. Confirma la eliminación cuando se te solicite\n\nNota: Esta acción no se puede deshacer y también eliminará todas las imágenes asociadas.",
       "confirmButton": "Entendido"
+    },
+    "updates": {
+      "title": "Actualizaciones de la App",
+      "checkForUpdates": "Buscar Actualizaciones",
+      "manualCheckDescription": "Buscar manualmente nuevas actualizaciones de la app",
+      "productionOnlyDescription": "Solo disponible en compilaciones de producción",
+      "otaDescription": "Las actualizaciones se entregan por aire y se aplican cuando reinicias la app.",
+      "updateId": "ID de Actualización",
+      "channel": "Canal",
+      "alerts": {
+        "updateAvailable": {
+          "title": "Actualización Disponible",
+          "message": "Una nueva versión de la app está disponible. ¿Te gustaría actualizar ahora?",
+          "later": "Más Tarde",
+          "updateNow": "Actualizar Ahora"
+        },
+        "updateFailed": {
+          "title": "Actualización Fallida",
+          "message": "No se pudo aplicar la actualización. Por favor, inténtalo de nuevo más tarde."
+        },
+        "updatesUnavailable": {
+          "title": "Actualizaciones No Disponibles",
+          "message": "Las actualizaciones OTA solo están disponibles en compilaciones de producción."
+        },
+        "noUpdates": {
+          "title": "No Hay Actualizaciones Disponibles",
+          "message": "Estás usando la última versión de la app."
+        },
+        "checkFailed": {
+          "title": "Error al Buscar Actualizaciones",
+          "message": "No se pudo buscar actualizaciones. Por favor, verifica tu conexión a internet e inténtalo de nuevo."
+        },
+        "ok": "OK"
+      }
     }
   },
   "success": {

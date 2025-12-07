@@ -170,7 +170,9 @@ export default function SettingsScreen() {
               </View>
               {updateInfo.updateId && (
                 <View style={styles.row}>
-                  <ThemedText style={styles.label}>Update ID</ThemedText>
+                  <ThemedText style={styles.label}>
+                    {t("settings.updates.updateId")}
+                  </ThemedText>
                   <ThemedText
                     style={[styles.value, styles.smallText]}
                     numberOfLines={1}
@@ -181,7 +183,9 @@ export default function SettingsScreen() {
               )}
               {updateInfo.channel && (
                 <View style={styles.row}>
-                  <ThemedText style={styles.label}>Channel</ThemedText>
+                  <ThemedText style={styles.label}>
+                    {t("settings.updates.channel")}
+                  </ThemedText>
                   <ThemedText style={styles.value}>
                     {updateInfo.channel}
                   </ThemedText>
@@ -340,7 +344,9 @@ export default function SettingsScreen() {
 
           {/* Updates Section */}
           <View style={styles.section}>
-            <ThemedText style={styles.sectionTitle}>App Updates</ThemedText>
+            <ThemedText style={styles.sectionTitle}>
+              {t("settings.updates.title")}
+            </ThemedText>
             <View style={styles.card}>
               <Pressable
                 style={({ pressed }) => [
@@ -369,12 +375,12 @@ export default function SettingsScreen() {
                   )}
                   <View>
                     <ThemedText style={styles.label}>
-                      Check for Updates
+                      {t("settings.updates.checkForUpdates")}
                     </ThemedText>
                     <ThemedText style={styles.sublabel}>
                       {updateService.isUpdateEnabled()
-                        ? "Manually check for new app updates"
-                        : "Only available in production builds"}
+                        ? t("settings.updates.manualCheckDescription")
+                        : t("settings.updates.productionOnlyDescription")}
                     </ThemedText>
                   </View>
                 </View>
@@ -391,8 +397,7 @@ export default function SettingsScreen() {
             <ThemedText
               style={[styles.sectionDescription, { color: theme.colors.text }]}
             >
-              Updates are delivered over-the-air and applied when you restart
-              the app.
+              {t("settings.updates.otaDescription")}
             </ThemedText>
           </View>
 
