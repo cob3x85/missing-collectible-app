@@ -30,6 +30,7 @@ i18n.use(initReactI18next).init({
   interpolation: {
     escapeValue: false,
   },
+  initAsync: false,
 });
 
 export default i18n;

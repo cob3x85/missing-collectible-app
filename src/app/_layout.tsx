@@ -1,4 +1,5 @@
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import i18n from "@/i18n/i18n";
 import { db } from "@/services/db";
 import { settingsService } from "@/services/settings";
 import { updateService } from "@/services/update";
@@ -10,7 +11,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import "react-native-get-random-values";
 import "react-native-reanimated";
@@ -24,6 +25,25 @@ const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [isI18nReady, setIsI18nReady] = useState(false);
+
+
+  useEffect(() => {
+    // Wait for i18n to be initialized
+    i18n.on('initialized', () => {
+      setIsI18nReady(true);
+    });
+
+    // If already initialized
+    if (i18n.isInitialized) {
+      setIsI18nReady(true);
+    }
+
+    return () => {
+      i18n.off('initialized');
+    };
+  }, []);
+  
   useEffect(() => {
     // Initialize database and settings when app starts
     db.init()
@@ -43,6 +63,10 @@ export default function RootLayout() {
         );
       });
   }, []);
+
+  if (!isI18nReady) {
+    return null; // Or a loading screen
+  }
 
   return (
     <SafeAreaProvider>
