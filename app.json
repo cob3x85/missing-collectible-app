@@ -2,7 +2,7 @@
   "expo": {
     "name": "Pop Kollection",
     "slug": "fun-kollection",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "orientation": "portrait",
     "icon": "./assets/icons/PopCollection-iOS-Default.png",
     "scheme": "missingfunkoapp",
